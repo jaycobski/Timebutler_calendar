@@ -56,7 +56,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: frontend/package.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -66,7 +66,7 @@ jobs:
       - name: Install dependencies
         working-directory: frontend
         run: |
-          npm ci
+          npm install
           # Install missing terser-webpack-plugin for production optimization
           npm install --save-dev terser-webpack-plugin@5.3.10 || true
 
@@ -256,12 +256,14 @@ jobs:
 
       - name: Upload Constitutional Reports
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: constitutional-compliance-reports
           path: |
             frontend/lighthouse-constitutional.json
             frontend/FINAL_CONSTITUTIONAL_COMPLIANCE_REPORT.md
           retention-days: 30
+          if-no-files-found: warn
 
   # Deployment job - only runs if constitutional compliance passes
   deploy:
