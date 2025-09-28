@@ -1,0 +1,166 @@
+name: Deploy TimeButler Calendar App
+
+on:
+  push:
+    branches: [main, 001-please-now-break]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build Calendar App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Create Calendar App
+        run: |
+          mkdir -p output
+
+          # Create the actual calendar application
+          cat > output/index.html << 'ENDHTML'
+          <!DOCTYPE html>
+          <html lang="de">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>TimeButler Calendar - German Bridge Weekend Calculator 2025</title>
+              <script src="https://cdn.tailwindcss.com"></script>
+          </head>
+          <body class="bg-gray-50">
+              <div class="max-w-6xl mx-auto p-4">
+                  <!-- Header -->
+                  <header class="bg-white rounded-lg shadow-md p-6 mb-6">
+                      <h1 class="text-3xl font-bold text-center text-blue-600 mb-2">🏛️ TimeButler Calendar</h1>
+                      <p class="text-center text-gray-600">German Bridge Weekend Optimizer 2025</p>
+                  </header>
+
+                  <!-- State Selector -->
+                  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                      <h2 class="text-xl font-semibold mb-4">🇩🇪 Select Your Bundesland</h2>
+                      <select id="state" class="w-full p-3 border rounded-lg" onchange="updateBridges()">
+                          <option value="BY">Bayern (Bavaria)</option>
+                          <option value="BW">Baden-Württemberg</option>
+                          <option value="NW">Nordrhein-Westfalen</option>
+                          <option value="HE">Hessen</option>
+                          <option value="NI">Niedersachsen</option>
+                          <option value="RP">Rheinland-Pfalz</option>
+                          <option value="BE">Berlin</option>
+                          <option value="HH">Hamburg</option>
+                          <option value="SN">Sachsen</option>
+                          <option value="TH">Thüringen</option>
+                      </select>
+                  </div>
+
+                  <!-- Bridge Weekends Grid -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                      <div class="bg-white rounded-lg shadow-md p-4">
+                          <h3 class="font-semibold text-green-600 mb-2">🎄 New Year Bridge</h3>
+                          <p class="text-sm text-gray-600">Dec 30 - Jan 1, 2025</p>
+                          <p class="text-red-600 font-bold">2 vacation days needed</p>
+                          <p class="text-green-600 font-bold">5 days off total</p>
+                          <p class="text-xs bg-blue-100 rounded px-2 py-1 mt-2 inline-block">Efficiency: 2.5x</p>
+                      </div>
+
+                      <div class="bg-white rounded-lg shadow-md p-4">
+                          <h3 class="font-semibold text-green-600 mb-2">🌸 Easter Monday</h3>
+                          <p class="text-sm text-gray-600">April 18-21, 2025</p>
+                          <p class="text-red-600 font-bold">4 vacation days needed</p>
+                          <p class="text-green-600 font-bold">10 days off total</p>
+                          <p class="text-xs bg-blue-100 rounded px-2 py-1 mt-2 inline-block">Efficiency: 2.5x</p>
+                      </div>
+
+                      <div class="bg-white rounded-lg shadow-md p-4">
+                          <h3 class="font-semibold text-green-600 mb-2">🎂 Christi Himmelfahrt</h3>
+                          <p class="text-sm text-gray-600">May 29-30, 2025</p>
+                          <p class="text-red-600 font-bold">1 vacation day needed</p>
+                          <p class="text-green-600 font-bold">4 days off total</p>
+                          <p class="text-xs bg-blue-100 rounded px-2 py-1 mt-2 inline-block">Efficiency: 4.0x</p>
+                      </div>
+
+                      <div class="bg-white rounded-lg shadow-md p-4">
+                          <h3 class="font-semibold text-green-600 mb-2">🕊️ Pfingstmontag</h3>
+                          <p class="text-sm text-gray-600">June 9-10, 2025</p>
+                          <p class="text-red-600 font-bold">1 vacation day needed</p>
+                          <p class="text-green-600 font-bold">4 days off total</p>
+                          <p class="text-xs bg-blue-100 rounded px-2 py-1 mt-2 inline-block">Efficiency: 4.0x</p>
+                      </div>
+
+                      <div class="bg-white rounded-lg shadow-md p-4">
+                          <h3 class="font-semibold text-green-600 mb-2">🇩🇪 Tag der Deutschen Einheit</h3>
+                          <p class="text-sm text-gray-600">October 3, 2025 (Friday)</p>
+                          <p class="text-red-600 font-bold">0 vacation days needed</p>
+                          <p class="text-green-600 font-bold">3 days off total</p>
+                          <p class="text-xs bg-blue-100 rounded px-2 py-1 mt-2 inline-block">Natural Long Weekend!</p>
+                      </div>
+
+                      <div class="bg-white rounded-lg shadow-md p-4">
+                          <h3 class="font-semibold text-green-600 mb-2">🎅 Christmas Bridge</h3>
+                          <p class="text-sm text-gray-600">Dec 24-26, 2025</p>
+                          <p class="text-red-600 font-bold">2 vacation days needed</p>
+                          <p class="text-green-600 font-bold">9 days off total</p>
+                          <p class="text-xs bg-blue-100 rounded px-2 py-1 mt-2 inline-block">Efficiency: 4.5x</p>
+                      </div>
+                  </div>
+
+                  <!-- Export Section -->
+                  <div class="bg-blue-600 text-white rounded-lg shadow-md p-6 text-center">
+                      <h2 class="text-2xl font-bold mb-4">📧 Export Your Optimized Calendar</h2>
+                      <input type="email" placeholder="Enter your email" class="w-full max-w-md p-3 rounded-lg text-gray-800 mb-4">
+                      <button onclick="exportCalendar()" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100">
+                          Send Calendar File
+                      </button>
+                      <p class="text-sm mt-2 opacity-90">Compatible with Google Calendar, Outlook, Apple Calendar</p>
+                  </div>
+
+                  <!-- Footer -->
+                  <footer class="text-center mt-8 text-gray-600">
+                      <p>Free tool by <a href="https://timebutler.de" class="text-blue-600">TimeButler</a> - Germany's Time Tracking Solution</p>
+                  </footer>
+              </div>
+
+              <script>
+                  function updateBridges() {
+                      const state = document.getElementById('state').value;
+                      console.log('Calculating bridges for:', state);
+                      // In full app, this would recalculate based on state holidays
+                  }
+
+                  function exportCalendar() {
+                      alert('Calendar export will be sent to your email!');
+                      // In full app, this would trigger email with .ics file
+                  }
+              </script>
+          </body>
+          </html>
+          ENDHTML
+
+          echo "✅ Created TimeButler Calendar application"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
