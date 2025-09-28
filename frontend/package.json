@@ -98,7 +98,7 @@
     "webpack-bundle-analyzer": "^4.10.1",
     "compression-webpack-plugin": "^10.0.0",
     "terser-webpack-plugin": "^5.3.10",
-    "bundlesize": "^0.18.2",
+    "bundlesize": "^0.18.2"
   },
   "engines": {
     "node": ">=18.0.0",
