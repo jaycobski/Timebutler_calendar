@@ -20,7 +20,15 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { BridgeWeekend, Holiday } from '../types/holiday';
 import { GermanStateCode, Language } from '../types/state';
-import { GDPRConsentRecord, ConsentPurpose, REQUIRED_CONSENT_PURPOSES, OPTIONAL_CONSENT_PURPOSES } from '../../../backend/src/models/gdpr-consent-record';
+// Local GDPR types for deployment - backend dependency removed
+interface GDPRConsentRecord {
+  timestamp: Date;
+  version: string;
+  purposes: Record<string, boolean>;
+}
+type ConsentPurpose = 'email_delivery' | 'calendar_export' | 'analytics' | 'marketing' | 'support';
+const REQUIRED_CONSENT_PURPOSES: ConsentPurpose[] = ['email_delivery', 'calendar_export'];
+const OPTIONAL_CONSENT_PURPOSES: ConsentPurpose[] = ['analytics', 'marketing', 'support'];
 
 // Vacation budget validation interfaces
 interface VacationBudgetValidation {

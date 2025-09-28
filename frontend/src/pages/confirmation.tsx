@@ -27,7 +27,7 @@ import type { SupportedLanguage } from '../types/language';
 import { useLanguage } from '../hooks';
 
 // Styles
-import '../styles/pages/confirmation.css';
+// import '../styles/pages/confirmation.css'; // Disabled for deployment
 
 // Icons for visual enhancement
 const CheckCircleIcon = () => (

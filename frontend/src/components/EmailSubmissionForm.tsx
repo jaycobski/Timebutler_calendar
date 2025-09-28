@@ -20,13 +20,23 @@
  */
 
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import {
-  GDPRConsentRecord,
-  ConsentPurpose,
-  REQUIRED_CONSENT_PURPOSES,
-  OPTIONAL_CONSENT_PURPOSES,
-  CURRENT_CONSENT_VERSION
-} from '../../../backend/src/models/gdpr-consent-record';
+// Local GDPR types for deployment (replaces backend dependency)
+interface GDPRConsentRecord {
+  timestamp: Date;
+  version: string;
+  purposes: Record<string, boolean>;
+  metadata?: {
+    user_agent?: string;
+    ip_address_hash?: string;
+    language_preference?: string;
+  };
+}
+
+type ConsentPurpose = 'email_delivery' | 'calendar_export' | 'analytics' | 'marketing' | 'support';
+
+const REQUIRED_CONSENT_PURPOSES: ConsentPurpose[] = ['email_delivery', 'calendar_export'];
+const OPTIONAL_CONSENT_PURPOSES: ConsentPurpose[] = ['analytics', 'marketing', 'support'];
+const CURRENT_CONSENT_VERSION = '1.0.0';
 
 // Email submission interfaces
 interface EmailSubmissionData {

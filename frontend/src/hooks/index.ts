@@ -16,18 +16,18 @@ export {
   Translation,
 } from './LanguageProvider';
 
-// Performance Optimization
-export {
-  useLanguageOptimization,
-  LanguagePerformanceMonitor,
-} from './useLanguageOptimization';
+// Performance Optimization - Disabled for deployment
+// export {
+//   useLanguageOptimization,
+//   LanguagePerformanceMonitor,
+// } from './useLanguageOptimization';
 
-// Next.js Integration
-export {
-  useNextI18nIntegration,
-  withNextI18n,
-  LanguageSEO,
-} from './useNextI18nIntegration';
+// Next.js Integration - Disabled for deployment
+// export {
+//   useNextI18nIntegration,
+//   withNextI18n,
+//   LanguageSEO,
+// } from './useNextI18nIntegration';
 
 // Re-export types for easy access
 export type {
