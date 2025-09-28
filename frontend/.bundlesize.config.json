@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "path": ".next/static/chunks/pages/*.js",
+      "maxSize": "50KB",
+      "compression": "gzip"
+    },
+    {
+      "path": ".next/static/chunks/react-*.js",
+      "maxSize": "40KB",
+      "compression": "gzip"
+    },
+    {
+      "path": ".next/static/chunks/date-libs-*.js",
+      "maxSize": "30KB",
+      "compression": "gzip"
+    },
+    {
+      "path": ".next/static/chunks/ui-libs-*.js",
+      "maxSize": "25KB",
+      "compression": "gzip"
+    },
+    {
+      "path": ".next/static/chunks/i18n-*.js",
+      "maxSize": "10KB",
+      "compression": "gzip"
+    },
+    {
+      "path": ".next/static/chunks/utils-*.js",
+      "maxSize": "15KB",
+      "compression": "gzip"
+    },
+    {
+      "path": ".next/static/chunks/vendor-*.js",
+      "maxSize": "40KB",
+      "compression": "gzip"
+    },
+    {
+      "path": ".next/static/chunks/main-*.js",
+      "maxSize": "60KB",
+      "compression": "gzip"
+    }
+  ],
+  "globalMaxSize": "200KB",
+  "ci": {
+    "trackBranches": ["main", "develop"],
+    "repoBranchBase": "main"
+  }
+}

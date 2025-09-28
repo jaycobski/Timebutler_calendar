@@ -47,7 +47,13 @@
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **User-Centric Simplicity**: No login required, vacation day input, state selection
+- [ ] **Data Accuracy**: Holiday data verified for all German states 2025-2026
+- [ ] **Export & Delivery**: Email delivery with calendar links, RFC 5545 compliance
+- [ ] **Brand Integration**: TimeButler branding present but not intrusive
+- [ ] **Progressive Enhancement**: Core functionality works without JavaScript
+- [ ] **Performance**: Page load <2s, email delivery <5s, interactions <100ms
+- [ ] **Testing Discipline**: Tests cover calculations, emails, exports for 2025-2026
 
 ## Project Structure
 
@@ -209,4 +215,4 @@ ios/ or android/
 - [ ] Complexity deviations documented
 
 ---
-*Based on Constitution v2.1.1 - See `/memory/constitution.md`*
+*Based on Constitution v1.1.0 - See `.specify/memory/constitution.md`*

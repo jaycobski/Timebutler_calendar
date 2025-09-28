@@ -1,0 +1,488 @@
+/**
+ * Confirmation Page Styles - confirmation.css
+ * Professional email confirmation styling with TimeButler branding
+ * Optimized for accessibility and cross-browser compatibility
+ */
+
+/* Page-specific animations */
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Confirmation page layout */
+.confirmation-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+/* Success icon animation */
+.success-icon {
+  animation: successPulse 2s ease-in-out infinite;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .success-icon {
+    animation: none;
+  }
+
+  .slide-in {
+    animation: none !important;
+  }
+
+  .fade-in {
+    animation: none !important;
+  }
+}
+
+/* Card animations */
+.confirmation-card {
+  animation: slideInUp 0.6s ease-out forwards;
+}
+
+.confirmation-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.confirmation-card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.confirmation-card:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+/* Status indicator styles */
+.status-indicator {
+  position: relative;
+  overflow: hidden;
+}
+
+.status-indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.5s ease-in-out;
+}
+
+.status-indicator.sent::before {
+  left: 100%;
+}
+
+/* Download button enhanced styling */
+.download-button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.download-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.download-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.download-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.download-button:hover::before {
+  left: 100%;
+}
+
+/* Loading state for download button */
+.download-button.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.download-button.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* TimeButler branding section */
+.branding-section {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid #3b82f6;
+  position: relative;
+}
+
+.branding-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8, #3b82f6);
+  background-size: 200% 100%;
+  animation: brandingGradient 3s ease-in-out infinite;
+}
+
+@keyframes brandingGradient {
+  0%, 100% {
+    background-position: 200% 0;
+  }
+  50% {
+    background-position: -200% 0;
+  }
+}
+
+/* Step indicator styling */
+.step-indicator {
+  position: relative;
+}
+
+.step-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 2px;
+  height: 2px;
+  margin-top: -1px;
+  margin-left: 8px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.step-indicator:last-child::after {
+  display: none;
+}
+
+/* Secondary actions toggle */
+.secondary-actions-toggle {
+  position: relative;
+}
+
+.secondary-actions-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+.secondary-actions-toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+/* Email display styling */
+.email-display {
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+  letter-spacing: 0.025em;
+}
+
+/* Plan ID display */
+.plan-id-display {
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #475569;
+}
+
+/* High contrast mode enhancements */
+@media (prefers-contrast: high) {
+  .confirmation-page {
+    background: #ffffff;
+  }
+
+  .branding-section {
+    background: #ffffff;
+    border: 2px solid #000000;
+  }
+
+  .download-button {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #000000;
+  }
+
+  .download-button:hover {
+    background: #333333;
+  }
+
+  .email-display,
+  .plan-id-display {
+    background: #ffffff;
+    border: 2px solid #000000;
+    color: #000000;
+  }
+}
+
+/* Print styles */
+@media print {
+  .confirmation-page {
+    background: white !important;
+  }
+
+  .download-button,
+  .secondary-actions-toggle,
+  .branding-section a {
+    display: none !important;
+  }
+
+  .confirmation-card {
+    box-shadow: none !important;
+    border: 1px solid #000000 !important;
+    break-inside: avoid;
+  }
+
+  .success-icon {
+    display: none;
+  }
+
+  /* Print-friendly text sizes */
+  h1 {
+    font-size: 24pt !important;
+  }
+
+  h2 {
+    font-size: 18pt !important;
+  }
+
+  p, li {
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+  }
+}
+
+/* Focus management for better accessibility */
+.focus-trap {
+  position: relative;
+}
+
+.focus-trap:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* Language toggle styling */
+.language-toggle {
+  position: relative;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.language-toggle:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.language-toggle:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-color: #3b82f6;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .confirmation-card {
+    margin: 16px;
+    padding: 24px 16px;
+  }
+
+  .success-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .download-button {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .branding-section {
+    padding: 24px 16px;
+  }
+
+  .step-indicator::after {
+    display: none;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .download-button:hover {
+    transform: none;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+
+  .language-toggle:hover {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+  }
+
+  /* Larger touch targets */
+  .download-button,
+  .language-toggle,
+  .secondary-actions-toggle {
+    min-height: 44px;
+  }
+}
+
+/* Dark mode considerations (if implemented) */
+@media (prefers-color-scheme: dark) {
+  .confirmation-page {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f8fafc;
+  }
+
+  .confirmation-card {
+    background: #334155;
+    border-color: #475569;
+    color: #f8fafc;
+  }
+
+  .email-display {
+    background: #1e293b;
+    border-color: #475569;
+    color: #e2e8f0;
+  }
+
+  .plan-id-display {
+    background: #1e293b;
+    border-color: #475569;
+    color: #cbd5e1;
+  }
+}
+
+/* Accessibility enhancements */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Ensure proper color contrast ratios */
+.text-gray-600 {
+  color: #475569 !important;
+}
+
+.text-gray-700 {
+  color: #374151 !important;
+}
+
+.text-gray-900 {
+  color: #111827 !important;
+}
+
+/* Performance optimizations */
+.confirmation-card {
+  will-change: transform, opacity;
+}
+
+.download-button {
+  will-change: transform, box-shadow;
+}
+
+/* Ensure animations are smooth on lower-end devices */
+@media (max-resolution: 1dppx) {
+  .success-icon,
+  .confirmation-card,
+  .download-button {
+    animation-duration: 0.3s !important;
+  }
+}

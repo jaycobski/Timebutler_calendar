@@ -1,0 +1,113 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js build outputs
+.next/
+out/
+build/
+coverage/
+
+# Cache files
+.eslintcache
+*.tsbuildinfo
+
+# Generated files
+*.min.js
+*.min.css
+*.bundle.js
+*.chunk.js
+*.generated.*
+
+# Environment files
+.env*
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Test artifacts and reports
+jest-coverage/
+playwright-report/
+test-results/
+*.lcov
+coverage/
+lighthouse-report/
+axe-reports/
+pa11y-reports/
+
+# Next.js generated files
+.next/
+out/
+build/
+
+# Bundle analysis
+bundle-analyzer-report.html
+webpack-bundle-analyzer.json
+
+# Storybook
+storybook-static/
+.storybook/main.js
+
+# Generated TypeScript files
+src/**/*.d.ts
+types/generated.d.ts
+
+# i18n generated files
+src/i18n/resources.ts
+
+# Configuration files that may have mixed syntax
+next.config.js
+tailwind.config.js
+postcss.config.js
+jest.config.js
+playwright.config.ts
+
+# Public assets
+public/
+
+# German/English localization files - may contain template strings
+src/locales/
+public/locales/
+
+# Tailwind generated CSS
+src/styles/globals.css
+src/styles/tailwind.css
+
+# Third-party components and integrations
+src/vendor/
+src/integrations/
+
+# Generated documentation
+docs/components/
+src/stories/
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PWA generated files
+public/sw.js
+public/workbox-*.js
+public/manifest.json
+
+# Vercel deployment files
+.vercel/
+
+# Testing utilities that may have relaxed linting
+tests/e2e/helpers/
+tests/fixtures/
+src/test-utils/

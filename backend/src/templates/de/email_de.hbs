@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ihre optimalen Brückentage - TimeButler</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <style>
+        /* CSS Reset für E-Mail-Clients */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Outlook-spezifische Styles */
+        #outlook a { padding: 0; }
+        .ReadMsgBody { width: 100%; }
+        .ExternalClass { width: 100%; }
+        .ExternalClass * { line-height: 100%; }
+
+        /* Basis-Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table {
+            border-collapse: collapse;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+            border-spacing: 0;
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        img {
+            border: 0;
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Container-Styles */
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #0066CC 0%, #004499 100%);
+            background-color: #0066CC; /* Fallback für ältere E-Mail-Clients */
+        }
+
+        .email-content {
+            padding: 30px;
+        }
+
+        .email-footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Header-Styles */
+        .header-content {
+            padding: 30px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .timebutler-logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 15px 0 10px 0;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* Content-Styles */
+        .greeting {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .vacation-summary {
+            background-color: #e8f4fd;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+            border: 1px solid #d4edda;
+        }
+
+        .summary-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0066CC;
+            margin-bottom: 15px;
+        }
+
+        .summary-stats {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .efficiency-badge {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        /* Kalender-Anhang Hinweis */
+        .calendar-attachment {
+            background-color: #f8f9fa;
+            border-left: 4px solid #0066CC;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+
+        .attachment-icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        /* Bridge Weekend Styles */
+        .bridge-weekend-list {
+            margin: 25px 0;
+        }
+
+        .bridge-weekend-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background-color: #ffffff;
+        }
+
+        .bridge-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0066CC;
+            margin-bottom: 12px;
+        }
+
+        .bridge-detail {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        .bridge-detail strong {
+            color: #333333;
+            font-weight: 600;
+        }
+
+        /* TimeButler Promotion */
+        .timebutler-promotion {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .promotion-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0066CC;
+            margin-bottom: 15px;
+        }
+
+        .promotion-description {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #0066CC 0%, #004499 100%);
+            background-color: #0066CC; /* Fallback */
+            color: #ffffff;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px 0;
+            border: none;
+        }
+
+        .promotion-tagline {
+            font-size: 14px;
+            color: #888888;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Closing */
+        .email-closing {
+            margin: 30px 0 20px 0;
+        }
+
+        .closing-text {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .signature {
+            font-weight: bold;
+            color: #0066CC;
+        }
+
+        /* Footer */
+        .footer-content {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .gdpr-notice {
+            font-size: 12px;
+            color: #666666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .footer-links {
+            margin: 15px 0;
+        }
+
+        .footer-links a {
+            color: #0066CC;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .company-info {
+            font-size: 12px;
+            color: #888888;
+            margin-top: 15px;
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            .email-container {
+                background-color: #1a1a1a;
+            }
+
+            .email-content {
+                background-color: #1a1a1a;
+                color: #ffffff;
+            }
+
+            .greeting, .closing-text, .bridge-detail {
+                color: #ffffff;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media only screen and (max-width: 480px) {
+            .email-container {
+                margin: 0 !important;
+                border-radius: 0 !important;
+            }
+
+            .email-content,
+            .header-content,
+            .footer-content {
+                padding: 20px !important;
+            }
+
+            .header-title {
+                font-size: 24px !important;
+            }
+
+            .summary-title {
+                font-size: 20px !important;
+            }
+
+            .bridge-weekend-item {
+                padding: 15px !important;
+                margin: 10px 0 !important;
+            }
+
+            .timebutler-promotion {
+                padding: 20px !important;
+            }
+
+            .cta-button {
+                display: block !important;
+                width: 100% !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+            }
+        }
+
+        /* Outlook-spezifische Korrekturen */
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            .email-container {
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Haupt-E-Mail-Container -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f5;">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                <!-- E-Mail-Inhalt-Container -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" class="email-container" style="max-width: 600px; background-color: #ffffff;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td class="email-header">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td class="header-content">
+                                        {{#if timebutler_promotion.logo_url}}
+                                        <img src="{{timebutler_promotion.logo_url}}" alt="TimeButler Logo" class="timebutler-logo" width="120">
+                                        {{/if}}
+                                        <h1 class="header-title">Ihre optimalen Brückentage</h1>
+                                        <p class="header-subtitle">Maximieren Sie Ihren Urlaub mit strategischer Planung</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Hauptinhalt -->
+                    <tr>
+                        <td class="email-content">
+                            <!-- Begrüßung -->
+                            <p class="greeting">
+                                Sehr geehrte Damen und Herren,
+                            </p>
+
+                            <!-- Urlaubsoptimierung Zusammenfassung -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td class="vacation-summary">
+                                        <h2 class="summary-title">🎉 Ihre Urlaubsoptimierung</h2>
+                                        <p class="summary-stats">
+                                            <strong>{{total_vacation_days}} Urlaubstage</strong> werden zu <strong>{{total_days_off}} freien Tagen</strong>
+                                        </p>
+                                        <div class="efficiency-badge">
+                                            Effizienz: {{efficiency_score}}x
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Kalender-Anhang Hinweis -->
+                            {{#if calendar_export}}
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td class="calendar-attachment">
+                                        <strong><span class="attachment-icon">📅</span>Ihr Kalender ist angehängt!</strong><br>
+                                        Importieren Sie die .ics-Datei in Ihren Kalender (Google Calendar, Outlook, Apple Kalender) für eine nahtlose Integration Ihrer geplanten Brückentage.
+                                    </td>
+                                </tr>
+                            </table>
+                            {{/if}}
+
+                            <!-- Brückenwochenenden Details -->
+                            <h3 style="color: #0066CC; margin: 25px 0 15px 0; font-size: 20px;">
+                                Ihre {{bridge_weekends.length}} Brückenwochenenden im Detail:
+                            </h3>
+
+                            <div class="bridge-weekend-list">
+                                {{#each bridge_weekends}}
+                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td class="bridge-weekend-item">
+                                            <h4 class="bridge-title">Brückenwochenende #{{@index_plus_one}}</h4>
+                                            <div class="bridge-detail">
+                                                <strong>Zeitraum:</strong> {{format_date_german start_date}} - {{format_date_german end_date}}
+                                            </div>
+                                            <div class="bridge-detail">
+                                                <strong>Benötigte Urlaubstage:</strong> {{vacation_days_needed}} Tag{{#if_gt vacation_days_needed 1}}e{{/if_gt}}
+                                            </div>
+                                            <div class="bridge-detail">
+                                                <strong>Gesamte freie Tage:</strong> {{total_days_off}} Tag{{#if_gt total_days_off 1}}e{{/if_gt}}
+                                            </div>
+                                            <div class="bridge-detail">
+                                                <strong>Urlaubsmuster:</strong> {{translate_pattern_german pattern}}
+                                            </div>
+                                            <div class="bridge-detail">
+                                                <strong>Effizienz:</strong> {{format_efficiency efficiency}}x
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                {{/each}}
+                            </div>
+
+                            <!-- TimeButler Promotion -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td class="timebutler-promotion">
+                                        <h3 class="promotion-title">{{timebutler_promotion.primary_message}}</h3>
+                                        <p class="promotion-description">
+                                            {{timebutler_promotion.secondary_message}}
+                                        </p>
+                                        <!--[if mso]>
+                                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{timebutler_promotion.cta_url}}" style="height:44px;v-text-anchor:middle;width:200px;" arcsize="14%" strokecolor="{{timebutler_promotion.brand_color}}" fillcolor="{{timebutler_promotion.brand_color}}">
+                                        <w:anchorlock/>
+                                        <center style="color:#ffffff;font-family:sans-serif;font-size:16px;font-weight:bold;">{{timebutler_promotion.cta_text}}</center>
+                                        </v:roundrect>
+                                        <![endif]-->
+                                        <!--[if !mso]><!-- -->
+                                        <a href="{{timebutler_promotion.cta_url}}" class="cta-button" style="color: #ffffff;">
+                                            {{timebutler_promotion.cta_text}}
+                                        </a>
+                                        <!--<![endif]-->
+                                        <p class="promotion-tagline">
+                                            TimeButler - Ihre professionelle Zeiterfassungslösung für optimale Work-Life-Balance
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Abschluss -->
+                            <div class="email-closing">
+                                <p class="closing-text">
+                                    Mit diesen strategisch geplanten Brückentagen können Sie das Maximum aus Ihrem Jahresurlaub herausholen. Wir wünschen Ihnen erholsame und entspannte freie Tage.
+                                </p>
+                                <p class="closing-text signature">
+                                    Mit freundlichen Grüßen<br>
+                                    Ihr TimeButler Team
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td class="email-footer">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td class="footer-content">
+                                        <div class="gdpr-notice">
+                                            <p>
+                                                Diese E-Mail wurde auf Grundlage Ihrer erteilten Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO versendet.
+                                                Ihre Daten werden ausschließlich zur Bereitstellung dieses Services verwendet.
+                                            </p>
+                                        </div>
+
+                                        <div class="footer-links">
+                                            <a href="{{withdrawal_link}}" style="color: #0066CC;">Einwilligung widerrufen</a> |
+                                            <a href="https://timebutler.de/datenschutz" style="color: #0066CC;">Datenschutzerklärung</a> |
+                                            <a href="https://timebutler.de/impressum" style="color: #0066CC;">Impressum</a>
+                                        </div>
+
+                                        <div class="company-info">
+                                            <p>
+                                                TimeButler GmbH<br>
+                                                Musterstraße 123<br>
+                                                80331 München, Deutschland<br>
+                                                E-Mail: support@timebutler.de
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Tracking Pixel für E-Mail-Analytics (DSGVO-konform) -->
+    {{#if tracking_consent}}
+    <img src="https://analytics.timebutler.de/email/open/{{vacation_plan.session_id}}" width="1" height="1" alt="" style="display: none;">
+    {{/if}}
+</body>
+</html>

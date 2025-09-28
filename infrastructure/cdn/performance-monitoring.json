@@ -1,0 +1,538 @@
+{
+  "comment": "Performance Monitoring Configuration for German CDN - TimeButler Calendar",
+  "version": "2.0",
+  "lastUpdated": "2025-01-24",
+  "germanMarketMonitoring": {
+    "realTimeMetrics": {
+      "enabled": true,
+      "region": "eu-central-1",
+      "samplingRate": 100,
+      "kinesisStream": {
+        "streamName": "timebutler-calendar-realtime-logs",
+        "streamArn": "arn:aws:kinesis:eu-central-1:123456789:stream/timebutler-calendar-realtime-logs",
+        "retentionPeriod": "24 hours",
+        "shardCount": 2
+      },
+      "metrics": [
+        "timestamp",
+        "c-ip-anonymized",
+        "sc-status",
+        "cs-method",
+        "cs-uri-stem",
+        "time-taken",
+        "time-to-first-byte",
+        "x-edge-location",
+        "x-edge-result-type",
+        "x-edge-response-result-type",
+        "c-country",
+        "c-country-region",
+        "cs-user-agent-summary",
+        "cs-referer-summary"
+      ]
+    },
+    "coreWebVitals": {
+      "enabled": true,
+      "collection": "server-side",
+      "targets": {
+        "germany": {
+          "lcp": {
+            "target": 1200,
+            "warning": 1500,
+            "critical": 2500
+          },
+          "fid": {
+            "target": 50,
+            "warning": 100,
+            "critical": 300
+          },
+          "cls": {
+            "target": 0.05,
+            "warning": 0.1,
+            "critical": 0.25
+          },
+          "ttfb": {
+            "target": 200,
+            "warning": 300,
+            "critical": 600
+          },
+          "fcp": {
+            "target": 800,
+            "warning": 1200,
+            "critical": 1800
+          }
+        },
+        "dach_region": {
+          "lcp": {
+            "target": 1500,
+            "warning": 2000,
+            "critical": 3000
+          },
+          "fid": {
+            "target": 75,
+            "warning": 150,
+            "critical": 400
+          },
+          "cls": {
+            "target": 0.08,
+            "warning": 0.15,
+            "critical": 0.3
+          },
+          "ttfb": {
+            "target": 300,
+            "warning": 500,
+            "critical": 800
+          },
+          "fcp": {
+            "target": 1000,
+            "warning": 1500,
+            "critical": 2200
+          }
+        }
+      }
+    },
+    "cdnMetrics": {
+      "cloudwatchNamespace": "AWS/CloudFront/TimeButler",
+      "customMetrics": {
+        "germanEdgePerformance": {
+          "metricName": "GermanEdgeLatency",
+          "unit": "Milliseconds",
+          "dimensions": [
+            "Distribution",
+            "EdgeLocation",
+            "Country",
+            "Region"
+          ],
+          "filters": {
+            "countries": ["DE", "AT", "CH"],
+            "edgeLocations": ["FRA", "MUC", "BER", "AMS", "LHR", "CDG"]
+          }
+        },
+        "holidayDataCacheHitRate": {
+          "metricName": "HolidayDataCacheHitRate",
+          "unit": "Percent",
+          "dimensions": [
+            "Distribution",
+            "APIEndpoint",
+            "GermanState"
+          ],
+          "filters": {
+            "endpoints": ["/api/v1/holidays/*"],
+            "states": ["BY", "BW", "BE", "BB", "HB", "HH", "HE", "MV", "NI", "NW", "RP", "SL", "SN", "ST", "SH", "TH"]
+          }
+        },
+        "bridgeWeekendCalculationPerformance": {
+          "metricName": "BridgeWeekendCalculationLatency",
+          "unit": "Milliseconds",
+          "dimensions": [
+            "Distribution",
+            "APIEndpoint",
+            "CalculationType"
+          ],
+          "filters": {
+            "endpoints": ["/api/v1/bridge-weekends/*"],
+            "calculationTypes": ["standard", "optimized", "bulk"]
+          }
+        },
+        "germanBusinessHoursPerformance": {
+          "metricName": "GermanBusinessHoursLatency",
+          "unit": "Milliseconds",
+          "dimensions": [
+            "Distribution",
+            "TimeSlot",
+            "Weekday"
+          ],
+          "timeSlots": [
+            "morning_peak_9_12",
+            "lunch_break_12_14",
+            "afternoon_peak_14_18",
+            "evening_18_22",
+            "night_22_6",
+            "weekend"
+          ]
+        },
+        "seasonalTrafficPerformance": {
+          "metricName": "SeasonalTrafficLatency",
+          "unit": "Milliseconds",
+          "dimensions": [
+            "Distribution",
+            "Season",
+            "Month"
+          ],
+          "seasons": {
+            "holiday_planning_peak": ["november", "december", "january"],
+            "normal_traffic": ["february", "march", "april", "may", "june", "july", "august", "september", "october"],
+            "easter_period": ["march", "april"],
+            "summer_vacation": ["july", "august"]
+          }
+        }
+      }
+    },
+    "dashboards": {
+      "germanPerformanceDashboard": {
+        "name": "TimeButler Calendar - German Market Performance",
+        "description": "Real-time performance monitoring for German CDN edge locations",
+        "widgets": [
+          {
+            "type": "line",
+            "title": "German Edge Locations Latency",
+            "metrics": [
+              "GermanEdgeLatency"
+            ],
+            "period": 300,
+            "stat": "Average",
+            "region": "eu-central-1"
+          },
+          {
+            "type": "number",
+            "title": "Cache Hit Rate - Holiday Data",
+            "metrics": [
+              "HolidayDataCacheHitRate"
+            ],
+            "period": 300,
+            "stat": "Average"
+          },
+          {
+            "type": "line",
+            "title": "Core Web Vitals - German Users",
+            "metrics": [
+              "LargestContentfulPaint",
+              "FirstInputDelay",
+              "CumulativeLayoutShift",
+              "TimeToFirstByte"
+            ],
+            "period": 900,
+            "stat": "p95"
+          },
+          {
+            "type": "heatmap",
+            "title": "Performance by German State",
+            "metrics": [
+              "GermanEdgeLatency"
+            ],
+            "dimensions": [
+              "GermanState",
+              "EdgeLocation"
+            ]
+          },
+          {
+            "type": "bar",
+            "title": "Seasonal Traffic Performance",
+            "metrics": [
+              "SeasonalTrafficLatency"
+            ],
+            "dimensions": [
+              "Month"
+            ]
+          }
+        ]
+      },
+      "gdprComplianceDashboard": {
+        "name": "TimeButler Calendar - GDPR Compliance Monitoring",
+        "description": "GDPR compliance metrics and data processing monitoring",
+        "widgets": [
+          {
+            "type": "number",
+            "title": "Data Processing Location Compliance",
+            "metrics": [
+              "EUDataProcessingPercentage"
+            ],
+            "target": 100
+          },
+          {
+            "type": "line",
+            "title": "Consent Rate by Country",
+            "metrics": [
+              "ConsentRate"
+            ],
+            "dimensions": [
+              "Country"
+            ]
+          },
+          {
+            "type": "number",
+            "title": "Data Retention Compliance",
+            "metrics": [
+              "DataRetentionCompliance"
+            ],
+            "target": 100
+          },
+          {
+            "type": "bar",
+            "title": "Right to Deletion Requests",
+            "metrics": [
+              "DeletionRequests"
+            ],
+            "period": 86400
+          }
+        ]
+      }
+    },
+    "alerting": {
+      "alertGroups": {
+        "germanPerformanceAlerts": {
+          "alerts": [
+            {
+              "name": "GermanEdgeHighLatency",
+              "description": "High latency detected on German edge locations",
+              "metric": "GermanEdgeLatency",
+              "threshold": 500,
+              "comparisonOperator": "GreaterThanThreshold",
+              "evaluationPeriods": 2,
+              "period": 300,
+              "statistic": "Average",
+              "treatMissingData": "breaching",
+              "actions": [
+                "arn:aws:sns:eu-central-1:123456789:timebutler-german-performance-alerts"
+              ]
+            },
+            {
+              "name": "HolidayDataCacheMissRate",
+              "description": "High cache miss rate for German holiday data",
+              "metric": "HolidayDataCacheHitRate",
+              "threshold": 80,
+              "comparisonOperator": "LessThanThreshold",
+              "evaluationPeriods": 3,
+              "period": 300,
+              "statistic": "Average",
+              "actions": [
+                "arn:aws:sns:eu-central-1:123456789:timebutler-cache-performance-alerts"
+              ]
+            },
+            {
+              "name": "CoreWebVitalsGermany",
+              "description": "Core Web Vitals degradation for German users",
+              "metric": "LargestContentfulPaint",
+              "threshold": 2500,
+              "comparisonOperator": "GreaterThanThreshold",
+              "evaluationPeriods": 2,
+              "period": 900,
+              "statistic": "p95",
+              "actions": [
+                "arn:aws:sns:eu-central-1:123456789:timebutler-user-experience-alerts"
+              ]
+            },
+            {
+              "name": "SeasonalTrafficPerformance",
+              "description": "Performance degradation during peak season",
+              "metric": "SeasonalTrafficLatency",
+              "threshold": 800,
+              "comparisonOperator": "GreaterThanThreshold",
+              "evaluationPeriods": 2,
+              "period": 300,
+              "statistic": "Average",
+              "seasonalThresholds": {
+                "december": 600,
+                "january": 700,
+                "november": 500
+              },
+              "actions": [
+                "arn:aws:sns:eu-central-1:123456789:timebutler-seasonal-performance-alerts"
+              ]
+            }
+          ]
+        },
+        "gdprComplianceAlerts": {
+          "alerts": [
+            {
+              "name": "NonEUDataProcessing",
+              "description": "Data processing detected outside EU",
+              "metric": "EUDataProcessingPercentage",
+              "threshold": 99,
+              "comparisonOperator": "LessThanThreshold",
+              "evaluationPeriods": 1,
+              "period": 300,
+              "statistic": "Average",
+              "actions": [
+                "arn:aws:sns:eu-central-1:123456789:timebutler-gdpr-compliance-alerts"
+              ]
+            },
+            {
+              "name": "DataRetentionViolation",
+              "description": "Data retention period exceeded",
+              "metric": "DataRetentionCompliance",
+              "threshold": 95,
+              "comparisonOperator": "LessThanThreshold",
+              "evaluationPeriods": 1,
+              "period": 3600,
+              "statistic": "Average",
+              "actions": [
+                "arn:aws:sns:eu-central-1:123456789:timebutler-gdpr-compliance-alerts"
+              ]
+            }
+          ]
+        }
+      },
+      "notificationChannels": {
+        "slack": {
+          "channelUrl": "SLACK_WEBHOOK_URL_PLACEHOLDER",
+          "channels": {
+            "performance": "#timebutler-performance",
+            "compliance": "#timebutler-compliance",
+            "german_ops": "#timebutler-german-ops"
+          }
+        },
+        "email": {
+          "performanceTeam": "performance@timebutler.de",
+          "complianceTeam": "compliance@timebutler.de",
+          "germanOpsTeam": "german-ops@timebutler.de"
+        },
+        "sms": {
+          "emergencyContacts": [
+            "+49-XXX-XXXXXXX",
+            "+49-XXX-XXXXXXX"
+          ]
+        }
+      },
+      "escalationPolicies": {
+        "germanBusinessHours": {
+          "timezone": "Europe/Berlin",
+          "businessHours": "09:00-18:00",
+          "escalationLevels": [
+            {
+              "level": 1,
+              "delay": "5 minutes",
+              "contacts": ["german-ops@timebutler.de"]
+            },
+            {
+              "level": 2,
+              "delay": "15 minutes",
+              "contacts": ["performance@timebutler.de", "+49-XXX-XXXXXXX"]
+            },
+            {
+              "level": 3,
+              "delay": "30 minutes",
+              "contacts": ["tech-leadership@timebutler.de"]
+            }
+          ]
+        },
+        "outOfHours": {
+          "escalationLevels": [
+            {
+              "level": 1,
+              "delay": "10 minutes",
+              "contacts": ["+49-XXX-XXXXXXX"]
+            },
+            {
+              "level": 2,
+              "delay": "30 minutes",
+              "contacts": ["tech-leadership@timebutler.de"]
+            }
+          ]
+        }
+      }
+    },
+    "syntheticMonitoring": {
+      "enabled": true,
+      "locations": [
+        {
+          "name": "Frankfurt",
+          "location": "eu-central-1",
+          "frequency": "5 minutes",
+          "testType": "browser",
+          "targets": [
+            "https://calendar.timebutler.de",
+            "https://calendar.timebutler.de/de",
+            "https://calendar.timebutler.de/api/v1/holidays?state=BY&year=2025"
+          ]
+        },
+        {
+          "name": "Munich",
+          "location": "eu-central-1",
+          "frequency": "5 minutes",
+          "testType": "api",
+          "targets": [
+            "https://calendar.timebutler.de/api/v1/holidays?state=BY&year=2025",
+            "https://calendar.timebutler.de/api/v1/bridge-weekends"
+          ]
+        },
+        {
+          "name": "Berlin",
+          "location": "eu-central-1",
+          "frequency": "10 minutes",
+          "testType": "browser",
+          "targets": [
+            "https://calendar.timebutler.de"
+          ],
+          "userJourney": {
+            "steps": [
+              "Visit homepage",
+              "Select German state (Berlin)",
+              "View bridge weekends for 2025",
+              "Download calendar export"
+            ]
+          }
+        }
+      ]
+    },
+    "realUserMonitoring": {
+      "enabled": true,
+      "provider": "CloudWatch RUM",
+      "applicationId": "timebutler-calendar-rum",
+      "configuration": {
+        "allowCookies": false,
+        "enableXRay": true,
+        "guestRoleArn": "arn:aws:iam::123456789:role/RUM-Monitor-eu-central-1-123456789-GuestRole",
+        "identityPoolId": "eu-central-1:12345678-1234-1234-1234-123456789012",
+        "sessionSampleRate": 0.1,
+        "telemetries": [
+          "performance",
+          "errors",
+          "http"
+        ]
+      },
+      "customMetrics": {
+        "germanUserExperience": {
+          "holidayDataLoadTime": "time to load holiday data for selected state",
+          "bridgeWeekendCalculationTime": "time to calculate bridge weekends",
+          "calendarExportTime": "time to generate and download calendar",
+          "stateSelectionAccuracy": "accuracy of auto-detected state selection"
+        }
+      },
+      "gdprCompliance": {
+        "consentRequired": true,
+        "dataMinimization": true,
+        "anonymization": true,
+        "optOutMechanism": true
+      }
+    }
+  },
+  "reportingAndAnalytics": {
+    "weeklyReports": {
+      "germanMarketPerformance": {
+        "schedule": "Monday 09:00 CET",
+        "recipients": ["german-ops@timebutler.de", "performance@timebutler.de"],
+        "metrics": [
+          "Average latency per German state",
+          "Core Web Vitals trends",
+          "Cache hit rates",
+          "Holiday data accuracy",
+          "User satisfaction scores"
+        ]
+      }
+    },
+    "monthlyReports": {
+      "seasonalAnalysis": {
+        "schedule": "First Monday of month 10:00 CET",
+        "recipients": ["business@timebutler.de", "tech-leadership@timebutler.de"],
+        "metrics": [
+          "Seasonal traffic patterns",
+          "Performance during peak periods",
+          "Resource utilization",
+          "Cost optimization opportunities"
+        ]
+      }
+    },
+    "quarterlyReports": {
+      "gdprCompliance": {
+        "schedule": "First Monday of quarter 14:00 CET",
+        "recipients": ["compliance@timebutler.de", "legal@timebutler.de"],
+        "metrics": [
+          "Data processing compliance",
+          "Consent management effectiveness",
+          "Data retention compliance",
+          "Cross-border data transfer analysis"
+        ]
+      }
+    }
+  }
+}

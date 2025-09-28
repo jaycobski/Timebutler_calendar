@@ -1,0 +1,284 @@
+{
+  "germanMarketConfig": {
+    "meta": {
+      "version": "1.0.0",
+      "lastUpdated": "2025-09-25",
+      "description": "German market deployment configuration for Timebutler Calendar MVP"
+    },
+    "regionSettings": {
+      "primaryRegion": "eu-central-1",
+      "secondaryRegion": "eu-west-1",
+      "timezone": "Europe/Berlin",
+      "locale": "de-DE",
+      "currency": "EUR",
+      "dateFormat": "DD.MM.YYYY",
+      "timeFormat": "HH:mm"
+    },
+    "bundeslaender": {
+      "states": [
+        {
+          "code": "BW",
+          "name": "Baden-Württemberg",
+          "capital": "Stuttgart",
+          "population": 11100000,
+          "religiousHolidays": ["catholic", "protestant"]
+        },
+        {
+          "code": "BY",
+          "name": "Bayern",
+          "capital": "München",
+          "population": 13140000,
+          "religiousHolidays": ["catholic"]
+        },
+        {
+          "code": "BE",
+          "name": "Berlin",
+          "capital": "Berlin",
+          "population": 3670000,
+          "religiousHolidays": ["protestant"]
+        },
+        {
+          "code": "BB",
+          "name": "Brandenburg",
+          "capital": "Potsdam",
+          "population": 2520000,
+          "religiousHolidays": ["protestant"]
+        },
+        {
+          "code": "HB",
+          "name": "Bremen",
+          "capital": "Bremen",
+          "population": 680000,
+          "religiousHolidays": ["protestant"]
+        },
+        {
+          "code": "HH",
+          "name": "Hamburg",
+          "capital": "Hamburg",
+          "population": 1900000,
+          "religiousHolidays": ["protestant"]
+        },
+        {
+          "code": "HE",
+          "name": "Hessen",
+          "capital": "Wiesbaden",
+          "population": 6290000,
+          "religiousHolidays": ["catholic", "protestant"]
+        },
+        {
+          "code": "MV",
+          "name": "Mecklenburg-Vorpommern",
+          "capital": "Schwerin",
+          "population": 1610000,
+          "religiousHolidays": ["protestant"]
+        },
+        {
+          "code": "NI",
+          "name": "Niedersachsen",
+          "capital": "Hannover",
+          "population": 8000000,
+          "religiousHolidays": ["catholic", "protestant"]
+        },
+        {
+          "code": "NW",
+          "name": "Nordrhein-Westfalen",
+          "capital": "Düsseldorf",
+          "population": 17950000,
+          "religiousHolidays": ["catholic", "protestant"]
+        },
+        {
+          "code": "RP",
+          "name": "Rheinland-Pfalz",
+          "capital": "Mainz",
+          "population": 4080000,
+          "religiousHolidays": ["catholic", "protestant"]
+        },
+        {
+          "code": "SL",
+          "name": "Saarland",
+          "capital": "Saarbrücken",
+          "population": 990000,
+          "religiousHolidays": ["catholic"]
+        },
+        {
+          "code": "SN",
+          "name": "Sachsen",
+          "capital": "Dresden",
+          "population": 4070000,
+          "religiousHolidays": ["catholic", "protestant"]
+        },
+        {
+          "code": "ST",
+          "name": "Sachsen-Anhalt",
+          "capital": "Magdeburg",
+          "population": 2190000,
+          "religiousHolidays": ["protestant"]
+        },
+        {
+          "code": "SH",
+          "name": "Schleswig-Holstein",
+          "capital": "Kiel",
+          "population": 2910000,
+          "religiousHolidays": ["protestant"]
+        },
+        {
+          "code": "TH",
+          "name": "Thüringen",
+          "capital": "Erfurt",
+          "population": 2120000,
+          "religiousHolidays": ["catholic", "protestant"]
+        }
+      ]
+    },
+    "businessCalendar": {
+      "workingDays": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+      "businessHours": {
+        "start": "09:00",
+        "end": "18:00",
+        "timezone": "Europe/Berlin"
+      },
+      "peakPlanningSeasons": {
+        "december": {
+          "trafficMultiplier": 3.0,
+          "description": "Christmas holiday planning peak"
+        },
+        "january": {
+          "trafficMultiplier": 2.0,
+          "description": "New year vacation planning"
+        },
+        "easter": {
+          "trafficMultiplier": 1.8,
+          "description": "Easter bridge weekend planning"
+        }
+      },
+      "germanSchoolHolidays": {
+        "summer": {
+          "duration": "6 weeks",
+          "staggered": true,
+          "description": "Different dates per Bundesland"
+        },
+        "winter": {
+          "duration": "2 weeks",
+          "uniform": true,
+          "description": "Christmas/New Year break"
+        }
+      }
+    },
+    "gdprCompliance": {
+      "dataProcessingLegalBasis": "consent",
+      "dataController": "TimeButler GmbH",
+      "dpoEmail": "datenschutz@timebutler.de",
+      "supervisoryAuthority": {
+        "name": "BfDI",
+        "fullName": "Der Bundesbeauftragte für den Datenschutz und die Informationsfreiheit",
+        "website": "https://www.bfdi.bund.de",
+        "email": "poststelle@bfdi.bund.de"
+      },
+      "dataRetention": {
+        "userSessions": "90 days",
+        "analytics": "25 months",
+        "exportLinks": "30 days",
+        "emailLogs": "180 days"
+      },
+      "consentRequirements": {
+        "cookieConsent": true,
+        "analyticsConsent": true,
+        "emailConsent": true,
+        "granularConsent": true
+      }
+    },
+    "infrastructure": {
+      "cdnConfiguration": {
+        "primaryEdgeLocations": ["Frankfurt", "Munich", "Berlin"],
+        "secondaryEdgeLocations": ["Amsterdam", "London", "Paris"],
+        "geoRestriction": ["DE", "AT", "CH", "EU"],
+        "cacheSettings": {
+          "staticAssets": "1 year",
+          "dynamicContent": "no-cache",
+          "apiResponses": "5 minutes"
+        }
+      },
+      "monitoringConfig": {
+        "timezone": "Europe/Berlin",
+        "alertingHours": "06:00-22:00",
+        "weekendAlerting": "critical-only",
+        "germanHolidays": "reduced-alerting"
+      },
+      "performanceTargets": {
+        "pageLoadTime": "< 2 seconds",
+        "apiResponseTime": "< 100ms",
+        "emailDeliveryTime": "< 5 seconds",
+        "concurrentUsers": 25000,
+        "availability": "99.9%"
+      }
+    },
+    "emailConfiguration": {
+      "provider": "Resend",
+      "region": "EU",
+      "templates": {
+        "german": {
+          "addressing": "formal",
+          "tone": "professional",
+          "language": "de-DE"
+        },
+        "english": {
+          "addressing": "casual",
+          "tone": "friendly",
+          "language": "en-US"
+        }
+      },
+      "deliverySettings": {
+        "retryAttempts": 3,
+        "retryBackoff": "exponential",
+        "bounceHandling": true,
+        "unsubscribeCompliance": true
+      }
+    },
+    "apiIntegrations": {
+      "holidayData": {
+        "primary": "https://feiertage-api.de/api",
+        "fallback": "https://get.api-feiertage.de",
+        "updateFrequency": "daily",
+        "cacheStrategy": "30-day-ttl"
+      },
+      "stateData": {
+        "source": "https://bund.dev/api/states",
+        "updateFrequency": "monthly",
+        "cacheStrategy": "persistent"
+      }
+    },
+    "scalingConfiguration": {
+      "autoScaling": {
+        "minInstances": 2,
+        "maxInstances": 20,
+        "targetCpuUtilization": 70,
+        "scaleUpCooldown": 300,
+        "scaleDownCooldown": 600
+      },
+      "loadBalancing": {
+        "algorithm": "round-robin",
+        "healthCheckInterval": 30,
+        "healthCheckTimeout": 5,
+        "healthCheckThreshold": 3
+      },
+      "trafficPatterns": {
+        "dailyPeak": "14:00-16:00 CET",
+        "weeklyPeak": "Sunday evening",
+        "seasonalPeak": "December 1-31",
+        "flashTraffic": "25,000 concurrent users"
+      }
+    },
+    "securityConfiguration": {
+      "tlsVersion": "1.2+",
+      "hstsMaxAge": 31536000,
+      "contentSecurityPolicy": "strict",
+      "xssProtection": true,
+      "frameOptions": "DENY",
+      "cookieSettings": {
+        "secure": true,
+        "httpOnly": true,
+        "sameSite": "Strict"
+      }
+    }
+  }
+}

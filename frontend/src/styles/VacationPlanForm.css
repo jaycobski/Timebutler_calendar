@@ -1,0 +1,613 @@
+/**
+ * VacationPlanForm Styles - WCAG 2.1 Level AA Compliant
+ *
+ * Constitutional Requirements:
+ * - Responsive design (mobile-first)
+ * - High contrast ratios (4.5:1 minimum)
+ * - Touch-friendly targets (44px minimum)
+ * - Clear focus indicators
+ * - Reduced motion support
+ * - German/English cultural adaptations
+ */
+
+/* CSS Custom Properties for theming */
+:root {
+  --vpf-color-primary: #2563eb;
+  --vpf-color-primary-hover: #1d4ed8;
+  --vpf-color-primary-focus: #1e40af;
+  --vpf-color-secondary: #64748b;
+  --vpf-color-success: #059669;
+  --vpf-color-warning: #d97706;
+  --vpf-color-error: #dc2626;
+  --vpf-color-info: #0284c7;
+
+  --vpf-color-text: #1f2937;
+  --vpf-color-text-light: #6b7280;
+  --vpf-color-text-inverse: #ffffff;
+
+  --vpf-color-background: #ffffff;
+  --vpf-color-background-light: #f9fafb;
+  --vpf-color-background-dark: #f3f4f6;
+
+  --vpf-color-border: #d1d5db;
+  --vpf-color-border-light: #e5e7eb;
+  --vpf-color-border-focus: var(--vpf-color-primary);
+
+  --vpf-spacing-xs: 0.25rem;   /* 4px */
+  --vpf-spacing-sm: 0.5rem;    /* 8px */
+  --vpf-spacing-md: 1rem;      /* 16px */
+  --vpf-spacing-lg: 1.5rem;    /* 24px */
+  --vpf-spacing-xl: 2rem;      /* 32px */
+  --vpf-spacing-2xl: 3rem;     /* 48px */
+
+  --vpf-font-size-sm: 0.875rem; /* 14px */
+  --vpf-font-size-base: 1rem;   /* 16px */
+  --vpf-font-size-lg: 1.125rem; /* 18px */
+  --vpf-font-size-xl: 1.25rem;  /* 20px */
+  --vpf-font-size-2xl: 1.5rem;  /* 24px */
+
+  --vpf-border-radius: 0.5rem;
+  --vpf-border-width: 1px;
+  --vpf-focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  --vpf-transition: all 0.15s ease-in-out;
+
+  /* Touch targets */
+  --vpf-touch-target: 44px;
+
+  /* German cultural spacing (more generous) */
+  --vpf-section-spacing: var(--vpf-spacing-2xl);
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vpf-color-text: #f3f4f6;
+    --vpf-color-text-light: #9ca3af;
+    --vpf-color-background: #1f2937;
+    --vpf-color-background-light: #374151;
+    --vpf-color-background-dark: #111827;
+    --vpf-color-border: #4b5563;
+    --vpf-color-border-light: #6b7280;
+  }
+}
+
+/* High contrast theme */
+@media (prefers-contrast: high) {
+  :root {
+    --vpf-color-border: #000000;
+    --vpf-color-text: #000000;
+    --vpf-focus-ring: 0 0 0 3px #000000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --vpf-transition: none;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Main form container */
+.vacation-plan-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--vpf-spacing-lg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: var(--vpf-font-size-base);
+  line-height: 1.6;
+  color: var(--vpf-color-text);
+  background-color: var(--vpf-color-background);
+  border-radius: var(--vpf-border-radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Compact variant */
+.vacation-plan-form--compact {
+  padding: var(--vpf-spacing-md);
+  max-width: 600px;
+}
+
+/* Theme variants */
+.vacation-plan-form--light {
+  /* Already defined in root */
+}
+
+.vacation-plan-form--dark {
+  --vpf-color-text: #f3f4f6;
+  --vpf-color-text-light: #9ca3af;
+  --vpf-color-background: #1f2937;
+  --vpf-color-background-light: #374151;
+  --vpf-color-background-dark: #111827;
+  --vpf-color-border: #4b5563;
+  --vpf-color-border-light: #6b7280;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Form header */
+.vacation-plan-form__header {
+  text-align: center;
+  margin-bottom: var(--vpf-section-spacing);
+}
+
+.vacation-plan-form__title {
+  font-size: var(--vpf-font-size-2xl);
+  font-weight: 700;
+  color: var(--vpf-color-text);
+  margin: 0 0 var(--vpf-spacing-sm) 0;
+}
+
+.vacation-plan-form__subtitle {
+  font-size: var(--vpf-font-size-lg);
+  color: var(--vpf-color-text-light);
+  margin: 0;
+}
+
+/* Form fields */
+.vacation-plan-form__field {
+  margin-bottom: var(--vpf-spacing-xl);
+}
+
+.vacation-plan-form__label {
+  display: block;
+  font-weight: 600;
+  color: var(--vpf-color-text);
+  margin-bottom: var(--vpf-spacing-sm);
+  font-size: var(--vpf-font-size-base);
+}
+
+.vacation-plan-form__label .required {
+  color: var(--vpf-color-error);
+  margin-left: var(--vpf-spacing-xs);
+}
+
+.vacation-plan-form__input {
+  width: 100%;
+  min-height: var(--vpf-touch-target);
+  padding: var(--vpf-spacing-sm) var(--vpf-spacing-md);
+  font-size: var(--vpf-font-size-base);
+  border: var(--vpf-border-width) solid var(--vpf-color-border);
+  border-radius: var(--vpf-border-radius);
+  background-color: var(--vpf-color-background);
+  color: var(--vpf-color-text);
+  transition: var(--vpf-transition);
+}
+
+.vacation-plan-form__input:focus {
+  outline: none;
+  border-color: var(--vpf-color-border-focus);
+  box-shadow: var(--vpf-focus-ring);
+}
+
+.vacation-plan-form__input--error {
+  border-color: var(--vpf-color-error);
+}
+
+.vacation-plan-form__input--error:focus {
+  border-color: var(--vpf-color-error);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.vacation-plan-form__hint {
+  font-size: var(--vpf-font-size-sm);
+  color: var(--vpf-color-text-light);
+  margin-top: var(--vpf-spacing-xs);
+  line-height: 1.5;
+}
+
+.vacation-plan-form__error {
+  color: var(--vpf-color-error);
+  font-size: var(--vpf-font-size-sm);
+  margin-top: var(--vpf-spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--vpf-spacing-xs);
+}
+
+.vacation-plan-form__error--general {
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 1px solid var(--vpf-color-error);
+  border-radius: var(--vpf-border-radius);
+  padding: var(--vpf-spacing-md);
+  margin-bottom: var(--vpf-spacing-lg);
+}
+
+.vacation-plan-form__error::before {
+  content: "⚠";
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Budget validation section */
+.vacation-plan-form__validation {
+  background-color: var(--vpf-color-background-light);
+  border: 1px solid var(--vpf-color-border-light);
+  border-radius: var(--vpf-border-radius);
+  padding: var(--vpf-spacing-lg);
+  margin-bottom: var(--vpf-spacing-xl);
+}
+
+.vacation-plan-form__validation-title {
+  font-size: var(--vpf-font-size-lg);
+  font-weight: 600;
+  color: var(--vpf-color-text);
+  margin: 0 0 var(--vpf-spacing-md) 0;
+}
+
+.vacation-plan-form__validation-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--vpf-spacing-md);
+  margin-bottom: var(--vpf-spacing-lg);
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--vpf-spacing-sm) var(--vpf-spacing-md);
+  background-color: var(--vpf-color-background);
+  border-radius: var(--vpf-border-radius);
+  border: 1px solid var(--vpf-color-border-light);
+}
+
+.metric__label {
+  font-size: var(--vpf-font-size-sm);
+  color: var(--vpf-color-text-light);
+}
+
+.metric__value {
+  font-weight: 600;
+  color: var(--vpf-color-text);
+}
+
+.metric__value--negative {
+  color: var(--vpf-color-error);
+}
+
+/* Warnings and recommendations */
+.vacation-plan-form__warnings,
+.vacation-plan-form__recommendations {
+  margin-top: var(--vpf-spacing-md);
+}
+
+.vacation-plan-form__warnings h4,
+.vacation-plan-form__recommendations h4 {
+  font-size: var(--vpf-font-size-base);
+  font-weight: 600;
+  margin: 0 0 var(--vpf-spacing-sm) 0;
+  color: var(--vpf-color-text);
+}
+
+.warning {
+  padding: var(--vpf-spacing-sm) var(--vpf-spacing-md);
+  border-radius: var(--vpf-border-radius);
+  margin-bottom: var(--vpf-spacing-sm);
+  font-size: var(--vpf-font-size-sm);
+}
+
+.warning--error {
+  background-color: rgba(220, 38, 38, 0.1);
+  border-left: 4px solid var(--vpf-color-error);
+  color: var(--vpf-color-error);
+}
+
+.warning--warning {
+  background-color: rgba(217, 119, 6, 0.1);
+  border-left: 4px solid var(--vpf-color-warning);
+  color: var(--vpf-color-warning);
+}
+
+.warning--info {
+  background-color: rgba(2, 132, 199, 0.1);
+  border-left: 4px solid var(--vpf-color-info);
+  color: var(--vpf-color-info);
+}
+
+.vacation-plan-form__recommendations ul {
+  margin: 0;
+  padding-left: var(--vpf-spacing-lg);
+}
+
+.vacation-plan-form__recommendations li {
+  margin-bottom: var(--vpf-spacing-xs);
+  color: var(--vpf-color-text-light);
+  font-size: var(--vpf-font-size-sm);
+}
+
+/* Bridge weekend selection */
+.vacation-plan-form__bridges {
+  margin-top: var(--vpf-spacing-md);
+}
+
+.bridge-option {
+  margin-bottom: var(--vpf-spacing-md);
+}
+
+.bridge-option__label {
+  display: block;
+  cursor: pointer;
+  border: 1px solid var(--vpf-color-border);
+  border-radius: var(--vpf-border-radius);
+  padding: var(--vpf-spacing-md);
+  background-color: var(--vpf-color-background);
+  transition: var(--vpf-transition);
+  min-height: var(--vpf-touch-target);
+}
+
+.bridge-option__label:hover {
+  border-color: var(--vpf-color-primary);
+  background-color: rgba(37, 99, 235, 0.05);
+}
+
+.bridge-option__label:focus-within {
+  border-color: var(--vpf-color-primary);
+  box-shadow: var(--vpf-focus-ring);
+}
+
+.bridge-option__checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bridge-option__checkbox:checked + .bridge-option__content {
+  background-color: rgba(37, 99, 235, 0.1);
+}
+
+.bridge-option__checkbox:checked + .bridge-option__content::before {
+  content: "✓";
+  position: absolute;
+  top: var(--vpf-spacing-sm);
+  right: var(--vpf-spacing-md);
+  color: var(--vpf-color-primary);
+  font-weight: bold;
+}
+
+.bridge-option__content {
+  position: relative;
+  padding-right: var(--vpf-spacing-2xl);
+}
+
+.bridge-option__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--vpf-spacing-sm);
+}
+
+.bridge-option__dates {
+  font-weight: 600;
+  color: var(--vpf-color-text);
+}
+
+.bridge-option__efficiency {
+  font-weight: 700;
+  color: var(--vpf-color-primary);
+  background-color: rgba(37, 99, 235, 0.1);
+  padding: var(--vpf-spacing-xs) var(--vpf-spacing-sm);
+  border-radius: calc(var(--vpf-border-radius) / 2);
+  font-size: var(--vpf-font-size-sm);
+}
+
+.bridge-option__details {
+  display: flex;
+  gap: var(--vpf-spacing-lg);
+  font-size: var(--vpf-font-size-sm);
+  color: var(--vpf-color-text-light);
+}
+
+.bridge-option__vacation-days,
+.bridge-option__total-days {
+  display: flex;
+  flex-direction: column;
+}
+
+/* GDPR consent section */
+.vacation-plan-form__gdpr {
+  background-color: var(--vpf-color-background-light);
+  border: 1px solid var(--vpf-color-border);
+  border-radius: var(--vpf-border-radius);
+  padding: var(--vpf-spacing-lg);
+  margin-bottom: var(--vpf-spacing-xl);
+}
+
+.vacation-plan-form__gdpr-title {
+  font-size: var(--vpf-font-size-lg);
+  font-weight: 600;
+  color: var(--vpf-color-text);
+  margin: 0 0 var(--vpf-spacing-md) 0;
+}
+
+.vacation-plan-form__gdpr-toggle {
+  background: none;
+  border: none;
+  color: var(--vpf-color-primary);
+  font-size: var(--vpf-font-size-sm);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin-bottom: var(--vpf-spacing-md);
+  min-height: var(--vpf-touch-target);
+  display: flex;
+  align-items: center;
+}
+
+.vacation-plan-form__gdpr-toggle:focus {
+  outline: 2px solid var(--vpf-color-primary);
+  outline-offset: 2px;
+}
+
+.vacation-plan-form__gdpr-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.vacation-plan-form__gdpr-content--expanded {
+  max-height: 1000px;
+}
+
+.gdpr-section {
+  margin-bottom: var(--vpf-spacing-lg);
+}
+
+.gdpr-section__title {
+  font-size: var(--vpf-font-size-base);
+  font-weight: 600;
+  color: var(--vpf-color-text);
+  margin: 0 0 var(--vpf-spacing-sm) 0;
+}
+
+.gdpr-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--vpf-spacing-sm);
+  margin-bottom: var(--vpf-spacing-md);
+  cursor: pointer;
+  min-height: var(--vpf-touch-target);
+}
+
+.gdpr-consent__checkbox {
+  margin-top: 0.125rem; /* Align with first line of text */
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.gdpr-consent__label {
+  font-size: var(--vpf-font-size-sm);
+  color: var(--vpf-color-text);
+  line-height: 1.5;
+}
+
+/* Form actions */
+.vacation-plan-form__actions {
+  text-align: center;
+  margin-top: var(--vpf-section-spacing);
+}
+
+.vacation-plan-form__submit {
+  background-color: var(--vpf-color-primary);
+  color: var(--vpf-color-text-inverse);
+  border: none;
+  border-radius: var(--vpf-border-radius);
+  padding: var(--vpf-spacing-md) var(--vpf-spacing-2xl);
+  font-size: var(--vpf-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--vpf-transition);
+  min-height: var(--vpf-touch-target);
+  min-width: 200px;
+}
+
+.vacation-plan-form__submit:hover:not(:disabled) {
+  background-color: var(--vpf-color-primary-hover);
+}
+
+.vacation-plan-form__submit:focus {
+  outline: none;
+  background-color: var(--vpf-color-primary-focus);
+  box-shadow: var(--vpf-focus-ring);
+}
+
+.vacation-plan-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* TimeButler branding */
+.vacation-plan-form__branding {
+  text-align: center;
+  margin-top: var(--vpf-spacing-xl);
+  padding-top: var(--vpf-spacing-lg);
+  border-top: 1px solid var(--vpf-color-border-light);
+}
+
+.branding-text {
+  font-size: var(--vpf-font-size-sm);
+  color: var(--vpf-color-text-light);
+  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .vacation-plan-form {
+    padding: var(--vpf-spacing-md);
+    margin: var(--vpf-spacing-sm);
+  }
+
+  .vacation-plan-form__validation-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .bridge-option__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--vpf-spacing-xs);
+  }
+
+  .bridge-option__details {
+    flex-direction: column;
+    gap: var(--vpf-spacing-sm);
+  }
+
+  .vacation-plan-form__submit {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .vacation-plan-form {
+    padding: var(--vpf-spacing-sm);
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .vacation-plan-form__title {
+    font-size: var(--vpf-font-size-xl);
+  }
+
+  .vacation-plan-form__subtitle {
+    font-size: var(--vpf-font-size-base);
+  }
+
+  :root {
+    --vpf-section-spacing: var(--vpf-spacing-xl);
+  }
+}
+
+/* Print styles */
+@media print {
+  .vacation-plan-form {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  .vacation-plan-form__submit,
+  .vacation-plan-form__gdpr-toggle {
+    display: none;
+  }
+
+  .vacation-plan-form__gdpr-content {
+    max-height: none;
+  }
+}

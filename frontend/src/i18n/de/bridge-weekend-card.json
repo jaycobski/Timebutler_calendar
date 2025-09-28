@@ -1,0 +1,135 @@
+{
+  "title": "Brückenwochenende",
+  "subtitle": "Optimale Urlaubsplanung",
+  "efficiency": {
+    "label": "Effizienz",
+    "rating": {
+      "excellent": "Exzellent",
+      "veryGood": "Sehr gut",
+      "good": "Gut",
+      "standard": "Standard"
+    },
+    "description": {
+      "excellent": "Maximaler Urlaubswert - beste Investition Ihrer Urlaubstage",
+      "veryGood": "Hoher Urlaubswert - sehr lohnende Nutzung",
+      "good": "Solider Urlaubswert - gute Balance",
+      "standard": "Grundlegender Urlaubswert - machbar aber nicht optimal"
+    }
+  },
+  "metrics": {
+    "vacationDays": "Urlaubstage",
+    "daysOff": "Freie Tage",
+    "totalDuration": "Gesamtdauer",
+    "value": "Wert",
+    "savings": "Ersparnis",
+    "roi": "ROI",
+    "efficiency": "Effizienz"
+  },
+  "breakdown": {
+    "title": "Aufschlüsselung",
+    "weekendDays": "Wochenendtage",
+    "holidays": "Feiertage",
+    "vacationDaysUsed": "Verwendete Urlaubstage",
+    "workingDaysOff": "Arbeitstage frei"
+  },
+  "patterns": {
+    "title": "Urlaubsmuster",
+    "difficulty": "Schwierigkeit",
+    "difficultyLevels": {
+      "easy": "Einfach",
+      "medium": "Mittel",
+      "hard": "Schwer"
+    },
+    "types": {
+      "thursday-friday": {
+        "name": "Donnerstag-Freitag Brücke",
+        "description": "Optimal für kurze Erholung mit maximalem Wochenend-Gefühl",
+        "tip": "Perfekt für Kurzurlaub oder verlängerte Entspannung",
+        "usage": "Nehmen Sie Donnerstag und Freitag frei für ein 4-tägiges Wochenende"
+      },
+      "monday-tuesday": {
+        "name": "Montag-Dienstag Brücke",
+        "description": "Idealer Start in entspannte Woche ohne Montags-Blues",
+        "tip": "Besonders wertvoll nach stressigen Projektphasen",
+        "usage": "Montag und Dienstag freinehmen für entspannten Wochenstart"
+      },
+      "tuesday-friday": {
+        "name": "Dienstag-Freitag Brücke",
+        "description": "Maximale Urlaubstage für eine komplette Woche Erholung",
+        "tip": "Perfekt für echten Urlaub oder wichtige Familienereignisse",
+        "usage": "Dienstag bis Freitag frei für eine ganze Woche Auszeit"
+      },
+      "sandwich": {
+        "name": "Sandwich-Brücke",
+        "description": "Feiertag zwischen zwei Wochenenden optimal nutzen",
+        "tip": "Nur 1-2 Urlaubstage für bis zu 9 Tage Freizeit",
+        "usage": "Wenige Tage zwischen Wochenenden überbrücken"
+      },
+      "extend-weekend": {
+        "name": "Wochenend-Verlängerung",
+        "description": "Kurze Verlängerung für maximale Entspannung",
+        "tip": "Ideal für spontane Erholung oder Familienzeit",
+        "usage": "Wochenende um 1-2 Tage verlängern"
+      }
+    }
+  },
+  "valueCalculation": {
+    "title": "Wertberechnung",
+    "based_on": "Basiert auf deutschem Durchschnittslohn 2025",
+    "daily_rate": "Täglicher Satz",
+    "vacation_multiplier": "Urlaubswert-Faktor",
+    "estimated_savings": "Geschätzte Ersparnis",
+    "explanation": "Berechnet basierend auf dem Wert der gewonnenen freien Tage minus verwendete Urlaubstage"
+  },
+  "actions": {
+    "select": "Auswählen",
+    "selected": "Ausgewählt",
+    "deselect": "Abwählen",
+    "showDetails": "Details anzeigen",
+    "hideDetails": "Details ausblenden",
+    "addToCalendar": "Zum Kalender hinzufügen",
+    "share": "Teilen",
+    "favorite": "Favorit",
+    "unfavorite": "Favorit entfernen"
+  },
+  "accessibility": {
+    "cardRole": "Brückenwochenende-Option",
+    "selected": "ausgewählt",
+    "notSelected": "nicht ausgewählt",
+    "clickToSelect": "Klicken zum Auswählen",
+    "clickForDetails": "Klicken für Details",
+    "efficiencyRating": "Effizienz-Bewertung",
+    "expand": "Erweitern",
+    "collapse": "Einklappen"
+  },
+  "states": {
+    "loading": "Lade Brückenwochenenden...",
+    "error": "Fehler beim Laden der Daten",
+    "noData": "Keine Brückenwochenenden verfügbar",
+    "disabled": "Nicht verfügbar",
+    "expired": "Abgelaufen"
+  },
+  "context": {
+    "german_vacation": "Deutsche Urlaubsoptimierung",
+    "public_holiday": "Gesetzlicher Feiertag",
+    "state_holiday": "Landesfeiertag",
+    "regional_holiday": "Regionaler Feiertag",
+    "catholic_holiday": "Katholischer Feiertag",
+    "protestant_holiday": "Protestantischer Feiertag"
+  },
+  "optimization": {
+    "title": "Optimierungshinweise",
+    "may_cluster": "Mai-Feiertag-Cluster optimal nutzen",
+    "christmas_mega": "Weihnachts-Mega-Brücken planen",
+    "catholic_advantage": "Katholische Bundesländer-Vorteile",
+    "early_booking": "Frühzeitige Buchung empfohlen",
+    "team_coordination": "Team-Koordination berücksichtigen"
+  },
+  "examples": {
+    "easter_bridge": "Oster-Brückenwochenende",
+    "pentecost_bridge": "Pfingst-Verlängerung",
+    "christmas_bridge": "Weihnachts-Brücke",
+    "may_optimization": "Mai-Optimierung",
+    "autumn_break": "Herbst-Auszeit"
+  }
+}

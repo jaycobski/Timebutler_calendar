@@ -1,0 +1,457 @@
+/**
+ * Accessible Landmarks Component
+ * Provides semantic HTML5 landmarks with ARIA support
+ */
+
+import React, { forwardRef } from 'react';
+import type { LandmarkConfig, AriaRole, BilingualA11yContent } from '../types/accessibility';
+import { useA11yLabels } from '../hooks/useA11yLabels';
+import { useLanguage } from '../hooks/useLanguage';
+
+interface LandmarkProps {
+  landmark: LandmarkConfig;
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  id?: string;
+  testId?: string;
+}
+
+interface HeaderProps extends Omit<React.HTMLAttributes<HTMLElement>, 'role'> {
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+  landmark?: boolean;
+  label?: BilingualA11yContent;
+  children: React.ReactNode;
+}
+
+interface MainProps extends Omit<React.HTMLAttributes<HTMLElement>, 'role'> {
+  label?: BilingualA11yContent;
+  children: React.ReactNode;
+}
+
+interface NavigationProps extends Omit<React.HTMLAttributes<HTMLElement>, 'role'> {
+  label?: BilingualA11yContent;
+  type?: 'primary' | 'secondary' | 'breadcrumb' | 'pagination';
+  children: React.ReactNode;
+}
+
+interface SectionProps extends Omit<React.HTMLAttributes<HTMLElement>, 'role'> {
+  label?: BilingualA11yContent;
+  complementary?: boolean;
+  children: React.ReactNode;
+}
+
+interface FooterProps extends Omit<React.HTMLAttributes<HTMLElement>, 'role'> {
+  label?: BilingualA11yContent;
+  children: React.ReactNode;
+}
+
+// Generic Landmark Component
+export const Landmark = forwardRef<any, LandmarkProps>(
+  ({ landmark, children, className = '', style, id, testId, ...props }, ref) => {
+    const { getLabel } = useA11yLabels();
+
+    const ariaLabel = landmark.label ? getLabel({ label: landmark.label }, 'label') : undefined;
+    const ariaLevel = landmark.level;
+
+    const commonProps = {
+      ref,
+      id,
+      className,
+      style,
+      role: landmark.role,
+      'aria-label': ariaLabel,
+      'aria-describedby': landmark.describedBy,
+      'aria-level': ariaLevel,
+      'data-testid': testId,
+      ...props
+    };
+
+    // Choose appropriate HTML element based on role
+    switch (landmark.role) {
+      case 'banner':
+        return <header {...commonProps}>{children}</header>;
+      case 'main':
+        return <main {...commonProps}>{children}</main>;
+      case 'navigation':
+        return <nav {...commonProps}>{children}</nav>;
+      case 'contentinfo':
+        return <footer {...commonProps}>{children}</footer>;
+      case 'complementary':
+        return <aside {...commonProps}>{children}</aside>;
+      case 'region':
+        return <section {...commonProps}>{children}</section>;
+      case 'search':
+        return <section {...commonProps}>{children}</section>;
+      case 'form':
+        return <section {...commonProps}>{children}</section>;
+      default:
+        return <div {...commonProps}>{children}</div>;
+    }
+  }
+);
+
+Landmark.displayName = 'Landmark';
+
+// Header Landmark (Banner)
+export const Header = forwardRef<HTMLElement, HeaderProps>(
+  ({ level = 1, landmark = true, label, children, className = '', ...props }, ref) => {
+
+    if (!landmark) {
+      // Regular header without landmark role
+      const HeaderTag = `h${level}` as keyof JSX.IntrinsicElements;
+      return (
+        <HeaderTag ref={ref as any} className={className} id={props.id} style={props.style}>
+          {children}
+        </HeaderTag>
+      );
+    }
+
+    const defaultLabel: BilingualA11yContent = {
+      de: 'Kopfbereich der Seite',
+      en: 'Page header'
+    };
+
+    const landmarkConfig: LandmarkConfig = {
+      role: 'banner',
+      label: label || defaultLabel
+    };
+
+    return (
+      <Landmark
+        ref={ref}
+        landmark={landmarkConfig}
+        className={`page-header ${className}`}
+        {...props}
+      >
+        {children}
+      </Landmark>
+    );
+  }
+);
+
+Header.displayName = 'Header';
+
+// Main Content Landmark
+export const Main = forwardRef<HTMLMainElement, MainProps>(
+  ({ label, children, className = '', ...props }, ref) => {
+    const defaultLabel: BilingualA11yContent = {
+      de: 'Hauptinhalt',
+      en: 'Main content'
+    };
+
+    const landmarkConfig: LandmarkConfig = {
+      role: 'main',
+      label: label || defaultLabel
+    };
+
+    return (
+      <Landmark
+        ref={ref}
+        landmark={landmarkConfig}
+        className={`main-content ${className}`}
+        {...props}
+      >
+        {children}
+      </Landmark>
+    );
+  }
+);
+
+Main.displayName = 'Main';
+
+// Navigation Landmark
+export const Navigation = forwardRef<HTMLElement, NavigationProps>(
+  ({ label, type = 'primary', children, className = '', ...props }, ref) => {
+    const { language } = useLanguage();
+
+    const getDefaultLabel = (): BilingualA11yContent => {
+      switch (type) {
+        case 'primary':
+          return {
+            de: 'Hauptnavigation',
+            en: 'Primary navigation'
+          };
+        case 'secondary':
+          return {
+            de: 'Sekundäre Navigation',
+            en: 'Secondary navigation'
+          };
+        case 'breadcrumb':
+          return {
+            de: 'Brotkrümel-Navigation',
+            en: 'Breadcrumb navigation'
+          };
+        case 'pagination':
+          return {
+            de: 'Seitennavigation',
+            en: 'Pagination navigation'
+          };
+        default:
+          return {
+            de: 'Navigation',
+            en: 'Navigation'
+          };
+      }
+    };
+
+    const landmarkConfig: LandmarkConfig = {
+      role: 'navigation',
+      label: label || getDefaultLabel(),
+      navigation: true
+    };
+
+    return (
+      <Landmark
+        ref={ref}
+        landmark={landmarkConfig}
+        className={`navigation navigation--${type} ${className}`}
+        {...props}
+      >
+        {children}
+      </Landmark>
+    );
+  }
+);
+
+Navigation.displayName = 'Navigation';
+
+// Section Landmark (Region or Complementary)
+export const Section = forwardRef<HTMLElement, SectionProps>(
+  ({ label, complementary = false, children, className = '', ...props }, ref) => {
+    const defaultLabel: BilingualA11yContent = complementary
+      ? {
+          de: 'Ergänzender Inhalt',
+          en: 'Complementary content'
+        }
+      : {
+          de: 'Inhaltsbereich',
+          en: 'Content section'
+        };
+
+    const landmarkConfig: LandmarkConfig = {
+      role: complementary ? 'complementary' : 'region',
+      label: label || defaultLabel
+    };
+
+    const sectionClass = complementary ? 'complementary-content' : 'content-section';
+
+    return (
+      <Landmark
+        ref={ref}
+        landmark={landmarkConfig}
+        className={`${sectionClass} ${className}`}
+        {...props}
+      >
+        {children}
+      </Landmark>
+    );
+  }
+);
+
+Section.displayName = 'Section';
+
+// Footer Landmark (Contentinfo)
+export const Footer = forwardRef<HTMLElement, FooterProps>(
+  ({ label, children, className = '', ...props }, ref) => {
+    const defaultLabel: BilingualA11yContent = {
+      de: 'Fußbereich der Seite',
+      en: 'Page footer'
+    };
+
+    const landmarkConfig: LandmarkConfig = {
+      role: 'contentinfo',
+      label: label || defaultLabel
+    };
+
+    return (
+      <Landmark
+        ref={ref}
+        landmark={landmarkConfig}
+        className={`page-footer ${className}`}
+        {...props}
+      >
+        {children}
+      </Landmark>
+    );
+  }
+);
+
+Footer.displayName = 'Footer';
+
+// Search Landmark
+export const SearchLandmark = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement> & {
+  label?: BilingualA11yContent;
+  children: React.ReactNode;
+}>(
+  ({ label, children, className = '', ...props }, ref) => {
+    const defaultLabel: BilingualA11yContent = {
+      de: 'Suchbereich',
+      en: 'Search'
+    };
+
+    const landmarkConfig: LandmarkConfig = {
+      role: 'search',
+      label: label || defaultLabel
+    };
+
+    return (
+      <Landmark
+        ref={ref}
+        landmark={landmarkConfig}
+        className={`search-landmark ${className}`}
+        {...props}
+      >
+        {children}
+      </Landmark>
+    );
+  }
+);
+
+SearchLandmark.displayName = 'SearchLandmark';
+
+// Form Landmark
+export const FormLandmark = forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement> & {
+  label?: BilingualA11yContent;
+  children: React.ReactNode;
+}>(
+  ({ label, children, className = '', ...props }, ref) => {
+    const defaultLabel: BilingualA11yContent = {
+      de: 'Formular',
+      en: 'Form'
+    };
+
+    const landmarkConfig: LandmarkConfig = {
+      role: 'form',
+      label: label || defaultLabel
+    };
+
+    return (
+      <Landmark
+        ref={ref}
+        landmark={landmarkConfig}
+        className={`form-landmark ${className}`}
+        {...props}
+      >
+        {children}
+      </Landmark>
+    );
+  }
+);
+
+FormLandmark.displayName = 'FormLandmark';
+
+// Page Layout Component with all landmarks
+interface PageLayoutProps {
+  header?: React.ReactNode;
+  navigation?: React.ReactNode;
+  main: React.ReactNode;
+  aside?: React.ReactNode;
+  footer?: React.ReactNode;
+  className?: string;
+}
+
+export function PageLayout({
+  header,
+  navigation,
+  main,
+  aside,
+  footer,
+  className = ''
+}: PageLayoutProps) {
+  return (
+    <div className={`page-layout ${className}`}>
+      {header && (
+        <Header id="header">
+          {header}
+        </Header>
+      )}
+
+      {navigation && (
+        <Navigation id="navigation" type="primary">
+          {navigation}
+        </Navigation>
+      )}
+
+      <Main id="main">
+        {main}
+      </Main>
+
+      {aside && (
+        <Section id="aside" complementary>
+          {aside}
+        </Section>
+      )}
+
+      {footer && (
+        <Footer id="footer">
+          {footer}
+        </Footer>
+      )}
+    </div>
+  );
+}
+
+// Hook for landmark utilities
+export function useLandmarks() {
+  const { language } = useLanguage();
+
+  const createLandmarkConfig = (
+    role: AriaRole,
+    labelKey: string,
+    level?: number
+  ): LandmarkConfig => ({
+    role,
+    label: {
+      de: labelKey, // In real app, would translate this
+      en: labelKey
+    },
+    level
+  });
+
+  const validateLandmarkStructure = (): boolean => {
+    const main = document.querySelector('main, [role="main"]');
+    if (!main) {
+      console.warn('Missing main landmark');
+      return false;
+    }
+
+    const navigation = document.querySelector('nav, [role="navigation"]');
+    const hasNavLinks = document.querySelectorAll('a[href]').length > 3;
+    if (hasNavLinks && !navigation) {
+      console.warn('Missing navigation landmark for page with links');
+      return false;
+    }
+
+    return true;
+  };
+
+  const ensureSkipTargets = () => {
+    const skipTargets = ['#main', '#navigation', '#footer', '#search'];
+
+    skipTargets.forEach(target => {
+      const element = document.querySelector(target);
+      if (element && !element.hasAttribute('tabindex')) {
+        element.setAttribute('tabindex', '-1');
+      }
+    });
+  };
+
+  return {
+    createLandmarkConfig,
+    validateLandmarkStructure,
+    ensureSkipTargets
+  };
+}
+
+export default {
+  Landmark,
+  Header,
+  Main,
+  Navigation,
+  Section,
+  Footer,
+  SearchLandmark,
+  FormLandmark,
+  PageLayout
+};

@@ -1,0 +1,112 @@
+{
+  "compilerOptions": {
+    /* Language and Environment - Optimized for Node.js 18+ performance */
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Modules */
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@/models/*": ["./models/*"],
+      "@/services/*": ["./services/*"],
+      "@/api/*": ["./api/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/templates/*": ["./templates/*"],
+      "@/types/*": ["./types/*"],
+      "@/config/*": ["./config/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/middleware/*": ["./middleware/*"],
+      "@/holiday-data/*": ["./holiday-data/*"],
+      "@/timezone/*": ["./timezone/*"]
+    },
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    /* JavaScript Support */
+    "allowJs": false,
+    "checkJs": false,
+
+    /* Emit */
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "sourceMap": true,
+    "inlineSources": false,
+    "noEmitOnError": true,
+
+    /* Interop Constraints */
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+
+    /* Completeness */
+    "skipLibCheck": true,
+
+    /* Performance Optimizations - Constitutional <2s load time requirement */
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+
+    /* Node.js Compatibility - German timezone and locale support */
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": false,
+    "noResolve": false
+  },
+  "include": [
+    "src/**/*",
+    "types/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests/**/*",
+    "*.config.js",
+    "*.config.ts",
+    "coverage",
+    ".eslintrc.js"
+  ],
+  "ts-node": {
+    "esm": false,
+    "experimentalSpecifierResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@/models/*": ["./models/*"],
+      "@/services/*": ["./services/*"],
+      "@/api/*": ["./api/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/templates/*": ["./templates/*"],
+      "@/types/*": ["./types/*"],
+      "@/config/*": ["./config/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/middleware/*": ["./middleware/*"],
+      "@/holiday-data/*": ["./holiday-data/*"],
+      "@/timezone/*": ["./timezone/*"]
+    }
+  }
+}

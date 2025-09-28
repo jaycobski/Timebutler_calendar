@@ -1,0 +1,519 @@
+{
+  "comment": "CDN Cache Policies for TimeButler Calendar - German Market Optimization",
+  "version": "2.0",
+  "lastUpdated": "2025-01-24",
+  "policies": {
+    "GERMAN_OPTIMIZED_CACHE_POLICY": {
+      "name": "TimeButler-German-Optimized-Cache",
+      "comment": "Optimized caching for German users with GDPR compliance",
+      "defaultTTL": 3600,
+      "maxTTL": 86400,
+      "minTTL": 300,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": true,
+        "enableAcceptEncodingGzip": true,
+        "queryStringsConfig": {
+          "queryStringBehavior": "whitelist",
+          "queryStrings": [
+            "state",
+            "lang",
+            "year",
+            "month",
+            "timezone",
+            "version"
+          ]
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept-Language",
+            "CloudFront-Viewer-Country",
+            "CloudFront-Viewer-Country-Region",
+            "CloudFront-Is-Mobile-Viewer",
+            "CloudFront-Viewer-Time-Zone"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "whitelist",
+          "cookies": [
+            "locale",
+            "gdpr_consent",
+            "timezone",
+            "state_selection"
+          ]
+        }
+      },
+      "compressionSupport": true,
+      "germanSpecific": {
+        "holidayDataOptimization": true,
+        "stateBasedCaching": true,
+        "timezoneAwareCaching": true
+      }
+    },
+    "HOLIDAY_DATA_CACHE_POLICY": {
+      "name": "TimeButler-Holiday-Data-Cache",
+      "comment": "Optimized caching for German holiday data API endpoints",
+      "defaultTTL": 86400,
+      "maxTTL": 604800,
+      "minTTL": 3600,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": true,
+        "enableAcceptEncodingGzip": true,
+        "queryStringsConfig": {
+          "queryStringBehavior": "whitelist",
+          "queryStrings": [
+            "state",
+            "year",
+            "format",
+            "lang"
+          ]
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept-Language",
+            "CloudFront-Viewer-Country-Region"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "none"
+        }
+      },
+      "compressionSupport": true,
+      "varyOnHeaders": ["Accept-Language"],
+      "germanStates": {
+        "cachingStrategy": "per_state",
+        "states": [
+          "BW", "BY", "BE", "BB", "HB", "HH", "HE", "MV",
+          "NI", "NW", "RP", "SL", "SN", "ST", "SH", "TH"
+        ]
+      }
+    },
+    "BRIDGE_WEEKEND_CACHE_POLICY": {
+      "name": "TimeButler-Bridge-Weekend-Cache",
+      "comment": "Caching for bridge weekend calculation results",
+      "defaultTTL": 3600,
+      "maxTTL": 86400,
+      "minTTL": 300,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": true,
+        "enableAcceptEncodingGzip": true,
+        "queryStringsConfig": {
+          "queryStringBehavior": "whitelist",
+          "queryStrings": [
+            "state",
+            "year",
+            "vacation_days",
+            "efficiency_threshold",
+            "format"
+          ]
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept-Language",
+            "CloudFront-Viewer-Country-Region"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "whitelist",
+          "cookies": [
+            "state_selection"
+          ]
+        }
+      },
+      "compressionSupport": true,
+      "calculationOptimization": {
+        "precomputedResults": true,
+        "stateBased": true,
+        "yearBased": true
+      }
+    },
+    "STATIC_ASSETS_CACHE_POLICY": {
+      "name": "TimeButler-Static-Assets-Cache",
+      "comment": "Long-term caching for static assets with versioning",
+      "defaultTTL": 86400,
+      "maxTTL": 31536000,
+      "minTTL": 86400,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": true,
+        "enableAcceptEncodingGzip": true,
+        "queryStringsConfig": {
+          "queryStringBehavior": "whitelist",
+          "queryStrings": [
+            "v",
+            "version",
+            "hash"
+          ]
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept-Encoding"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "none"
+        }
+      },
+      "compressionSupport": true,
+      "immutableAssets": true
+    },
+    "IMMUTABLE_ASSETS_CACHE_POLICY": {
+      "name": "TimeButler-Immutable-Assets-Cache",
+      "comment": "Maximum caching for immutable assets (Next.js chunks with hashes)",
+      "defaultTTL": 31536000,
+      "maxTTL": 31536000,
+      "minTTL": 31536000,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": true,
+        "enableAcceptEncodingGzip": true,
+        "queryStringsConfig": {
+          "queryStringBehavior": "none"
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept-Encoding"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "none"
+        }
+      },
+      "compressionSupport": true,
+      "immutableAssets": true,
+      "nextjsOptimized": true
+    },
+    "JAVASCRIPT_CACHE_POLICY": {
+      "name": "TimeButler-JavaScript-Cache",
+      "comment": "Optimized caching for JavaScript files with hash versioning",
+      "defaultTTL": 31536000,
+      "maxTTL": 31536000,
+      "minTTL": 86400,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": true,
+        "enableAcceptEncodingGzip": true,
+        "queryStringsConfig": {
+          "queryStringBehavior": "whitelist",
+          "queryStrings": [
+            "v",
+            "hash"
+          ]
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept-Encoding"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "none"
+        }
+      },
+      "compressionSupport": true,
+      "mimeTypes": [
+        "application/javascript",
+        "text/javascript",
+        "application/x-javascript"
+      ]
+    },
+    "CSS_CACHE_POLICY": {
+      "name": "TimeButler-CSS-Cache",
+      "comment": "Optimized caching for CSS files with hash versioning",
+      "defaultTTL": 31536000,
+      "maxTTL": 31536000,
+      "minTTL": 86400,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": true,
+        "enableAcceptEncodingGzip": true,
+        "queryStringsConfig": {
+          "queryStringBehavior": "whitelist",
+          "queryStrings": [
+            "v",
+            "hash"
+          ]
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept-Encoding"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "none"
+        }
+      },
+      "compressionSupport": true,
+      "mimeTypes": [
+        "text/css"
+      ]
+    },
+    "FONT_CACHE_POLICY": {
+      "name": "TimeButler-Font-Cache",
+      "comment": "Long-term caching for web fonts",
+      "defaultTTL": 31536000,
+      "maxTTL": 31536000,
+      "minTTL": 31536000,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": false,
+        "enableAcceptEncodingGzip": false,
+        "queryStringsConfig": {
+          "queryStringBehavior": "none"
+        },
+        "headersConfig": {
+          "headerBehavior": "none"
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "none"
+        }
+      },
+      "compressionSupport": false,
+      "mimeTypes": [
+        "font/woff2",
+        "font/woff",
+        "application/font-woff2",
+        "application/font-woff"
+      ],
+      "corsHeaders": true
+    },
+    "IMAGE_CACHE_POLICY": {
+      "name": "TimeButler-Image-Cache",
+      "comment": "Optimized caching for images with format negotiation",
+      "defaultTTL": 604800,
+      "maxTTL": 31536000,
+      "minTTL": 86400,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": false,
+        "enableAcceptEncodingGzip": false,
+        "queryStringsConfig": {
+          "queryStringBehavior": "whitelist",
+          "queryStrings": [
+            "w",
+            "h",
+            "q",
+            "format",
+            "fit"
+          ]
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "none"
+        }
+      },
+      "compressionSupport": false,
+      "formatNegotiation": {
+        "webp": true,
+        "avif": true
+      },
+      "mimeTypes": [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/avif",
+        "image/svg+xml"
+      ]
+    },
+    "GERMAN_PAGES_CACHE_POLICY": {
+      "name": "TimeButler-German-Pages-Cache",
+      "comment": "Caching for German language pages with personalization",
+      "defaultTTL": 3600,
+      "maxTTL": 86400,
+      "minTTL": 300,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": true,
+        "enableAcceptEncodingGzip": true,
+        "queryStringsConfig": {
+          "queryStringBehavior": "whitelist",
+          "queryStrings": [
+            "state",
+            "year",
+            "view",
+            "utm_source",
+            "utm_medium",
+            "utm_campaign"
+          ]
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept-Language",
+            "CloudFront-Viewer-Country-Region",
+            "CloudFront-Is-Mobile-Viewer"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "whitelist",
+          "cookies": [
+            "locale",
+            "gdpr_consent",
+            "state_selection",
+            "timezone"
+          ]
+        }
+      },
+      "compressionSupport": true,
+      "personalization": {
+        "stateBasedContent": true,
+        "deviceOptimization": true
+      }
+    },
+    "ENGLISH_PAGES_CACHE_POLICY": {
+      "name": "TimeButler-English-Pages-Cache",
+      "comment": "Caching for English language pages with international users",
+      "defaultTTL": 3600,
+      "maxTTL": 86400,
+      "minTTL": 300,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": true,
+        "enableAcceptEncodingGzip": true,
+        "queryStringsConfig": {
+          "queryStringBehavior": "whitelist",
+          "queryStrings": [
+            "state",
+            "year",
+            "view",
+            "utm_source",
+            "utm_medium",
+            "utm_campaign"
+          ]
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept-Language",
+            "CloudFront-Viewer-Country",
+            "CloudFront-Is-Mobile-Viewer"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "whitelist",
+          "cookies": [
+            "locale",
+            "gdpr_consent",
+            "state_selection",
+            "timezone"
+          ]
+        }
+      },
+      "compressionSupport": true,
+      "internationalOptimization": true
+    },
+    "NO_CACHE_POLICY": {
+      "name": "TimeButler-No-Cache",
+      "comment": "No caching for dynamic API endpoints",
+      "defaultTTL": 0,
+      "maxTTL": 0,
+      "minTTL": 0,
+      "parametersInCacheKeyAndForwardedToOrigin": {
+        "enableAcceptEncodingBrotli": false,
+        "enableAcceptEncodingGzip": false,
+        "queryStringsConfig": {
+          "queryStringBehavior": "all"
+        },
+        "headersConfig": {
+          "headerBehavior": "whitelist",
+          "headers": [
+            "Accept",
+            "Accept-Language",
+            "Authorization",
+            "CloudFront-Forwarded-Proto",
+            "CloudFront-Viewer-Country",
+            "Content-Type",
+            "Host",
+            "User-Agent",
+            "X-Forwarded-For"
+          ]
+        },
+        "cookiesConfig": {
+          "cookieBehavior": "all"
+        }
+      },
+      "compressionSupport": false,
+      "dynamicContent": true
+    }
+  },
+  "germanMarketSpecific": {
+    "gdprCompliance": {
+      "dataMinimization": {
+        "cookieWhitelisting": true,
+        "headerFiltering": true,
+        "queryParamFiltering": true
+      },
+      "consentRespecting": {
+        "cookieBehaviorBasedOnConsent": true,
+        "analyticsOptOut": true
+      },
+      "dataRetention": {
+        "logRetention": "180 days",
+        "cacheExpiration": "Respects user preferences"
+      }
+    },
+    "performanceOptimization": {
+      "germanEdgeLocations": {
+        "primaryCaching": ["Frankfurt", "Munich", "Berlin"],
+        "secondaryCaching": ["Amsterdam", "London", "Paris"]
+      },
+      "seasonalOptimization": {
+        "holidayPlanningPeak": {
+          "months": ["november", "december", "january"],
+          "cacheWarmup": true,
+          "precomputation": true
+        }
+      },
+      "businessHours": {
+        "timezone": "Europe/Berlin",
+        "peakHours": "09:00-18:00 CET/CEST",
+        "offPeakOptimization": true
+      }
+    },
+    "contentOptimization": {
+      "compression": {
+        "brotliFirst": true,
+        "gzipFallback": true,
+        "qualitySettings": {
+          "brotli": 6,
+          "gzip": 6
+        }
+      },
+      "formatNegotiation": {
+        "webpSupport": true,
+        "avifSupport": true,
+        "fallbackToJpeg": true
+      }
+    }
+  },
+  "monitoring": {
+    "cachePerformanceMetrics": [
+      "cache_hit_rate",
+      "origin_shield_hit_rate",
+      "edge_hit_rate",
+      "miss_rate",
+      "error_rate",
+      "latency_p50",
+      "latency_p95",
+      "latency_p99"
+    ],
+    "germanSpecificMetrics": [
+      "german_edge_performance",
+      "dach_region_latency",
+      "holiday_data_cache_effectiveness",
+      "bridge_weekend_calculation_cache_hit_rate"
+    ],
+    "alertThresholds": {
+      "cache_hit_rate": {
+        "warning": 80,
+        "critical": 70
+      },
+      "german_edge_latency": {
+        "warning": 300,
+        "critical": 500
+      }
+    }
+  }
+}

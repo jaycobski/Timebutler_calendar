@@ -1,0 +1,85 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+coverage/
+
+# Cache files
+.eslintcache
+*.tsbuildinfo
+
+# Generated files
+*.min.js
+*.generated.*
+*.d.ts
+
+# Environment files
+.env*
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Test artifacts and reports
+jest-coverage/
+test-results/
+*.lcov
+coverage/
+reports/
+
+# German holiday data - third-party API responses
+src/data/holiday-data.json
+src/data/feiertage.json
+src/data/bundeslaender.json
+
+# Templates - may contain mixed HTML/JS that confuses ESLint
+src/templates/
+
+# Configuration files
+.prettierrc.js
+jest.config.*.js
+knexfile.js
+webpack.config.js
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+
+# Documentation
+*.md
+!src/**/*.md
+
+# Knex generated files
+migrations/
+seeds/
+
+# Scripts directory - may have one-off scripts with relaxed rules
+src/scripts/db-setup.ts
+src/scripts/migration-runner.ts
+
+# Third-party integrations that may not follow our ESLint rules
+src/integrations/
+src/vendor/
+
+# Generated API documentation
+docs/api/
+src/swagger/
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

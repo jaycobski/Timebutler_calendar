@@ -1,0 +1,581 @@
+name: Performance Monitoring & Constitutional Compliance
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run performance checks daily at 6 AM UTC (7 AM CET)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: 'Target URL for testing'
+        required: false
+        default: 'https://calendar.timebutler.com'
+
+env:
+  NODE_VERSION: '18'
+  # Constitutional performance budgets
+  LIGHTHOUSE_PERFORMANCE_THRESHOLD: 90
+  LIGHTHOUSE_ACCESSIBILITY_THRESHOLD: 90
+  LIGHTHOUSE_BEST_PRACTICES_THRESHOLD: 90
+  LIGHTHOUSE_SEO_THRESHOLD: 90
+  BUNDLE_SIZE_LIMIT: 204800  # 200KB gzipped
+  LCP_THRESHOLD: 2000        # 2s on 3G
+  FID_THRESHOLD: 100         # 100ms
+  CLS_THRESHOLD: 0.1         # 0.1
+
+jobs:
+  # Build and prepare application for testing
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build application
+        working-directory: frontend
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            frontend/.next
+            frontend/package.json
+          retention-days: 1
+
+  # Performance budget validation
+  performance-budgets:
+    name: Performance Budgets
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: frontend
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Check performance budgets
+        working-directory: frontend
+        run: |
+          chmod +x scripts/performance-budget-checker.js
+          node scripts/performance-budget-checker.js
+        continue-on-error: false
+
+      - name: Upload budget report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-budget-report
+          path: frontend/performance-budget-report.json
+          retention-days: 30
+
+  # Lighthouse CI testing
+  lighthouse-ci:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        # Test multiple scenarios
+        scenario:
+          - name: 'Desktop Fast 3G'
+            throttling: 'fast3g'
+            form_factor: 'desktop'
+          - name: 'Mobile Slow 3G'
+            throttling: 'slow3g'
+            form_factor: 'mobile'
+          - name: 'Desktop No Throttling'
+            throttling: 'none'
+            form_factor: 'desktop'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: frontend
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Start application
+        working-directory: frontend
+        run: |
+          npm run start &
+          npx wait-on http://localhost:3000 --timeout 60000
+        env:
+          NODE_ENV: production
+
+      - name: Run Lighthouse CI
+        working-directory: frontend
+        run: |
+          npm run lighthouse
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_THROTTLING: ${{ matrix.scenario.throttling }}
+          LHCI_FORM_FACTOR: ${{ matrix.scenario.form_factor }}
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports-${{ matrix.scenario.name }}
+          path: |
+            frontend/lighthouse-reports/
+            frontend/.lighthouseci/
+          retention-days: 30
+
+  # Core Web Vitals validation
+  web-vitals:
+    name: Core Web Vitals
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: frontend
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Install Playwright
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+
+      - name: Start application
+        working-directory: frontend
+        run: |
+          npm run start &
+          npx wait-on http://localhost:3000 --timeout 60000
+        env:
+          NODE_ENV: production
+
+      - name: Run Core Web Vitals tests
+        working-directory: frontend
+        run: |
+          cat > web-vitals-test.js << 'EOF'
+          const { chromium } = require('playwright');
+          const fs = require('fs');
+
+          async function measureWebVitals() {
+            const browser = await chromium.launch();
+            const page = await browser.newPage();
+
+            // Configure 3G throttling for constitutional compliance testing
+            await page.context().route('**/*', route => {
+              setTimeout(() => route.continue(), 150); // Simulate 3G latency
+            });
+
+            const vitals = {};
+
+            // Capture Core Web Vitals
+            await page.addInitScript(() => {
+              window.webVitalsResults = {};
+
+              // LCP
+              new PerformanceObserver((list) => {
+                const entries = list.getEntries();
+                const lastEntry = entries[entries.length - 1];
+                window.webVitalsResults.lcp = lastEntry.startTime;
+              }).observe({ type: 'largest-contentful-paint', buffered: true });
+
+              // CLS
+              let clsValue = 0;
+              new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                  if (!entry.hadRecentInput) {
+                    clsValue += entry.value;
+                  }
+                }
+                window.webVitalsResults.cls = clsValue;
+              }).observe({ type: 'layout-shift', buffered: true });
+
+              // FCP
+              new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                  if (entry.name === 'first-contentful-paint') {
+                    window.webVitalsResults.fcp = entry.startTime;
+                  }
+                }
+              }).observe({ type: 'paint', buffered: true });
+            });
+
+            // Test multiple pages
+            const pages = [
+              { url: 'http://localhost:3000', name: 'home' },
+              { url: 'http://localhost:3000/de', name: 'home-de' },
+              { url: 'http://localhost:3000/en', name: 'home-en' },
+              { url: 'http://localhost:3000/de/bridges', name: 'bridges-de' },
+              { url: 'http://localhost:3000/en/bridges', name: 'bridges-en' },
+            ];
+
+            const results = {};
+
+            for (const testPage of pages) {
+              console.log(`Testing ${testPage.name}: ${testPage.url}`);
+
+              await page.goto(testPage.url, { waitUntil: 'networkidle' });
+              await page.waitForTimeout(2000); // Allow metrics to settle
+
+              const pageVitals = await page.evaluate(() => window.webVitalsResults);
+
+              results[testPage.name] = {
+                url: testPage.url,
+                lcp: pageVitals.lcp || null,
+                cls: pageVitals.cls || null,
+                fcp: pageVitals.fcp || null,
+                timestamp: Date.now(),
+              };
+
+              // Check constitutional compliance
+              const violations = [];
+              if (pageVitals.lcp > ${{ env.LCP_THRESHOLD }}) {
+                violations.push(`LCP: ${Math.round(pageVitals.lcp)}ms > ${process.env.LCP_THRESHOLD}ms`);
+              }
+              if (pageVitals.cls > ${{ env.CLS_THRESHOLD }}) {
+                violations.push(`CLS: ${pageVitals.cls.toFixed(3)} > ${process.env.CLS_THRESHOLD}`);
+              }
+
+              if (violations.length > 0) {
+                console.error(`🚨 Constitutional violations on ${testPage.name}:`);
+                violations.forEach(v => console.error(`  - ${v}`));
+                results[testPage.name].violations = violations;
+                results[testPage.name].constitutional_violation = true;
+              } else {
+                console.log(`✅ ${testPage.name} meets constitutional requirements`);
+                results[testPage.name].constitutional_violation = false;
+              }
+            }
+
+            await browser.close();
+
+            // Save results
+            fs.writeFileSync('web-vitals-results.json', JSON.stringify(results, null, 2));
+
+            // Check if any violations occurred
+            const hasViolations = Object.values(results).some(r => r.violations?.length > 0);
+            if (hasViolations) {
+              console.error('❌ Constitutional performance violations detected');
+              process.exit(1);
+            } else {
+              console.log('✅ All pages meet constitutional performance requirements');
+            }
+          }
+
+          measureWebVitals().catch(console.error);
+          EOF
+
+          node web-vitals-test.js
+
+      - name: Upload Web Vitals results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-vitals-results
+          path: frontend/web-vitals-results.json
+          retention-days: 30
+
+  # Bundle size analysis
+  bundle-analysis:
+    name: Bundle Analysis
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: frontend
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Analyze bundle size
+        working-directory: frontend
+        run: |
+          # Generate bundle analysis report
+          npm run bundle-analyzer
+
+          # Check bundle size against constitutional limit
+          npm run bundle-size
+        env:
+          ANALYZE: true
+
+      - name: Upload bundle analysis
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-analysis
+          path: |
+            frontend/.next/analyze/
+            frontend/bundle-analysis.json
+          retention-days: 30
+
+  # Synthetic monitoring (production)
+  synthetic-monitoring:
+    name: Synthetic Monitoring
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Run synthetic tests
+        run: |
+          # Test production URL
+          TARGET_URL="${{ github.event.inputs.target_url || 'https://calendar.timebutler.com' }}"
+
+          # Install Lighthouse CLI
+          npm install -g @lhci/cli lighthouse
+
+          # Run Lighthouse against production
+          lighthouse "$TARGET_URL" \
+            --output=json \
+            --output-path=production-lighthouse.json \
+            --chrome-flags="--headless --no-sandbox" \
+            --throttling-method=simulate \
+            --throttling.cpuSlowdownMultiplier=4 \
+            --throttling.rttMs=150 \
+            --throttling.throughputKbps=1638.4 \
+            --form-factor=mobile
+
+          # Parse results and check compliance
+          node -e "
+            const report = require('./production-lighthouse.json');
+            const categories = report.categories;
+
+            console.log('🔍 Production Performance Check:');
+            console.log('Target URL:', '$TARGET_URL');
+
+            const performance = Math.round(categories.performance.score * 100);
+            const accessibility = Math.round(categories.accessibility.score * 100);
+            const bestPractices = Math.round(categories['best-practices'].score * 100);
+            const seo = Math.round(categories.seo.score * 100);
+
+            console.log('Performance:', performance, '(threshold: ${{ env.LIGHTHOUSE_PERFORMANCE_THRESHOLD }})');
+            console.log('Accessibility:', accessibility, '(threshold: ${{ env.LIGHTHOUSE_ACCESSIBILITY_THRESHOLD }})');
+            console.log('Best Practices:', bestPractices, '(threshold: ${{ env.LIGHTHOUSE_BEST_PRACTICES_THRESHOLD }})');
+            console.log('SEO:', seo, '(threshold: ${{ env.LIGHTHOUSE_SEO_THRESHOLD }})');
+
+            const violations = [];
+            if (performance < ${{ env.LIGHTHOUSE_PERFORMANCE_THRESHOLD }}) violations.push('Performance');
+            if (accessibility < ${{ env.LIGHTHOUSE_ACCESSIBILITY_THRESHOLD }}) violations.push('Accessibility');
+            if (bestPractices < ${{ env.LIGHTHOUSE_BEST_PRACTICES_THRESHOLD }}) violations.push('Best Practices');
+            if (seo < ${{ env.LIGHTHOUSE_SEO_THRESHOLD }}) violations.push('SEO');
+
+            if (violations.length > 0) {
+              console.error('🚨 Constitutional violations in production:', violations.join(', '));
+              process.exit(1);
+            } else {
+              console.log('✅ Production meets all constitutional requirements');
+            }
+          "
+
+      - name: Upload production results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-monitoring-results
+          path: production-lighthouse.json
+          retention-days: 90
+
+  # Performance regression detection
+  performance-regression:
+    name: Performance Regression
+    runs-on: ubuntu-latest
+    needs: [lighthouse-ci, web-vitals, bundle-analysis]
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Download current results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-results*'
+          merge-multiple: true
+
+      - name: Download baseline results
+        uses: actions/download-artifact@v4
+        with:
+          name: performance-baseline
+          path: baseline/
+        continue-on-error: true
+
+      - name: Compare performance
+        run: |
+          # Simple regression detection
+          echo "🔍 Checking for performance regressions..."
+
+          # This would typically compare against baseline metrics
+          # For now, we'll just validate current results exist
+          if [ -f "web-vitals-results.json" ]; then
+            echo "✅ Web Vitals results found"
+            cat web-vitals-results.json
+          else
+            echo "❌ No Web Vitals results found"
+            exit 1
+          fi
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            let comment = '## 📊 Performance Report\n\n';
+
+            try {
+              const vitals = JSON.parse(fs.readFileSync('web-vitals-results.json', 'utf8'));
+
+              comment += '### Core Web Vitals\n';
+              for (const [page, metrics] of Object.entries(vitals)) {
+                comment += `**${page}**:\n`;
+                if (metrics.lcp) comment += `- LCP: ${Math.round(metrics.lcp)}ms\n`;
+                if (metrics.cls) comment += `- CLS: ${metrics.cls.toFixed(3)}\n`;
+                if (metrics.fcp) comment += `- FCP: ${Math.round(metrics.fcp)}ms\n`;
+
+                if (metrics.violations?.length > 0) {
+                  comment += `- 🚨 **Constitutional Violations**: ${metrics.violations.join(', ')}\n`;
+                }
+                comment += '\n';
+              }
+
+              comment += '### Constitutional Compliance\n';
+              const hasViolations = Object.values(vitals).some(v => v.violations?.length > 0);
+              if (hasViolations) {
+                comment += '❌ **FAILED** - Constitutional performance requirements not met\n';
+              } else {
+                comment += '✅ **PASSED** - All constitutional performance requirements met\n';
+              }
+
+            } catch (error) {
+              comment += '❌ Error reading performance results\n';
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  # Performance reporting
+  performance-report:
+    name: Performance Report
+    runs-on: ubuntu-latest
+    needs: [performance-budgets, lighthouse-ci, web-vitals, bundle-analysis]
+    if: always()
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-results*'
+          merge-multiple: true
+
+      - name: Generate consolidated report
+        run: |
+          echo "📋 Performance Monitoring Summary" > performance-summary.md
+          echo "=================================" >> performance-summary.md
+          echo "" >> performance-summary.md
+          echo "**Date**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> performance-summary.md
+          echo "**Commit**: ${{ github.sha }}" >> performance-summary.md
+          echo "**Branch**: ${{ github.ref_name }}" >> performance-summary.md
+          echo "" >> performance-summary.md
+
+          echo "## Constitutional Compliance Status" >> performance-summary.md
+          echo "" >> performance-summary.md
+
+          # Check if all jobs passed
+          echo "- Performance Budgets: ${{ needs.performance-budgets.result }}" >> performance-summary.md
+          echo "- Lighthouse CI: ${{ needs.lighthouse-ci.result }}" >> performance-summary.md
+          echo "- Core Web Vitals: ${{ needs.web-vitals.result }}" >> performance-summary.md
+          echo "- Bundle Analysis: ${{ needs.bundle-analysis.result }}" >> performance-summary.md
+          echo "" >> performance-summary.md
+
+          if [[ "${{ needs.performance-budgets.result }}" == "success" &&
+                "${{ needs.lighthouse-ci.result }}" == "success" &&
+                "${{ needs.web-vitals.result }}" == "success" &&
+                "${{ needs.bundle-analysis.result }}" == "success" ]]; then
+            echo "🏛️ **CONSTITUTIONAL COMPLIANCE: ✅ PASSED**" >> performance-summary.md
+          else
+            echo "🏛️ **CONSTITUTIONAL COMPLIANCE: ❌ FAILED**" >> performance-summary.md
+          fi
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-summary
+          path: performance-summary.md
+          retention-days: 90

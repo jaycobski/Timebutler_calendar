@@ -1,0 +1,95 @@
+{
+  "label": "Select State",
+  "placeholder": "Please select your state",
+  "searchPlaceholder": "Search states...",
+  "noResults": "No results found",
+  "loading": "Loading states...",
+  "error": "Error loading states",
+  "required": "State is required",
+  "clear": "Clear selection",
+  "expand": "Show options",
+  "collapse": "Hide options",
+  "selected": "selected",
+  "resultsFound": "results found",
+  "sortBy": "Sort by",
+  "sortOptions": {
+    "alphabetical": "Alphabetical",
+    "population": "Population",
+    "religious": "Religious Majority"
+  },
+  "religionIndicator": {
+    "catholic": "Catholic Majority",
+    "protestant": "Protestant Majority",
+    "secular": "Secular",
+    "mixed": "Mixed"
+  },
+  "cityState": "City State",
+  "populationLabel": "Population",
+  "capitalLabel": "Capital",
+  "states": {
+    "BW": {
+      "name": "Baden-Württemberg",
+      "description": "Southwestern German state with Stuttgart as capital"
+    },
+    "BY": {
+      "name": "Bavaria",
+      "description": "Largest German state with Munich as capital"
+    },
+    "BE": {
+      "name": "Berlin",
+      "description": "Capital and city-state of Germany"
+    },
+    "BB": {
+      "name": "Brandenburg",
+      "description": "State surrounding Berlin with Potsdam as capital"
+    },
+    "HB": {
+      "name": "Bremen",
+      "description": "Northwestern city-state with Bremen as capital"
+    },
+    "HH": {
+      "name": "Hamburg",
+      "description": "Northern city-state and Hanseatic city"
+    },
+    "HE": {
+      "name": "Hesse",
+      "description": "Central German state with Wiesbaden as capital"
+    },
+    "MV": {
+      "name": "Mecklenburg-Western Pomerania",
+      "description": "Northeastern German state with Schwerin as capital"
+    },
+    "NI": {
+      "name": "Lower Saxony",
+      "description": "Northwestern German state with Hanover as capital"
+    },
+    "NW": {
+      "name": "North Rhine-Westphalia",
+      "description": "Most populous German state with Düsseldorf as capital"
+    },
+    "RP": {
+      "name": "Rhineland-Palatinate",
+      "description": "Western German state with Mainz as capital"
+    },
+    "SL": {
+      "name": "Saarland",
+      "description": "Smallest area state with Saarbrücken as capital"
+    },
+    "SN": {
+      "name": "Saxony",
+      "description": "Eastern German state with Dresden as capital"
+    },
+    "ST": {
+      "name": "Saxony-Anhalt",
+      "description": "Central German state with Magdeburg as capital"
+    },
+    "SH": {
+      "name": "Schleswig-Holstein",
+      "description": "Northernmost German state with Kiel as capital"
+    },
+    "TH": {
+      "name": "Thuringia",
+      "description": "Central German state with Erfurt as capital"
+    }
+  }
+}

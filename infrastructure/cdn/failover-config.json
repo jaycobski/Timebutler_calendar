@@ -1,0 +1,550 @@
+{
+  "comment": "Failover and Health Check Configuration for TimeButler Calendar CDN - German Market",
+  "version": "2.0",
+  "lastUpdated": "2025-01-24",
+  "originHealthChecks": {
+    "primaryAppOrigin": {
+      "healthCheckId": "timebutler-calendar-app-primary-health",
+      "fqdn": "app-calendar-prod-eu-central-1.timebutler.internal",
+      "port": 443,
+      "type": "HTTPS",
+      "resourcePath": "/health",
+      "requestInterval": 30,
+      "failureThreshold": 3,
+      "measureLatency": true,
+      "regions": [
+        "eu-central-1",
+        "eu-west-1",
+        "eu-west-3"
+      ],
+      "germanSpecific": {
+        "businessHoursPriority": true,
+        "timezone": "Europe/Berlin",
+        "criticalPeriods": {
+          "holidayPlanningPeak": {
+            "months": ["november", "december", "january"],
+            "enhancedMonitoring": true,
+            "requestInterval": 10,
+            "failureThreshold": 2
+          }
+        }
+      },
+      "healthCheckTags": [
+        {
+          "key": "Application",
+          "value": "TimeButlerCalendar"
+        },
+        {
+          "key": "Environment",
+          "value": "Production"
+        },
+        {
+          "key": "Market",
+          "value": "Germany"
+        },
+        {
+          "key": "Priority",
+          "value": "Critical"
+        }
+      ]
+    },
+    "failoverAppOrigin": {
+      "healthCheckId": "timebutler-calendar-app-failover-health",
+      "fqdn": "app-calendar-prod-eu-west-1.timebutler.internal",
+      "port": 443,
+      "type": "HTTPS",
+      "resourcePath": "/health",
+      "requestInterval": 30,
+      "failureThreshold": 3,
+      "measureLatency": true,
+      "regions": [
+        "eu-west-1",
+        "eu-central-1",
+        "eu-west-3"
+      ],
+      "healthCheckTags": [
+        {
+          "key": "Application",
+          "value": "TimeButlerCalendar"
+        },
+        {
+          "key": "Environment",
+          "value": "Production"
+        },
+        {
+          "key": "Role",
+          "value": "Failover"
+        },
+        {
+          "key": "Market",
+          "value": "Germany"
+        }
+      ]
+    },
+    "primaryAssetsOrigin": {
+      "healthCheckId": "timebutler-calendar-assets-primary-health",
+      "fqdn": "assets-calendar.s3.eu-central-1.amazonaws.com",
+      "port": 443,
+      "type": "HTTPS_STR_MATCH",
+      "resourcePath": "/health.txt",
+      "requestInterval": 30,
+      "failureThreshold": 3,
+      "searchString": "healthy",
+      "measureLatency": true,
+      "regions": [
+        "eu-central-1",
+        "eu-west-1"
+      ],
+      "healthCheckTags": [
+        {
+          "key": "Application",
+          "value": "TimeButlerCalendar"
+        },
+        {
+          "key": "Environment",
+          "value": "Production"
+        },
+        {
+          "key": "AssetType",
+          "value": "Static"
+        },
+        {
+          "key": "Market",
+          "value": "Germany"
+        }
+      ]
+    },
+    "failoverAssetsOrigin": {
+      "healthCheckId": "timebutler-calendar-assets-failover-health",
+      "fqdn": "assets-calendar-backup.s3.eu-west-1.amazonaws.com",
+      "port": 443,
+      "type": "HTTPS_STR_MATCH",
+      "resourcePath": "/health.txt",
+      "requestInterval": 30,
+      "failureThreshold": 3,
+      "searchString": "healthy",
+      "measureLatency": true,
+      "regions": [
+        "eu-west-1",
+        "eu-central-1"
+      ],
+      "healthCheckTags": [
+        {
+          "key": "Application",
+          "value": "TimeButlerCalendar"
+        },
+        {
+          "key": "Environment",
+          "value": "Production"
+        },
+        {
+          "key": "AssetType",
+          "value": "Static"
+        },
+        {
+          "key": "Role",
+          "value": "Failover"
+        },
+        {
+          "key": "Market",
+          "value": "Germany"
+        }
+      ]
+    }
+  },
+  "originGroups": {
+    "appOriginGroup": {
+      "id": "timebutler-app-origin-group",
+      "description": "Primary and failover application origins for German market",
+      "members": [
+        {
+          "originId": "timebutler-calendar-app-primary",
+          "healthCheckId": "timebutler-calendar-app-primary-health",
+          "priority": 1,
+          "weight": 100
+        },
+        {
+          "originId": "timebutler-calendar-app-failover",
+          "healthCheckId": "timebutler-calendar-app-failover-health",
+          "priority": 2,
+          "weight": 0
+        }
+      ],
+      "failoverCriteria": {
+        "statusCodes": [403, 404, 500, 502, 503, 504],
+        "failoverType": "automatic",
+        "failbackType": "automatic",
+        "failbackHealthyThreshold": 3,
+        "maxFailoverTime": "5 minutes"
+      },
+      "germanOptimizations": {
+        "preferEuCentral1": true,
+        "businessHoursFailover": {
+          "fastFailover": true,
+          "timezone": "Europe/Berlin",
+          "businessHours": "08:00-19:00"
+        },
+        "seasonalAdjustments": {
+          "holidayPlanningPeak": {
+            "failoverThreshold": 2,
+            "maxFailoverTime": "2 minutes"
+          }
+        }
+      }
+    },
+    "assetsOriginGroup": {
+      "id": "timebutler-assets-origin-group",
+      "description": "Primary and failover static assets origins",
+      "members": [
+        {
+          "originId": "timebutler-calendar-assets-primary",
+          "healthCheckId": "timebutler-calendar-assets-primary-health",
+          "priority": 1,
+          "weight": 100
+        },
+        {
+          "originId": "timebutler-calendar-assets-failover",
+          "healthCheckId": "timebutler-calendar-assets-failover-health",
+          "priority": 2,
+          "weight": 0
+        }
+      ],
+      "failoverCriteria": {
+        "statusCodes": [403, 404, 500, 502, 503, 504],
+        "failoverType": "automatic",
+        "failbackType": "automatic",
+        "failbackHealthyThreshold": 3,
+        "maxFailoverTime": "3 minutes"
+      }
+    }
+  },
+  "healthCheckEndpoints": {
+    "/health": {
+      "description": "Basic application health check",
+      "expectedStatusCode": 200,
+      "timeout": 5000,
+      "checks": [
+        "application_status",
+        "database_connectivity",
+        "cache_availability",
+        "external_api_connectivity"
+      ],
+      "germanSpecific": {
+        "holidayDataApi": "healthy",
+        "germanStatesData": "available",
+        "bridgeWeekendCalculations": "operational"
+      }
+    },
+    "/health/detailed": {
+      "description": "Detailed health check for monitoring systems",
+      "expectedStatusCode": 200,
+      "timeout": 10000,
+      "checks": [
+        "memory_usage",
+        "cpu_utilization",
+        "disk_space",
+        "response_time_percentiles",
+        "active_connections"
+      ],
+      "germanMarketChecks": {
+        "germanHolidayDataFreshness": "within_24_hours",
+        "bridgeWeekendCalculationPerformance": "under_500ms",
+        "emailServiceConnectivity": "operational",
+        "gdprComplianceStatus": "compliant"
+      }
+    },
+    "/health/readiness": {
+      "description": "Readiness probe for load balancer",
+      "expectedStatusCode": 200,
+      "timeout": 3000,
+      "checks": [
+        "application_ready",
+        "dependencies_available"
+      ]
+    },
+    "/health/liveness": {
+      "description": "Liveness probe for container orchestration",
+      "expectedStatusCode": 200,
+      "timeout": 3000,
+      "checks": [
+        "application_responsive"
+      ]
+    }
+  },
+  "failoverPolicies": {
+    "germanBusinessHours": {
+      "name": "German Business Hours Failover Policy",
+      "description": "Optimized failover during German business hours",
+      "timezone": "Europe/Berlin",
+      "schedule": {
+        "monday": "08:00-19:00",
+        "tuesday": "08:00-19:00",
+        "wednesday": "08:00-19:00",
+        "thursday": "08:00-19:00",
+        "friday": "08:00-19:00",
+        "saturday": "disabled",
+        "sunday": "disabled"
+      },
+      "criteria": {
+        "responseTimeThreshold": 500,
+        "errorRateThreshold": 2,
+        "consecutiveFailures": 2,
+        "healthCheckFailures": 2
+      },
+      "actions": {
+        "failoverSpeed": "fast",
+        "notificationLevel": "immediate",
+        "escalationDelay": "2 minutes"
+      }
+    },
+    "germanOutOfHours": {
+      "name": "German Out of Hours Failover Policy",
+      "description": "Standard failover outside business hours",
+      "criteria": {
+        "responseTimeThreshold": 1000,
+        "errorRateThreshold": 5,
+        "consecutiveFailures": 3,
+        "healthCheckFailures": 3
+      },
+      "actions": {
+        "failoverSpeed": "standard",
+        "notificationLevel": "standard",
+        "escalationDelay": "5 minutes"
+      }
+    },
+    "holidayPlanningPeak": {
+      "name": "Holiday Planning Peak Season Policy",
+      "description": "Ultra-responsive failover during peak holiday planning",
+      "activePeriods": [
+        {
+          "start": "2025-11-01",
+          "end": "2025-11-30",
+          "description": "November planning period"
+        },
+        {
+          "start": "2025-12-01",
+          "end": "2025-12-31",
+          "description": "December peak period"
+        },
+        {
+          "start": "2026-01-01",
+          "end": "2026-01-31",
+          "description": "January planning period"
+        }
+      ],
+      "criteria": {
+        "responseTimeThreshold": 300,
+        "errorRateThreshold": 1,
+        "consecutiveFailures": 1,
+        "healthCheckFailures": 1
+      },
+      "actions": {
+        "failoverSpeed": "ultra-fast",
+        "notificationLevel": "immediate",
+        "escalationDelay": "1 minute",
+        "additionalOrigins": "activate_all_regions"
+      }
+    }
+  },
+  "disasterRecovery": {
+    "regionalFailover": {
+      "enabled": true,
+      "description": "Full regional failover for catastrophic failures",
+      "primaryRegion": "eu-central-1",
+      "failoverRegions": [
+        "eu-west-1",
+        "eu-west-3"
+      ],
+      "trigger": {
+        "regionalHealthCheckFailures": 5,
+        "crossRegionLatencyThreshold": 2000,
+        "errorRateThreshold": 10
+      },
+      "actions": {
+        "dnsFailover": true,
+        "cloudFrontOriginFailover": true,
+        "databaseFailover": true,
+        "notificationChannels": [
+          "emergency_sms",
+          "slack_emergency",
+          "email_leadership"
+        ]
+      },
+      "rto": "5 minutes",
+      "rpo": "1 minute",
+      "germanMarketPriority": true
+    },
+    "dataReplication": {
+      "holidayData": {
+        "replicationStrategy": "cross_region_sync",
+        "frequency": "real_time",
+        "regions": ["eu-central-1", "eu-west-1", "eu-west-3"]
+      },
+      "staticAssets": {
+        "replicationStrategy": "cross_region_backup",
+        "frequency": "on_change",
+        "regions": ["eu-central-1", "eu-west-1"]
+      },
+      "userSessions": {
+        "replicationStrategy": "stateless",
+        "note": "No session data to replicate - stateless application"
+      }
+    }
+  },
+  "monitoring": {
+    "healthCheckMetrics": {
+      "cloudwatchNamespace": "AWS/Route53/HealthCheck",
+      "customMetrics": [
+        {
+          "metricName": "GermanOriginHealth",
+          "dimensions": [
+            "HealthCheckId",
+            "Region",
+            "Origin"
+          ]
+        },
+        {
+          "metricName": "FailoverFrequency",
+          "dimensions": [
+            "OriginGroup",
+            "FailoverReason",
+            "TimeOfDay"
+          ]
+        },
+        {
+          "metricName": "FailoverRecoveryTime",
+          "dimensions": [
+            "OriginGroup",
+            "FailoverType"
+          ]
+        }
+      ]
+    },
+    "alerting": {
+      "healthCheckFailures": {
+        "name": "OriginHealthCheckFailure",
+        "description": "Origin health check failure detected",
+        "threshold": 1,
+        "period": 60,
+        "evaluationPeriods": 1,
+        "actions": [
+          "arn:aws:sns:eu-central-1:123456789:timebutler-origin-health-alerts"
+        ]
+      },
+      "failoverEvents": {
+        "name": "OriginFailoverTriggered",
+        "description": "Automatic failover to backup origin triggered",
+        "threshold": 1,
+        "period": 60,
+        "evaluationPeriods": 1,
+        "actions": [
+          "arn:aws:sns:eu-central-1:123456789:timebutler-failover-alerts"
+        ]
+      },
+      "frequentFailovers": {
+        "name": "FrequentFailoverDetected",
+        "description": "Multiple failovers detected within short timeframe",
+        "threshold": 3,
+        "period": 900,
+        "evaluationPeriods": 1,
+        "actions": [
+          "arn:aws:sns:eu-central-1:123456789:timebutler-stability-alerts"
+        ]
+      }
+    },
+    "dashboards": {
+      "originHealthDashboard": {
+        "name": "TimeButler Calendar - Origin Health & Failover",
+        "widgets": [
+          {
+            "type": "line",
+            "title": "Origin Health Check Status",
+            "metrics": [
+              "AWS/Route53/HealthCheck.StatusCheckFailed"
+            ],
+            "period": 300
+          },
+          {
+            "type": "number",
+            "title": "Current Active Origins",
+            "metrics": [
+              "GermanOriginHealth"
+            ]
+          },
+          {
+            "type": "bar",
+            "title": "Failover Events (24h)",
+            "metrics": [
+              "FailoverFrequency"
+            ],
+            "period": 3600
+          },
+          {
+            "type": "line",
+            "title": "Failover Recovery Time",
+            "metrics": [
+              "FailoverRecoveryTime"
+            ],
+            "period": 300
+          }
+        ]
+      }
+    }
+  },
+  "testing": {
+    "chaosEngineering": {
+      "enabled": true,
+      "schedule": {
+        "frequency": "weekly",
+        "day": "sunday",
+        "time": "02:00 CET",
+        "duration": "30 minutes"
+      },
+      "scenarios": [
+        {
+          "name": "primary_origin_failure",
+          "description": "Simulate primary origin failure",
+          "action": "block_health_check",
+          "target": "timebutler-calendar-app-primary-health",
+          "expectedBehavior": "automatic_failover_to_secondary"
+        },
+        {
+          "name": "region_failure",
+          "description": "Simulate eu-central-1 region failure",
+          "action": "block_region_traffic",
+          "target": "eu-central-1",
+          "expectedBehavior": "failover_to_eu_west_1"
+        },
+        {
+          "name": "high_latency_simulation",
+          "description": "Simulate high latency on primary origin",
+          "action": "inject_latency",
+          "target": "timebutler-calendar-app-primary",
+          "latency": "2000ms",
+          "expectedBehavior": "failover_triggered_by_performance"
+        }
+      ]
+    },
+    "failoverDrills": {
+      "quarterly": {
+        "description": "Quarterly failover drill",
+        "schedule": "First Sunday of quarter at 02:00 CET",
+        "scope": "full_failover_test",
+        "participants": [
+          "german-ops@timebutler.de",
+          "tech-leadership@timebutler.de"
+        ]
+      },
+      "germanMarketSpecific": {
+        "description": "German market specific failover testing",
+        "schedule": "Monthly on last Sunday at 01:00 CET",
+        "focus": [
+          "holiday_data_availability",
+          "bridge_weekend_calculations",
+          "email_service_failover",
+          "static_assets_availability"
+        ]
+      }
+    }
+  }
+}

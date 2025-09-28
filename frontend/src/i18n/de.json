@@ -1,0 +1,872 @@
+{
+  "app": {
+    "title": "TimeButler Urlaubsplaner",
+    "subtitle": "Intelligente Brückentag-Optimierung für Deutschland",
+    "description": "Maximieren Sie Ihre freie Zeit durch strategische Nutzung von Feiertagen und Brückentagen. Vollständig DSGVO-konform und kostenfrei.",
+    "tagline": "Professionelle Urlaubsplanung für den deutschen Arbeitsmarkt"
+  },
+
+  "navigation": {
+    "home": "Startseite",
+    "planner": "Urlaubsplaner",
+    "calendar": "Ferienkalender",
+    "about": "Über uns",
+    "privacy": "Datenschutz",
+    "imprint": "Impressum",
+    "contact": "Kontakt",
+    "help": "Hilfe",
+    "language": "Sprache",
+    "menu": "Menü",
+    "close": "Schließen",
+    "back": "Zurück",
+    "forward": "Weiter",
+    "settings": "Einstellungen"
+  },
+
+  "common": {
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "success": "Erfolgreich",
+    "warning": "Warnung",
+    "info": "Information",
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "submit": "Übermitteln",
+    "reset": "Zurücksetzen",
+    "clear": "Löschen",
+    "select": "Auswählen",
+    "deselect": "Abwählen",
+    "selectAll": "Alle auswählen",
+    "deselectAll": "Alle abwählen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "search": "Suchen",
+    "show": "Anzeigen",
+    "hide": "Ausblenden",
+    "expand": "Erweitern",
+    "collapse": "Einklappen",
+    "open": "Öffnen",
+    "close": "Schließen",
+    "yes": "Ja",
+    "no": "Nein",
+    "ok": "OK",
+    "required": "Erforderlich",
+    "optional": "Optional",
+    "recommended": "Empfohlen",
+    "available": "Verfügbar",
+    "unavailable": "Nicht verfügbar",
+    "enabled": "Aktiviert",
+    "disabled": "Deaktiviert",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "valid": "Gültig",
+    "invalid": "Ungültig",
+    "public": "Öffentlich",
+    "private": "Privat"
+  },
+
+  "holidays": {
+    "title": "Deutsche Feiertage",
+    "subtitle": "Offizielle Feiertage und regionale Besonderheiten",
+    "types": {
+      "federal": "Bundesfeiertag",
+      "state": "Landesfeiertag",
+      "regional": "Regionaler Feiertag",
+      "religious": "Religiöser Feiertag",
+      "catholic": "Katholischer Feiertag",
+      "protestant": "Protestantischer Feiertag",
+      "orthodox": "Orthodoxer Feiertag",
+      "secular": "Weltlicher Feiertag"
+    },
+    "names": {
+      "neujahr": "Neujahr",
+      "heilige_drei_koenige": "Heilige Drei Könige",
+      "karfreitag": "Karfreitag",
+      "ostermontag": "Ostermontag",
+      "tag_der_arbeit": "Tag der Arbeit",
+      "christi_himmelfahrt": "Christi Himmelfahrt",
+      "pfingstmontag": "Pfingstmontag",
+      "fronleichnam": "Fronleichnam",
+      "mariae_himmelfahrt": "Mariä Himmelfahrt",
+      "tag_der_deutschen_einheit": "Tag der Deutschen Einheit",
+      "reformationstag": "Reformationstag",
+      "allerheiligen": "Allerheiligen",
+      "buss_und_bettag": "Buß- und Bettag",
+      "erster_weihnachtsfeiertag": "1. Weihnachtsfeiertag",
+      "zweiter_weihnachtsfeiertag": "2. Weihnachtsfeiertag"
+    },
+    "descriptions": {
+      "neujahr": "Beginn des neuen Kalenderjahres",
+      "heilige_drei_koenige": "Erscheinung des Herrn, Epiphanias",
+      "karfreitag": "Gedenken an die Kreuzigung Jesu Christi",
+      "ostermontag": "Tag nach dem Ostersonntag",
+      "tag_der_arbeit": "Internationaler Tag der Arbeit",
+      "christi_himmelfahrt": "Himmelfahrt Jesu Christi",
+      "pfingstmontag": "Tag nach dem Pfingstsonntag",
+      "fronleichnam": "Hochfest des Leibes und Blutes Christi",
+      "mariae_himmelfahrt": "Aufnahme Mariens in den Himmel",
+      "tag_der_deutschen_einheit": "Nationalfeiertag zur deutschen Wiedervereinigung",
+      "reformationstag": "Gedenken an den Beginn der Reformation",
+      "allerheiligen": "Gedenken an alle Heiligen",
+      "buss_und_bettag": "Evangelischer Buß- und Bettag",
+      "erster_weihnachtsfeiertag": "Christfest, Geburt Jesu Christi",
+      "zweiter_weihnachtsfeiertag": "Stephanstag, zweiter Weihnachtsfeiertag"
+    },
+    "status": {
+      "past": "Vergangen",
+      "today": "Heute",
+      "upcoming": "Kommend",
+      "thisWeek": "Diese Woche",
+      "thisMonth": "Diesen Monat",
+      "nextMonth": "Nächsten Monat",
+      "thisYear": "Dieses Jahr"
+    }
+  },
+
+  "states": {
+    "label": "Bundesland auswählen",
+    "placeholder": "Bitte wählen Sie Ihr Bundesland",
+    "searchPlaceholder": "Bundesland suchen...",
+    "noResults": "Keine Ergebnisse gefunden",
+    "loading": "Lade Bundesländer...",
+    "error": "Fehler beim Laden der Bundesländer",
+    "required": "Bundesland ist erforderlich",
+    "clear": "Auswahl löschen",
+    "expand": "Optionen anzeigen",
+    "collapse": "Optionen ausblenden",
+    "selected": "ausgewählt",
+    "resultsFound": "Ergebnisse gefunden",
+    "sortBy": "Sortieren nach",
+    "sortOptions": {
+      "alphabetical": "Alphabetisch",
+      "population": "Einwohnerzahl",
+      "religious": "Religiöse Mehrheit"
+    },
+    "religionIndicator": {
+      "catholic": "Katholische Mehrheit",
+      "protestant": "Protestantische Mehrheit",
+      "secular": "Säkular",
+      "mixed": "Gemischt"
+    },
+    "cityState": "Stadtstaat",
+    "populationLabel": "Einwohner",
+    "capitalLabel": "Hauptstadt",
+    "names": {
+      "BW": "Baden-Württemberg",
+      "BY": "Bayern",
+      "BE": "Berlin",
+      "BB": "Brandenburg",
+      "HB": "Bremen",
+      "HH": "Hamburg",
+      "HE": "Hessen",
+      "MV": "Mecklenburg-Vorpommern",
+      "NI": "Niedersachsen",
+      "NW": "Nordrhein-Westfalen",
+      "RP": "Rheinland-Pfalz",
+      "SL": "Saarland",
+      "SN": "Sachsen",
+      "ST": "Sachsen-Anhalt",
+      "SH": "Schleswig-Holstein",
+      "TH": "Thüringen"
+    },
+    "descriptions": {
+      "BW": "Südwestdeutsches Bundesland mit Stuttgart als Hauptstadt",
+      "BY": "Größtes deutsches Bundesland mit München als Hauptstadt",
+      "BE": "Hauptstadt und Stadtstaat Deutschlands",
+      "BB": "Bundesland um Berlin mit Potsdam als Hauptstadt",
+      "HB": "Stadtstaat im Nordwesten mit Bremen als Hauptstadt",
+      "HH": "Stadtstaat und Hansestadt im Norden",
+      "HE": "Zentrales Bundesland mit Wiesbaden als Hauptstadt",
+      "MV": "Nordostdeutsches Bundesland mit Schwerin als Hauptstadt",
+      "NI": "Nordwestdeutsches Bundesland mit Hannover als Hauptstadt",
+      "NW": "Bevölkerungsreichstes Bundesland mit Düsseldorf als Hauptstadt",
+      "RP": "Westdeutsches Bundesland mit Mainz als Hauptstadt",
+      "SL": "Kleinstes Flächenbundesland mit Saarbrücken als Hauptstadt",
+      "SN": "Ostdeutsches Bundesland mit Dresden als Hauptstadt",
+      "ST": "Mitteldeutsches Bundesland mit Magdeburg als Hauptstadt",
+      "SH": "Nördlichstes Bundesland mit Kiel als Hauptstadt",
+      "TH": "Mitteldeutsches Bundesland mit Erfurt als Hauptstadt"
+    }
+  },
+
+  "calendar": {
+    "title": "Ferienkalender",
+    "subtitle": "Feiertage und Brückentage im Überblick",
+    "monthView": "Monatsansicht",
+    "yearView": "Jahresansicht",
+    "listView": "Listenansicht",
+    "previousMonth": "Vorheriger Monat",
+    "nextMonth": "Nächster Monat",
+    "previousYear": "Vorheriges Jahr",
+    "nextYear": "Nächstes Jahr",
+    "today": "Heute",
+    "goToToday": "Zu heute springen",
+    "selectDate": "Datum auswählen",
+    "weekdays": {
+      "monday": "Montag",
+      "tuesday": "Dienstag",
+      "wednesday": "Mittwoch",
+      "thursday": "Donnerstag",
+      "friday": "Freitag",
+      "saturday": "Samstag",
+      "sunday": "Sonntag"
+    },
+    "weekdaysShort": {
+      "monday": "Mo",
+      "tuesday": "Di",
+      "wednesday": "Mi",
+      "thursday": "Do",
+      "friday": "Fr",
+      "saturday": "Sa",
+      "sunday": "So"
+    },
+    "months": {
+      "january": "Januar",
+      "february": "Februar",
+      "march": "März",
+      "april": "April",
+      "may": "Mai",
+      "june": "Juni",
+      "july": "Juli",
+      "august": "August",
+      "september": "September",
+      "october": "Oktober",
+      "november": "November",
+      "december": "Dezember"
+    },
+    "quarters": {
+      "q1": "1. Quartal",
+      "q2": "2. Quartal",
+      "q3": "3. Quartal",
+      "q4": "4. Quartal"
+    }
+  },
+
+  "vacation": {
+    "title": "Urlaubsplanung",
+    "subtitle": "Strategische Brückentag-Optimierung",
+    "budget": {
+      "title": "Urlaubsbudget",
+      "available": "Verfügbare Tage",
+      "used": "Verwendete Tage",
+      "remaining": "Verbleibende Tage",
+      "percentage": "Prozentsatz",
+      "legalMinimum": "Gesetzliches Minimum: 20 Tage",
+      "germanStandard": "Deutscher Standard: 20-50 Tage",
+      "recommendation": "Empfehlung: Reserve von 20% für spontane Pläne"
+    },
+    "planning": {
+      "title": "Planungsassistent",
+      "step1": "Schritt 1: Bundesland auswählen",
+      "step2": "Schritt 2: Urlaubsbudget festlegen",
+      "step3": "Schritt 3: Brückentage auswählen",
+      "step4": "Schritt 4: E-Mail-Zustellung konfigurieren",
+      "complete": "Planung abschließen"
+    },
+    "optimization": {
+      "title": "Optimierungsvorschläge",
+      "efficiency": "Effizienz optimieren",
+      "costSavings": "Kosteneinsparungen",
+      "seasonalTips": "Saisonale Hinweise",
+      "workloadConsideration": "Arbeitsbelastung berücksichtigen"
+    }
+  },
+
+  "bridgeWeekends": {
+    "title": "Brückenwochenenden",
+    "subtitle": "Maximale Effizienz durch strategische Urlaubstage",
+    "card": {
+      "vacationDays": "Urlaubstage",
+      "totalDays": "Freie Tage gesamt",
+      "efficiency": "Effizienz",
+      "pattern": "Muster",
+      "holiday": "Feiertag",
+      "dates": "Zeitraum",
+      "selected": "Ausgewählt",
+      "select": "Auswählen",
+      "deselect": "Abwählen",
+      "details": "Details anzeigen",
+      "hideDetails": "Details ausblenden"
+    },
+    "patterns": {
+      "thursday-friday": "Donnerstag-Freitag Brücke",
+      "monday-tuesday": "Montag-Dienstag Brücke",
+      "tuesday-friday": "Dienstag-Freitag Brücke",
+      "sandwich": "Sandwich-Brücke",
+      "extend-weekend": "Wochenend-Verlängerung"
+    },
+    "patternDescriptions": {
+      "thursday-friday": "Optimal für kurze Erholung mit maximalem Wochenend-Gefühl",
+      "monday-tuesday": "Idealer Start in entspannte Woche ohne Montags-Blues",
+      "tuesday-friday": "Maximale Urlaubstage für eine komplette Woche Erholung",
+      "sandwich": "Feiertag zwischen zwei Wochenenden optimal nutzen",
+      "extend-weekend": "Kurze Verlängerung für maximale Entspannung"
+    },
+    "efficiency": {
+      "excellent": "Exzellent",
+      "veryGood": "Sehr gut",
+      "good": "Gut",
+      "standard": "Standard",
+      "excellentDesc": "Maximaler Urlaubswert - beste Investition Ihrer Urlaubstage",
+      "veryGoodDesc": "Hoher Urlaubswert - sehr lohnende Nutzung",
+      "goodDesc": "Solider Urlaubswert - gute Balance",
+      "standardDesc": "Grundlegender Urlaubswert - machbar aber nicht optimal"
+    },
+    "sorting": {
+      "label": "Sortieren nach",
+      "efficiency": "Effizienz",
+      "vacationDays": "Urlaubstage",
+      "totalDays": "Gesamte Tage",
+      "startDate": "Startdatum",
+      "endDate": "Enddatum"
+    },
+    "filtering": {
+      "label": "Filter",
+      "allPatterns": "Alle Muster",
+      "maxVacationDays": "Max. Urlaubstage",
+      "minEfficiency": "Min. Effizienz",
+      "quarter": "Quartal",
+      "month": "Monat",
+      "season": "Saison"
+    },
+    "seasons": {
+      "spring": "Frühling",
+      "summer": "Sommer",
+      "autumn": "Herbst",
+      "winter": "Winter"
+    },
+    "empty": {
+      "title": "Keine Brückenwochenenden verfügbar",
+      "message": "Für Ihr ausgewähltes Bundesland wurden keine Brückenwochenenden gefunden.",
+      "selectState": "Bitte wählen Sie zunächst Ihr Bundesland aus."
+    },
+    "loading": {
+      "title": "Lade Brückenwochenenden...",
+      "message": "Berechne optimale Brückentage für Ihr Bundesland."
+    },
+    "error": {
+      "title": "Fehler beim Laden",
+      "message": "Die Brückenwochenenden konnten nicht geladen werden.",
+      "retry": "Erneut versuchen"
+    }
+  },
+
+  "form": {
+    "validation": {
+      "required": "Dieses Feld ist erforderlich",
+      "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "minLength": "Mindestens {min} Zeichen erforderlich",
+      "maxLength": "Maximal {max} Zeichen erlaubt",
+      "pattern": "Format entspricht nicht den Anforderungen",
+      "number": "Bitte geben Sie eine gültige Zahl ein",
+      "min": "Mindestens {min} erforderlich",
+      "max": "Maximal {max} erlaubt",
+      "integer": "Bitte geben Sie eine ganze Zahl ein",
+      "positive": "Wert muss positiv sein",
+      "url": "Bitte geben Sie eine gültige URL ein",
+      "date": "Bitte geben Sie ein gültiges Datum ein",
+      "phone": "Bitte geben Sie eine gültige Telefonnummer ein"
+    },
+    "labels": {
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail-Adresse",
+      "phone": "Telefonnummer",
+      "company": "Unternehmen",
+      "position": "Position",
+      "message": "Nachricht",
+      "subject": "Betreff",
+      "state": "Bundesland",
+      "vacationDays": "Urlaubstage",
+      "language": "Sprache",
+      "timezone": "Zeitzone",
+      "format": "Format"
+    },
+    "placeholders": {
+      "firstName": "Ihr Vorname",
+      "lastName": "Ihr Nachname",
+      "email": "ihre.email@beispiel.de",
+      "phone": "+49 30 12345678",
+      "company": "Ihr Unternehmen",
+      "position": "Ihre Position",
+      "message": "Ihre Nachricht...",
+      "subject": "Betreff Ihrer Nachricht",
+      "search": "Suchen...",
+      "filter": "Filtern..."
+    },
+    "hints": {
+      "email": "Wir verwenden Ihre E-Mail-Adresse nur für die Kalender-Zustellung",
+      "phone": "Nur erforderlich, falls Rückfragen bestehen",
+      "vacationDays": "Gesetzlicher Mindestanspruch: 20 Tage pro Jahr",
+      "privacy": "Ihre Daten werden gemäß DSGVO verarbeitet"
+    }
+  },
+
+  "gdpr": {
+    "title": "Datenschutz und Einverständniserklärung",
+    "subtitle": "Ihre Daten werden gemäß DSGVO verarbeitet",
+    "required": "Erforderlich für den Service",
+    "optional": "Optional für bessere Erfahrung",
+    "detailsShow": "Details anzeigen",
+    "detailsHide": "Details ausblenden",
+    "consent": {
+      "vacationPlanning": "Urlaubsplanung und Kalenderbearbeitung",
+      "vacationPlanningDesc": "Verarbeitung Ihrer Daten zur Erstellung Ihres personalisierten Urlaubskalenders",
+      "emailDelivery": "E-Mail-Zustellung Ihres Kalenders",
+      "emailDeliveryDesc": "Versendung Ihres Urlaubskalenders an die angegebene E-Mail-Adresse",
+      "analyticsAnonymous": "Anonyme Nutzungsstatistiken",
+      "analyticsAnonymousDesc": "Erfassung anonymer Daten zur Verbesserung unseres Services (keine Personendaten)",
+      "serviceImprovement": "Serviceverbesserung",
+      "serviceImprovementDesc": "Verwendung Ihrer Daten zur Optimierung und Weiterentwicklung unserer Services",
+      "marketingTimebutler": "TimeButler Produktinformationen",
+      "marketingTimebutlerDesc": "Gelegentliche Informationen über TimeButler's Zeiterfassungslösungen (abbestellbar)"
+    },
+    "legalBasis": {
+      "title": "Rechtsgrundlage",
+      "consent": "Einwilligung (Art. 6 Abs. 1 lit. a DSGVO)",
+      "contract": "Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO)",
+      "legitimateInterest": "Berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO)"
+    },
+    "dataRetention": {
+      "title": "Datenspeicherung",
+      "period": "90 Tage nach Erstellung",
+      "automaticDeletion": "Automatische Löschung nach Ablauf",
+      "manualDeletion": "Manuelle Löschung jederzeit möglich"
+    },
+    "rights": {
+      "title": "Ihre Rechte",
+      "access": "Auskunft über Ihre Daten (Art. 15 DSGVO)",
+      "rectification": "Berichtigung Ihrer Daten (Art. 16 DSGVO)",
+      "erasure": "Löschung Ihrer Daten (Art. 17 DSGVO)",
+      "portability": "Datenübertragbarkeit (Art. 20 DSGVO)",
+      "objection": "Widerspruch gegen Verarbeitung (Art. 21 DSGVO)",
+      "withdrawConsent": "Widerruf der Einwilligung jederzeit möglich"
+    },
+    "withdrawal": {
+      "title": "Widerruf der Einwilligung",
+      "method": "Per E-Mail-Link oder über unsere Website",
+      "effect": "Zukünftige Datenverarbeitung wird eingestellt",
+      "contact": "Kontakt: datenschutz@timebutler.de"
+    },
+    "controller": {
+      "title": "Verantwortlicher",
+      "company": "TimeButler GmbH",
+      "address": "Musterstraße 123, 12345 Berlin, Deutschland",
+      "email": "datenschutz@timebutler.de",
+      "phone": "+49 30 12345678",
+      "representative": "Datenschutzbeauftragter"
+    },
+    "errors": {
+      "required": "Erforderliche Einverständniserklärungen fehlen",
+      "invalid": "Ungültige Einverständniserklärung",
+      "expired": "Einverständniserklärung ist abgelaufen"
+    }
+  },
+
+  "email": {
+    "title": "E-Mail-Zustellung",
+    "subtitle": "Ihr personalisierter Urlaubskalender per E-Mail",
+    "delivery": {
+      "title": "Zustellung konfigurieren",
+      "format": "Kalenderformat",
+      "formats": {
+        "ics": "Standard iCalendar (.ics)",
+        "outlook": "Microsoft Outlook",
+        "google": "Google Calendar",
+        "apple": "Apple Calendar"
+      },
+      "language": "E-Mail-Sprache",
+      "template": "E-Mail-Vorlage",
+      "templates": {
+        "professional": "Professionell",
+        "personal": "Persönlich",
+        "minimal": "Minimal"
+      }
+    },
+    "validation": {
+      "checking": "E-Mail-Adresse wird überprüft...",
+      "valid": "Gültige E-Mail-Adresse",
+      "invalid": "Ungültige E-Mail-Adresse",
+      "domainCheck": "Domain-Prüfung",
+      "suggestions": "Meinten Sie {suggestion}?"
+    },
+    "status": {
+      "queued": "In Warteschlange",
+      "sending": "Wird versendet...",
+      "sent": "Versendet",
+      "delivered": "Zugestellt",
+      "bounced": "Unzustellbar",
+      "failed": "Fehlgeschlagen",
+      "retry": "Erneut versuchen"
+    },
+    "templates": {
+      "subject": {
+        "calendar": "Ihr TimeButler Urlaubskalender für {year}",
+        "reminder": "Erinnerung: Ihr Urlaubsplan für {period}",
+        "update": "Aktualisierter Urlaubskalender"
+      },
+      "greeting": {
+        "formal": "Sehr geehrte Damen und Herren,",
+        "personal": "Liebe/r {name},"
+      },
+      "signature": "Mit freundlichen Grüßen\nIhr TimeButler Team"
+    }
+  },
+
+  "accessibility": {
+    "skipToContent": "Zum Hauptinhalt springen",
+    "skipToNavigation": "Zur Navigation springen",
+    "skipToForm": "Zum Formular springen",
+    "mainContent": "Hauptinhalt",
+    "navigation": "Navigation",
+    "sidebar": "Seitenleiste",
+    "footer": "Fußbereich",
+    "breadcrumb": "Breadcrumb-Navigation",
+    "pagination": "Seitennummerierung",
+    "instructions": "Verwenden Sie die Tab-Taste zur Navigation und Enter zum Auswählen",
+    "keyboardShortcuts": "Tastenkürzel: Alt+S für Senden, Alt+R für Zurücksetzen",
+    "screenReaderOptimized": "Optimiert für Screenreader",
+    "highContrast": "Hoher Kontrast verfügbar",
+    "textSize": "Textgröße ändern",
+    "zoomIn": "Vergrößern",
+    "zoomOut": "Verkleinern",
+    "resetZoom": "Zoom zurücksetzen",
+    "regions": {
+      "form": "Urlaubsplanungsformular",
+      "validation": "Budgetvalidierung",
+      "bridges": "Brückenwochenenden-Auswahl",
+      "gdpr": "Datenschutz-Einstellungen",
+      "calendar": "Ferienkalender",
+      "results": "Suchergebnisse"
+    },
+    "status": {
+      "loading": "Inhalt wird geladen",
+      "error": "Fehler aufgetreten",
+      "success": "Aktion erfolgreich",
+      "selected": "Ausgewählt",
+      "expanded": "Erweitert",
+      "collapsed": "Eingeklappt",
+      "disabled": "Deaktiviert",
+      "required": "Pflichtfeld"
+    },
+    "actions": {
+      "clickToSelect": "Klicken zum Auswählen",
+      "clickForDetails": "Klicken für Details",
+      "pressEnterToActivate": "Enter drücken zum Aktivieren",
+      "useArrowKeys": "Pfeiltasten zur Navigation verwenden",
+      "escapeToClose": "Escape zum Schließen drücken"
+    }
+  },
+
+  "errors": {
+    "general": "Ein Fehler ist aufgetreten",
+    "network": "Netzwerkfehler - Bitte überprüfen Sie Ihre Internetverbindung",
+    "server": "Serverfehler - Bitte versuchen Sie es später erneut",
+    "validation": "Validierungsfehler - Bitte überprüfen Sie Ihre Eingaben",
+    "timeout": "Zeitüberschreitung - Der Vorgang dauerte zu lange",
+    "forbidden": "Zugriff verweigert",
+    "unauthorized": "Nicht autorisiert",
+    "notFound": "Ressource nicht gefunden",
+    "conflict": "Datenkonflikt aufgetreten",
+    "tooManyRequests": "Zu viele Anfragen - Bitte warten Sie einen Moment",
+    "serviceUnavailable": "Service temporär nicht verfügbar",
+    "badRequest": "Ungültige Anfrage",
+    "internalError": "Interner Serverfehler",
+    "maintenance": "Wartungsarbeiten - Service temporär nicht verfügbar",
+    "retry": "Erneut versuchen",
+    "reportIssue": "Problem melden",
+    "contactSupport": "Support kontaktieren"
+  },
+
+  "success": {
+    "title": "Urlaubsplan erfolgreich erstellt!",
+    "message": "Ihr personalisierter Urlaubskalender wurde erstellt und wird per E-Mail an Sie gesendet.",
+    "emailSent": "E-Mail wurde versendet",
+    "checkInbox": "Bitte überprüfen Sie Ihr E-Mail-Postfach (auch den Spam-Ordner)",
+    "downloadReady": "Kalender steht zum Download bereit",
+    "planAnother": "Weiteren Plan erstellen",
+    "saved": "Erfolgreich gespeichert",
+    "updated": "Erfolgreich aktualisiert",
+    "deleted": "Erfolgreich gelöscht",
+    "sent": "Erfolgreich gesendet",
+    "subscribed": "Erfolgreich abonniert",
+    "unsubscribed": "Erfolgreich abgemeldet"
+  },
+
+  "tips": {
+    "title": "Praktische Hinweise",
+    "efficiency": "Höhere Effizienz bedeutet mehr freie Tage pro eingesetztem Urlaubstag",
+    "budgetPlanning": "Planen Sie etwa 20% Ihres Urlaubsbudgets für spontane Gelegenheiten",
+    "seasonalCosts": "Reisekosten sind während Brückenzeiten oft höher",
+    "weatherConsideration": "Berücksichtigen Sie das typische Wetter für Ihre geplanten Zeiten",
+    "workloadPlanning": "Informieren Sie Ihr Team frühzeitig über geplante Abwesenheiten",
+    "flexibilityReserve": "Halten Sie einige Urlaubstage für unvorhergesehene Ereignisse frei",
+    "earlyBooking": "Buchen Sie Reisen frühzeitig für bessere Preise und Verfügbarkeit",
+    "teamCoordination": "Koordinieren Sie Urlaubszeiten mit Ihren Kollegen",
+    "documentBackup": "Dokumentieren Sie wichtige Aufgaben vor Ihrem Urlaub",
+    "autoResponder": "Richten Sie eine Abwesenheitsnotiz ein",
+    "emergencyContact": "Hinterlassen Sie Notfallkontakte für dringende Angelegenheiten"
+  },
+
+  "branding": {
+    "poweredBy": "Powered by TimeButler - Professionelle Zeiterfassung",
+    "tagline": "Optimieren Sie Ihre Arbeitszeit-Planung",
+    "learnMore": "Mehr über TimeButler erfahren",
+    "website": "https://timebutler.de",
+    "promotion": "Entdecken Sie TimeButler's umfassende Zeiterfassungslösungen für Ihr Unternehmen",
+    "features": {
+      "timeTracking": "Präzise Zeiterfassung",
+      "projectManagement": "Projektmanagement",
+      "reporting": "Detaillierte Berichte",
+      "integration": "System-Integration",
+      "compliance": "DSGVO-Konformität"
+    },
+    "callToAction": {
+      "freeTrial": "Kostenlos testen",
+      "getDemo": "Demo anfordern",
+      "learnMore": "Mehr erfahren",
+      "contact": "Kontakt aufnehmen"
+    }
+  },
+
+  "accessibility": {
+    "labels": {
+      "skipToContent": "Zum Hauptinhalt springen",
+      "skipToNavigation": "Zur Navigation springen",
+      "skipToFooter": "Zum Footer springen",
+      "mainNavigation": "Hauptnavigation",
+      "breadcrumbNavigation": "Brotkrümel-Navigation",
+      "pagination": "Seitennavigation",
+      "searchForm": "Suchformular",
+      "languageSelector": "Sprachauswahl",
+      "menuToggle": "Menü umschalten",
+      "closeDialog": "Dialog schließen",
+      "openDialog": "Dialog öffnen",
+      "loading": "Lädt",
+      "error": "Fehler",
+      "success": "Erfolgreich",
+      "warning": "Warnung",
+      "info": "Information",
+      "required": "Pflichtfeld",
+      "optional": "Optional",
+      "expand": "Erweitern",
+      "collapse": "Einklappen",
+      "sortAscending": "Aufsteigend sortieren",
+      "sortDescending": "Absteigend sortieren",
+      "filterResults": "Ergebnisse filtern",
+      "clearFilter": "Filter zurücksetzen",
+      "selectDate": "Datum auswählen",
+      "previousMonth": "Vorheriger Monat",
+      "nextMonth": "Nächster Monat",
+      "currentDate": "Heutiges Datum",
+      "calendarNavigation": "Kalender-Navigation",
+      "dataTable": "Datentabelle",
+      "rowHeader": "Zeilenkopf",
+      "columnHeader": "Spaltenkopf",
+      "tableCaption": "Tabellenbeschreibung"
+    },
+    "descriptions": {
+      "holidayCalendar": "Interaktiver Kalender zeigt deutsche Feiertage und Brückentage für optimale Urlaubsplanung",
+      "bridgeWeekendCard": "Karte zeigt Details zu Brückenwochenenden mit benötigten Urlaubstagen und Effizienz",
+      "vacationPlanForm": "Formular zur Erstellung und Verwaltung von Urlaubsplänen mit Brückentagoptimierung",
+      "stateSelector": "Auswahl des deutschen Bundeslandes für korrekte Feiertagsanzeige",
+      "emailForm": "Formular zum Versenden des Urlaubsplans per E-Mail",
+      "languageToggle": "Umschalten zwischen deutscher und englischer Sprache",
+      "bridgeWeekendList": "Liste aller verfügbaren Brückenwochenenden sortiert nach Effizienz",
+      "vacationDaysBudget": "Eingabe des verfügbaren Urlaubstage-Budgets für das Jahr",
+      "holidayDetails": "Detailinformationen zu Feiertagen und regionalen Unterschieden",
+      "exportOptions": "Optionen zum Exportieren der Urlaubsplanung in verschiedene Kalenderformate"
+    },
+    "instructions": {
+      "keyboardNavigation": "Verwenden Sie die Pfeiltasten zur Navigation, Enter zum Auswählen, Escape zum Schließen",
+      "formNavigation": "Verwenden Sie Tab zum Navigieren zwischen Feldern, Enter zum Absenden",
+      "calendarNavigation": "Verwenden Sie Pfeiltasten zur Datumsnavigation, Home/End für Monatsanfang/-ende",
+      "listNavigation": "Verwenden Sie Pfeiltasten zur Navigation in Listen, Enter zur Auswahl",
+      "dialogNavigation": "Der Fokus ist im Dialog gefangen. Verwenden Sie Escape zum Schließen",
+      "tableNavigation": "Verwenden Sie Pfeiltasten zur Navigation in Tabellen, Tab zum Verlassen",
+      "menuNavigation": "Verwenden Sie Pfeiltasten für die Menünavigation, Enter zur Auswahl",
+      "searchNavigation": "Eingabe startet automatische Suche, Pfeiltasten für Vorschläge"
+    },
+    "announcements": {
+      "pageLoaded": "Seite geladen. TimeButler Urlaubsplaner bereit zur Verwendung",
+      "formSubmitted": "Formular erfolgreich übermittelt",
+      "dataLoaded": "Daten erfolgreich geladen",
+      "error": "Fehler aufgetreten. Bitte versuchen Sie es erneut",
+      "navigationChanged": "Navigation geändert zu",
+      "selectionChanged": "Auswahl geändert",
+      "filterApplied": "Filter angewendet",
+      "sortChanged": "Sortierung geändert",
+      "languageChanged": "Sprache geändert zu Deutsch",
+      "dialogOpened": "Dialog geöffnet",
+      "dialogClosed": "Dialog geschlossen",
+      "menuOpened": "Menü geöffnet",
+      "menuClosed": "Menü geschlossen",
+      "loadingStarted": "Ladevorgang gestartet",
+      "loadingCompleted": "Ladevorgang abgeschlossen"
+    },
+    "errors": {
+      "formValidation": "Formular enthält Fehler. Bitte überprüfen Sie Ihre Eingaben",
+      "networkError": "Netzwerkfehler. Bitte überprüfen Sie Ihre Internetverbindung",
+      "serverError": "Serverfehler. Bitte versuchen Sie es später erneut",
+      "dataLoadError": "Fehler beim Laden der Daten",
+      "invalidInput": "Ungültige Eingabe",
+      "requiredField": "Dieses Feld ist erforderlich",
+      "invalidEmail": "Ungültige E-Mail-Adresse",
+      "invalidDate": "Ungültiges Datum",
+      "accessibilityError": "Barrierefreiheitsfehler erkannt"
+    },
+    "success": {
+      "dataSaved": "Daten erfolgreich gespeichert",
+      "emailSent": "E-Mail erfolgreich versendet",
+      "calendarExported": "Kalender erfolgreich exportiert",
+      "settingsSaved": "Einstellungen gespeichert",
+      "actionCompleted": "Aktion erfolgreich abgeschlossen"
+    }
+  },
+
+  "footer": {
+    "company": "TimeButler GmbH",
+    "address": "Musterstraße 123, 12345 Berlin",
+    "links": {
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "imprint": "Impressum",
+      "contact": "Kontakt",
+      "support": "Support",
+      "about": "Über uns"
+    },
+    "social": {
+      "linkedin": "LinkedIn",
+      "xing": "XING",
+      "twitter": "Twitter",
+      "facebook": "Facebook"
+    },
+    "copyright": "© {year} TimeButler GmbH. Alle Rechte vorbehalten.",
+    "madeInGermany": "Made in Germany"
+  },
+
+  "loading": {
+    "form": "Formular wird geladen...",
+    "bridges": "Brückenwochenenden werden berechnet...",
+    "validation": "Eingaben werden validiert...",
+    "submission": "Urlaubsplan wird erstellt...",
+    "calendar": "Kalender wird geladen...",
+    "holidays": "Feiertage werden geladen...",
+    "states": "Bundesländer werden geladen...",
+    "email": "E-Mail wird versendet...",
+    "general": "Lädt...",
+    "pleaseWait": "Bitte warten...",
+    "processing": "Wird verarbeitet..."
+  },
+
+  "legal": {
+    "dsgvo": "DSGVO",
+    "gdpr": "GDPR",
+    "privacy": "Datenschutz",
+    "terms": "Allgemeine Geschäftsbedingungen",
+    "imprint": "Impressum",
+    "liability": "Haftung",
+    "disclaimer": "Haftungsausschluss",
+    "copyright": "Urheberrecht",
+    "dataProtection": "Datenschutz",
+    "cookiePolicy": "Cookie-Richtlinie",
+    "rightToWithdraw": "Widerrufsrecht",
+    "dataController": "Datenverantwortlicher",
+    "dataProcessor": "Auftragsverarbeiter",
+    "supervisoryAuthority": "Aufsichtsbehörde"
+  },
+
+  "formats": {
+    "date": {
+      "short": "DD.MM.YYYY",
+      "long": "dddd, DD. MMMM YYYY",
+      "month": "MMMM YYYY",
+      "year": "YYYY"
+    },
+    "time": {
+      "short": "HH:mm",
+      "long": "HH:mm:ss"
+    },
+    "currency": {
+      "symbol": "€",
+      "format": "{amount} €",
+      "decimal": ",",
+      "thousand": "."
+    },
+    "number": {
+      "decimal": ",",
+      "thousand": "."
+    }
+  },
+
+  "timeTracking": {
+    "title": "Zeiterfassung",
+    "subtitle": "Professionelle Zeiterfassung mit TimeButler",
+    "benefits": {
+      "accuracy": "Präzise Zeiterfassung auf die Sekunde",
+      "compliance": "DSGVO-konforme Datenverarbeitung",
+      "integration": "Nahtlose Integration in bestehende Systeme",
+      "reporting": "Umfassende Auswertungen und Berichte",
+      "mobile": "Mobile Zeiterfassung für unterwegs",
+      "automated": "Automatisierte Workflows und Prozesse"
+    },
+    "features": {
+      "projectTime": "Projekt-Zeiterfassung",
+      "absenceManagement": "Abwesenheitsmanagement",
+      "overtimeTracking": "Überstunden-Tracking",
+      "teamCollaboration": "Team-Zusammenarbeit",
+      "customReports": "Individuelle Berichte",
+      "apiIntegration": "API-Integration"
+    }
+  },
+
+  "confirmation": {
+    "pageTitle": "E-Mail erfolgreich versendet",
+    "pageDescription": "Ihr Urlaubskalender wurde erfolgreich per E-Mail versendet",
+    "title": "Ihr Urlaubskalender wurde versendet!",
+    "subtitle": "Prüfen Sie Ihr E-Mail-Postfach für Ihren personalisierten Urlaubskalender",
+    "statusMessages": {
+      "sent": "E-Mail erfolgreich zugestellt",
+      "pending": "E-Mail wird verarbeitet",
+      "failed": "E-Mail-Zustellung fehlgeschlagen"
+    },
+    "emailSentTo": "E-Mail gesendet an:",
+    "planReference": "Plan-Referenz:",
+    "checkInboxTitle": "Nächste Schritte",
+    "checkInboxItems": [
+      "Überprüfen Sie Ihr E-Mail-Postfach (inklusive Spam-Ordner)",
+      "Öffnen Sie die E-Mail von TimeButler",
+      "Laden Sie Ihren Urlaubskalender herunter",
+      "Importieren Sie den Kalender in Ihre bevorzugte Kalender-App"
+    ],
+    "downloadTitle": "Direkter Download",
+    "downloadDescription": "Sie können Ihren Kalender auch direkt herunterladen:",
+    "downloadButton": "Kalender herunterladen",
+    "downloadExpiry": "Download-Link gültig bis: {date}",
+    "downloading": "Wird heruntergeladen...",
+    "brandingTitle": "Über TimeButler",
+    "brandingText": "TimeButler ist Ihr Partner für professionelle Zeiterfassung und Arbeitszeitmanagement. Entdecken Sie unsere Lösungen für effizientere Arbeitsabläufe.",
+    "brandingCta": "Mehr erfahren",
+    "secondaryActionsTitle": "Weitere Optionen",
+    "createNewPlan": "Neuen Urlaubsplan erstellen",
+    "contactSupport": "Support kontaktieren",
+    "backToPlanner": "Zurück zum Planer",
+    "accessibility": {
+      "successIcon": "Erfolgssymbol",
+      "downloadIcon": "Download-Symbol",
+      "calendarIcon": "Kalender-Symbol",
+      "emailIcon": "E-Mail-Symbol",
+      "languageToggle": "Sprache wechseln",
+      "skipToContent": "Zum Hauptinhalt springen",
+      "brandLogo": "TimeButler Logo"
+    },
+    "errors": {
+      "downloadFailed": "Download fehlgeschlagen. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support."
+    }
+  }
+}

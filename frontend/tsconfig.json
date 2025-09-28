@@ -1,0 +1,118 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2020",
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "preserve",
+
+    /* Modules */
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
+      "@/pages/*": ["./pages/*"],
+      "@/services/*": ["./services/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/i18n/*": ["./i18n/*"],
+      "@/types/*": ["./types/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/constants/*": ["./constants/*"]
+    },
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+
+    /* Emit */
+    "declaration": false,
+    "noEmit": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "inlineSources": false,
+
+    /* Interop Constraints */
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": false,
+
+    /* Type Checking - Constitutional Performance & Quality Requirements */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+
+    /* Performance Optimizations - Constitutional <2s load time requirement */
+    "incremental": true,
+    "tsBuildInfoFile": "./.next/.tsbuildinfo",
+    "skipLibCheck": true,
+
+    /* Next.js Specific */
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
+    /* German Market & Accessibility Support */
+    "moduleDetection": "force"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/**/*",
+    "pages/**/*",
+    "components/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out",
+    "dist",
+    "tests/e2e/**/*",
+    "*.config.js",
+    "*.config.ts",
+    "coverage",
+    ".eslintrc.js",
+    "playwright.config.ts",
+    "lighthouse-report.json",
+    "bundle-analyzer-report.html"
+  ],
+  "ts-node": {
+    "esm": false,
+    "experimentalSpecifierResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
+      "@/pages/*": ["./pages/*"],
+      "@/services/*": ["./services/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/i18n/*": ["./i18n/*"],
+      "@/types/*": ["./types/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/constants/*": ["./constants/*"]
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "label": "Bundesland auswählen",
+  "placeholder": "Bitte wählen Sie Ihr Bundesland",
+  "searchPlaceholder": "Bundesland suchen...",
+  "noResults": "Keine Ergebnisse gefunden",
+  "loading": "Lade Bundesländer...",
+  "error": "Fehler beim Laden der Bundesländer",
+  "required": "Bundesland ist erforderlich",
+  "clear": "Auswahl löschen",
+  "expand": "Optionen anzeigen",
+  "collapse": "Optionen ausblenden",
+  "selected": "ausgewählt",
+  "resultsFound": "Ergebnisse gefunden",
+  "sortBy": "Sortieren nach",
+  "sortOptions": {
+    "alphabetical": "Alphabetisch",
+    "population": "Einwohnerzahl",
+    "religious": "Religiöse Mehrheit"
+  },
+  "religionIndicator": {
+    "catholic": "Katholische Mehrheit",
+    "protestant": "Protestantische Mehrheit",
+    "secular": "Säkular",
+    "mixed": "Gemischt"
+  },
+  "cityState": "Stadtstaat",
+  "populationLabel": "Einwohner",
+  "capitalLabel": "Hauptstadt",
+  "states": {
+    "BW": {
+      "name": "Baden-Württemberg",
+      "description": "Südwestdeutsches Bundesland mit Stuttgart als Hauptstadt"
+    },
+    "BY": {
+      "name": "Bayern",
+      "description": "Größtes deutsches Bundesland mit München als Hauptstadt"
+    },
+    "BE": {
+      "name": "Berlin",
+      "description": "Hauptstadt und Stadtstaat Deutschlands"
+    },
+    "BB": {
+      "name": "Brandenburg",
+      "description": "Bundesland um Berlin mit Potsdam als Hauptstadt"
+    },
+    "HB": {
+      "name": "Bremen",
+      "description": "Stadtstaat im Nordwesten mit Bremen als Hauptstadt"
+    },
+    "HH": {
+      "name": "Hamburg",
+      "description": "Stadtstaat und Hansestadt im Norden"
+    },
+    "HE": {
+      "name": "Hessen",
+      "description": "Zentrales Bundesland mit Wiesbaden als Hauptstadt"
+    },
+    "MV": {
+      "name": "Mecklenburg-Vorpommern",
+      "description": "Nordostdeutsches Bundesland mit Schwerin als Hauptstadt"
+    },
+    "NI": {
+      "name": "Niedersachsen",
+      "description": "Nordwestdeutsches Bundesland mit Hannover als Hauptstadt"
+    },
+    "NW": {
+      "name": "Nordrhein-Westfalen",
+      "description": "Bevölkerungsreichstes Bundesland mit Düsseldorf als Hauptstadt"
+    },
+    "RP": {
+      "name": "Rheinland-Pfalz",
+      "description": "Westdeutsches Bundesland mit Mainz als Hauptstadt"
+    },
+    "SL": {
+      "name": "Saarland",
+      "description": "Kleinstes Flächenbundesland mit Saarbrücken als Hauptstadt"
+    },
+    "SN": {
+      "name": "Sachsen",
+      "description": "Ostdeutsches Bundesland mit Dresden als Hauptstadt"
+    },
+    "ST": {
+      "name": "Sachsen-Anhalt",
+      "description": "Mitteldeutsches Bundesland mit Magdeburg als Hauptstadt"
+    },
+    "SH": {
+      "name": "Schleswig-Holstein",
+      "description": "Nördlichstes Bundesland mit Kiel als Hauptstadt"
+    },
+    "TH": {
+      "name": "Thüringen",
+      "description": "Mitteldeutsches Bundesland mit Erfurt als Hauptstadt"
+    }
+  }
+}

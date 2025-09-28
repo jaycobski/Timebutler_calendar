@@ -1,0 +1,633 @@
+{
+  "comment": "TimeButler Calendar CDN Configuration - German Market Optimization v2.0",
+  "enabled": true,
+  "distribution": {
+    "callerReference": "timebutler-calendar-prod-2025-v2",
+    "aliases": [
+      "calendar.timebutler.de",
+      "assets-calendar.timebutler.de",
+      "cdn.timebutler.de"
+    ],
+    "defaultRootObject": "index.html",
+    "comment": "German Holiday Bridge Weekend Optimizer CDN - Optimized for DACH region",
+    "enabled": true,
+    "priceClass": "PriceClass_All",
+    "httpVersion": "http2and3",
+    "isIPV6Enabled": true,
+    "germanMarketConfig": {
+      "primaryRegion": "eu-central-1",
+      "edgeLocations": {
+        "tier1": ["Frankfurt", "Munich", "Berlin"],
+        "tier2": ["Amsterdam", "London", "Paris", "Vienna"],
+        "tier3": ["Zurich", "Milan", "Warsaw"]
+      },
+      "peakTrafficTimes": {
+        "timezone": "Europe/Berlin",
+        "businessHours": "09:00-18:00 CET/CEST",
+        "seasonalPeaks": {
+          "december": "300% normal traffic",
+          "january": "250% normal traffic",
+          "november": "150% normal traffic"
+        }
+      }
+    }
+  },
+  "origins": [
+    {
+      "id": "timebutler-calendar-app-primary",
+      "domainName": "app-calendar-prod-eu-central-1.timebutler.internal",
+      "originPath": "",
+      "customOriginConfig": {
+        "httpPort": 80,
+        "httpsPort": 443,
+        "originProtocolPolicy": "https-only",
+        "originSslProtocols": ["TLSv1.3", "TLSv1.2"],
+        "originReadTimeout": 30,
+        "originKeepaliveTimeout": 5
+      },
+      "connectionAttempts": 3,
+      "connectionTimeout": 10,
+      "originShield": {
+        "enabled": true,
+        "originShieldRegion": "eu-central-1"
+      }
+    },
+    {
+      "id": "timebutler-calendar-app-failover",
+      "domainName": "app-calendar-prod-eu-west-1.timebutler.internal",
+      "originPath": "",
+      "customOriginConfig": {
+        "httpPort": 80,
+        "httpsPort": 443,
+        "originProtocolPolicy": "https-only",
+        "originSslProtocols": ["TLSv1.3", "TLSv1.2"],
+        "originReadTimeout": 30,
+        "originKeepaliveTimeout": 5
+      },
+      "connectionAttempts": 3,
+      "connectionTimeout": 10
+    },
+    {
+      "id": "timebutler-calendar-assets-primary",
+      "domainName": "assets-calendar.s3.eu-central-1.amazonaws.com",
+      "originPath": "",
+      "s3OriginConfig": {
+        "originAccessIdentity": "origin-access-identity/cloudfront/TIMEBUTLER_CALENDAR_OAI"
+      },
+      "originShield": {
+        "enabled": true,
+        "originShieldRegion": "eu-central-1"
+      }
+    },
+    {
+      "id": "timebutler-calendar-assets-failover",
+      "domainName": "assets-calendar-backup.s3.eu-west-1.amazonaws.com",
+      "originPath": "",
+      "s3OriginConfig": {
+        "originAccessIdentity": "origin-access-identity/cloudfront/TIMEBUTLER_CALENDAR_OAI_BACKUP"
+      }
+    }
+  ],
+  "originGroups": [
+    {
+      "id": "timebutler-app-origin-group",
+      "failoverCriteria": {
+        "statusCodes": {
+          "quantity": 4,
+          "items": [403, 404, 500, 502]
+        }
+      },
+      "members": [
+        {
+          "originId": "timebutler-calendar-app-primary"
+        },
+        {
+          "originId": "timebutler-calendar-app-failover"
+        }
+      ]
+    },
+    {
+      "id": "timebutler-assets-origin-group",
+      "failoverCriteria": {
+        "statusCodes": {
+          "quantity": 4,
+          "items": [403, 404, 500, 502]
+        }
+      },
+      "members": [
+        {
+          "originId": "timebutler-calendar-assets-primary"
+        },
+        {
+          "originId": "timebutler-calendar-assets-failover"
+        }
+      ]
+    }
+  ],
+  "defaultCacheBehavior": {
+    "targetOriginId": "timebutler-app-origin-group",
+    "viewerProtocolPolicy": "redirect-to-https",
+    "compress": true,
+    "cachePolicyId": "GERMAN_OPTIMIZED_CACHE_POLICY",
+    "originRequestPolicyId": "GERMAN_ORIGIN_REQUEST_POLICY",
+    "responseHeadersPolicyId": "GERMAN_SECURITY_HEADERS_POLICY",
+    "realtimeLogConfigArn": "arn:aws:logs:eu-central-1:123456789:log-group:timebutler-calendar-realtime-logs",
+    "trustedSigners": {
+      "enabled": false,
+      "quantity": 0
+    },
+    "trustedKeyGroups": {
+      "enabled": false,
+      "quantity": 0
+    },
+    "fieldLevelEncryptionId": "",
+    "smoothStreaming": false,
+    "allowedMethods": {
+      "quantity": 7,
+      "items": ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"],
+      "cachedMethods": {
+        "quantity": 2,
+        "items": ["GET", "HEAD"]
+      }
+    },
+    "forwardedValues": {
+      "queryString": true,
+      "cookies": {
+        "forward": "whitelist",
+        "whitelistedNames": [
+          "locale",
+          "timezone",
+          "consent",
+          "gdpr_consent",
+          "state_selection",
+          "user_preferences"
+        ]
+      },
+      "headers": [
+        "Accept-Language",
+        "Accept-Encoding",
+        "CloudFront-Viewer-Country",
+        "CloudFront-Viewer-Country-Region",
+        "CloudFront-Is-Mobile-Viewer",
+        "CloudFront-Is-Desktop-Viewer",
+        "CloudFront-Viewer-Time-Zone",
+        "User-Agent",
+        "X-Forwarded-For"
+      ]
+    },
+    "germanOptimizations": {
+      "edgeCompression": "brotli_gzip",
+      "httpVersions": ["http/1.1", "http/2", "http/3"],
+      "germanHolidayDataCaching": {
+        "enabled": true,
+        "ttl": 86400
+      }
+    }
+  },
+  "cacheBehaviors": [
+    {
+      "pathPattern": "/api/v1/holidays/*",
+      "targetOriginId": "timebutler-app-origin-group",
+      "viewerProtocolPolicy": "https-only",
+      "compress": true,
+      "cachePolicyId": "HOLIDAY_DATA_CACHE_POLICY",
+      "originRequestPolicyId": "GERMAN_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "API_SECURITY_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD", "OPTIONS"],
+      "ttl": {
+        "defaultTTL": 86400,
+        "maxTTL": 604800,
+        "minTTL": 3600
+      },
+      "comment": "German holiday data - cache for 24h with 7d max"
+    },
+    {
+      "pathPattern": "/api/v1/bridge-weekends/*",
+      "targetOriginId": "timebutler-app-origin-group",
+      "viewerProtocolPolicy": "https-only",
+      "compress": true,
+      "cachePolicyId": "BRIDGE_WEEKEND_CACHE_POLICY",
+      "originRequestPolicyId": "GERMAN_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "API_SECURITY_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD", "POST", "OPTIONS"],
+      "ttl": {
+        "defaultTTL": 3600,
+        "maxTTL": 86400,
+        "minTTL": 300
+      },
+      "comment": "Bridge weekend calculations - cache for 1h"
+    },
+    {
+      "pathPattern": "/api/*",
+      "targetOriginId": "timebutler-app-origin-group",
+      "viewerProtocolPolicy": "https-only",
+      "compress": false,
+      "cachePolicyId": "NO_CACHE_POLICY",
+      "originRequestPolicyId": "GERMAN_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "API_SECURITY_HEADERS_POLICY",
+      "allowedMethods": ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"],
+      "ttl": {
+        "defaultTTL": 0,
+        "maxTTL": 0,
+        "minTTL": 0
+      },
+      "comment": "General API endpoints - no caching for dynamic content"
+    },
+    {
+      "pathPattern": "/_next/static/*",
+      "targetOriginId": "timebutler-assets-origin-group",
+      "viewerProtocolPolicy": "redirect-to-https",
+      "compress": true,
+      "cachePolicyId": "IMMUTABLE_ASSETS_CACHE_POLICY",
+      "originRequestPolicyId": "SIMPLE_CORS_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "STATIC_ASSETS_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD"],
+      "ttl": {
+        "defaultTTL": 31536000,
+        "maxTTL": 31536000,
+        "minTTL": 31536000
+      },
+      "comment": "Next.js static assets - immutable, cache for 1 year"
+    },
+    {
+      "pathPattern": "/assets/*",
+      "targetOriginId": "timebutler-assets-origin-group",
+      "viewerProtocolPolicy": "redirect-to-https",
+      "compress": true,
+      "cachePolicyId": "STATIC_ASSETS_CACHE_POLICY",
+      "originRequestPolicyId": "SIMPLE_CORS_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "STATIC_ASSETS_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD"],
+      "ttl": {
+        "defaultTTL": 86400,
+        "maxTTL": 31536000,
+        "minTTL": 86400
+      },
+      "comment": "Static assets - cache for 24h with 1 year max"
+    },
+    {
+      "pathPattern": "*.js",
+      "targetOriginId": "timebutler-assets-origin-group",
+      "viewerProtocolPolicy": "redirect-to-https",
+      "compress": true,
+      "cachePolicyId": "JAVASCRIPT_CACHE_POLICY",
+      "originRequestPolicyId": "SIMPLE_CORS_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "STATIC_ASSETS_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD"],
+      "ttl": {
+        "defaultTTL": 31536000,
+        "maxTTL": 31536000,
+        "minTTL": 86400
+      },
+      "comment": "JavaScript files - long cache with hash-based versioning"
+    },
+    {
+      "pathPattern": "*.css",
+      "targetOriginId": "timebutler-assets-origin-group",
+      "viewerProtocolPolicy": "redirect-to-https",
+      "compress": true,
+      "cachePolicyId": "CSS_CACHE_POLICY",
+      "originRequestPolicyId": "SIMPLE_CORS_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "STATIC_ASSETS_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD"],
+      "ttl": {
+        "defaultTTL": 31536000,
+        "maxTTL": 31536000,
+        "minTTL": 86400
+      },
+      "comment": "CSS files - long cache with hash-based versioning"
+    },
+    {
+      "pathPattern": "*.woff2",
+      "targetOriginId": "timebutler-assets-origin-group",
+      "viewerProtocolPolicy": "redirect-to-https",
+      "compress": false,
+      "cachePolicyId": "FONT_CACHE_POLICY",
+      "originRequestPolicyId": "SIMPLE_CORS_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "FONT_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD"],
+      "ttl": {
+        "defaultTTL": 31536000,
+        "maxTTL": 31536000,
+        "minTTL": 31536000
+      },
+      "comment": "Font files - immutable, cache for 1 year"
+    },
+    {
+      "pathPattern": "*.webp",
+      "targetOriginId": "timebutler-assets-origin-group",
+      "viewerProtocolPolicy": "redirect-to-https",
+      "compress": false,
+      "cachePolicyId": "IMAGE_CACHE_POLICY",
+      "originRequestPolicyId": "SIMPLE_CORS_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "IMAGE_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD"],
+      "ttl": {
+        "defaultTTL": 604800,
+        "maxTTL": 31536000,
+        "minTTL": 86400
+      },
+      "comment": "WebP images - cache for 7 days with 1 year max"
+    },
+    {
+      "pathPattern": "/de/*",
+      "targetOriginId": "timebutler-app-origin-group",
+      "viewerProtocolPolicy": "redirect-to-https",
+      "compress": true,
+      "cachePolicyId": "GERMAN_PAGES_CACHE_POLICY",
+      "originRequestPolicyId": "GERMAN_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "GERMAN_SECURITY_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD", "POST", "OPTIONS"],
+      "ttl": {
+        "defaultTTL": 3600,
+        "maxTTL": 86400,
+        "minTTL": 300
+      },
+      "comment": "German language pages - cache for 1h"
+    },
+    {
+      "pathPattern": "/en/*",
+      "targetOriginId": "timebutler-app-origin-group",
+      "viewerProtocolPolicy": "redirect-to-https",
+      "compress": true,
+      "cachePolicyId": "ENGLISH_PAGES_CACHE_POLICY",
+      "originRequestPolicyId": "ENGLISH_ORIGIN_REQUEST_POLICY",
+      "responseHeadersPolicyId": "ENGLISH_SECURITY_HEADERS_POLICY",
+      "allowedMethods": ["GET", "HEAD", "POST", "OPTIONS"],
+      "ttl": {
+        "defaultTTL": 3600,
+        "maxTTL": 86400,
+        "minTTL": 300
+      },
+      "comment": "English language pages - cache for 1h"
+    }
+  ],
+  "customErrorResponses": [
+    {
+      "errorCode": 404,
+      "responsePagePath": "/404.html",
+      "responseCode": 404,
+      "errorCachingMinTTL": 300
+    },
+    {
+      "errorCode": 500,
+      "responsePagePath": "/500.html",
+      "responseCode": 500,
+      "errorCachingMinTTL": 0
+    }
+  ],
+  "geoRestriction": {
+    "restrictionType": "whitelist",
+    "locations": [
+      "DE",
+      "AT",
+      "CH",
+      "LI",
+      "LU",
+      "BE",
+      "NL",
+      "FR",
+      "IT",
+      "PL",
+      "CZ",
+      "DK",
+      "SE",
+      "NO",
+      "FI",
+      "US",
+      "CA",
+      "GB",
+      "IE"
+    ],
+    "comment": "DACH region + EU + selected international markets for German expatriates"
+  },
+  "webACLId": "arn:aws:wafv2:us-east-1:123456789:global/webacl/timebutler-calendar-waf/abc123",
+  "logging": {
+    "enabled": true,
+    "includeCookies": true,
+    "bucket": "timebutler-calendar-logs.s3.eu-central-1.amazonaws.com",
+    "prefix": "cloudfront-logs/",
+    "gdprCompliant": true,
+    "retention": "180 days",
+    "fields": [
+      "date",
+      "time",
+      "x-edge-location",
+      "sc-bytes",
+      "c-ip-anonymized",
+      "cs-method",
+      "cs-host",
+      "cs-uri-stem",
+      "sc-status",
+      "cs-referer",
+      "cs-user-agent",
+      "cs-uri-query",
+      "cs-cookie",
+      "x-edge-result-type",
+      "x-edge-request-id",
+      "x-host-header",
+      "cs-protocol",
+      "cs-bytes",
+      "time-taken",
+      "x-forwarded-for",
+      "ssl-protocol",
+      "ssl-cipher",
+      "x-edge-response-result-type",
+      "cs-protocol-version",
+      "fle-status",
+      "fle-encrypted-fields",
+      "c-country",
+      "c-state",
+      "c-city",
+      "time-to-first-byte",
+      "x-edge-detailed-result-type",
+      "sc-content-type",
+      "sc-content-len",
+      "sc-range-start",
+      "sc-range-end"
+    ]
+  },
+  "realtimeLogging": {
+    "enabled": true,
+    "name": "timebutler-calendar-realtime-logs",
+    "endPoints": [
+      {
+        "streamType": "Kinesis",
+        "kinesisStreamConfig": {
+          "roleArn": "arn:aws:iam::123456789:role/CloudFrontRealtimeLogDeliveryRole",
+          "streamArn": "arn:aws:kinesis:eu-central-1:123456789:stream/timebutler-calendar-realtime-logs"
+        }
+      }
+    ],
+    "fields": [
+      "timestamp",
+      "c-ip",
+      "sc-status",
+      "cs-method",
+      "cs-uri-stem",
+      "time-taken",
+      "x-edge-location",
+      "x-edge-result-type",
+      "x-edge-response-result-type",
+      "c-country"
+    ],
+    "samplingRate": 100
+  },
+  "viewerCertificate": {
+    "acmCertificateArn": "arn:aws:acm:us-east-1:123456789:certificate/abc123-def456-ghi789",
+    "sslSupportMethod": "sni-only",
+    "minimumProtocolVersion": "TLSv1.2_2021"
+  },
+  "germanMarketOptimizations": {
+    "edgeLocations": {
+      "tier1_primary": ["Frankfurt (FRA)", "Munich (MUC)", "Berlin (BER)"],
+      "tier1_secondary": ["Amsterdam (AMS)", "London (LHR)", "Paris (CDG)"],
+      "tier2": ["Vienna (VIE)", "Zurich (ZUR)", "Milan (MXP)", "Warsaw (WAW)"],
+      "tier3": ["Stockholm (ARN)", "Copenhagen (CPH)", "Dublin (DUB)"]
+    },
+    "businessHours": {
+      "timezone": "Europe/Berlin",
+      "peakHours": ["09:00-12:00", "14:00-18:00"],
+      "lunchBreak": "12:00-14:00",
+      "weekends": "Reduced traffic, holiday planning focus",
+      "seasonalTraffic": {
+        "november": "150% normal traffic - holiday planning starts",
+        "december": "300% normal traffic - peak holiday planning",
+        "january": "250% normal traffic - New Year planning",
+        "february": "120% normal traffic",
+        "march": "100% normal traffic",
+        "easter_period": "200% normal traffic"
+      },
+      "germanHolidays": {
+        "trafficSpikes": [
+          "Weihnachten (Christmas)",
+          "Neujahr (New Year)",
+          "Ostern (Easter)",
+          "Pfingsten (Whitsun)",
+          "Tag der Deutschen Einheit",
+          "Christi Himmelfahrt",
+          "Fronleichnam"
+        ]
+      }
+    },
+    "gdprCompliance": {
+      "cookieConsent": true,
+      "dataProcessingLocation": "eu-central-1",
+      "logRetention": "180 days",
+      "ipAnonymization": true,
+      "rightToDelete": true,
+      "dataPortability": true,
+      "consentWithdrawal": true,
+      "privacyByDesign": true,
+      "dpoContact": "dpo@timebutler.de",
+      "legalBasis": "Legitimate interest (Art. 6(1)(f) GDPR)",
+      "dataMinimization": true,
+      "purposeLimitation": "Holiday planning and calendar optimization",
+      "storageLocation": "EU only",
+      "thirdPartyDataSharing": false
+    },
+    "performanceTargets": {
+      "germany": {
+        "ttfb": "<200ms",
+        "fcp": "<800ms",
+        "lcp": "<1200ms",
+        "cls": "<0.1",
+        "fid": "<100ms",
+        "cacheHitRate": ">85%",
+        "originOffload": ">90%"
+      },
+      "dachRegion": {
+        "ttfb": "<300ms",
+        "fcp": "<1000ms",
+        "lcp": "<1500ms",
+        "cacheHitRate": ">80%"
+      }
+    },
+    "securityOptimizations": {
+      "wafIntegration": true,
+      "botProtection": true,
+      "rateLimiting": {
+        "enabled": true,
+        "requests_per_minute": 300,
+        "burst_allowance": 50
+      },
+      "ddosProtection": "AWS Shield Advanced",
+      "sslConfiguration": {
+        "minimumVersion": "TLSv1.2",
+        "preferredVersion": "TLSv1.3",
+        "cipherSuites": "ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS",
+        "hsts": {
+          "enabled": true,
+          "max_age": 31536000,
+          "include_subdomains": true,
+          "preload": true
+        }
+      }
+    },
+    "contentOptimizations": {
+      "compression": {
+        "brotli": {
+          "enabled": true,
+          "quality": 6,
+          "types": ["text/html", "text/css", "text/javascript", "application/javascript", "application/json", "text/xml"]
+        },
+        "gzip": {
+          "enabled": true,
+          "level": 6,
+          "types": ["text/html", "text/css", "text/javascript", "application/javascript", "application/json", "text/xml"]
+        }
+      },
+      "imageOptimization": {
+        "webp": true,
+        "avif": true,
+        "progressive_jpeg": true,
+        "auto_quality": true
+      },
+      "germanSpecific": {
+        "stateHolidayData": {
+          "preload": true,
+          "compression": "brotli",
+          "cache_duration": "24h"
+        },
+        "bridgeWeekendCalculations": {
+          "edge_computing": true,
+          "cache_duration": "1h"
+        }
+      }
+    },
+    "monitoringAndAlerts": {
+      "realTimeMetrics": {
+        "enabled": true,
+        "metrics": [
+          "requests_per_second",
+          "error_rate_4xx",
+          "error_rate_5xx",
+          "cache_hit_rate",
+          "origin_latency",
+          "edge_latency",
+          "bandwidth_utilization"
+        ]
+      },
+      "alerting": {
+        "german_business_hours": {
+          "error_rate_threshold": "2%",
+          "latency_threshold": "500ms",
+          "cache_hit_rate_threshold": "80%"
+        },
+        "peak_season_thresholds": {
+          "december_january": {
+            "error_rate_threshold": "1%",
+            "latency_threshold": "300ms",
+            "cache_hit_rate_threshold": "85%"
+          }
+        }
+      },
+      "dashboards": {
+        "german_performance": {
+          "url": "https://monitoring.timebutler.de/cloudfront-germany",
+          "metrics": ["Core Web Vitals", "German Edge Performance", "Holiday Data Availability"]
+        }
+      }
+    }
+  }
+}

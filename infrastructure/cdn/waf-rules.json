@@ -1,0 +1,757 @@
+{
+  "comment": "WAF Rules Configuration for TimeButler Calendar - German Market Security",
+  "version": "2.0",
+  "lastUpdated": "2025-01-24",
+  "webACL": {
+    "name": "TimeButler-Calendar-WAF-German-Market",
+    "description": "WAF configuration optimized for German market with GDPR compliance",
+    "scope": "CLOUDFRONT",
+    "defaultAction": {
+      "allow": {}
+    },
+    "capacity": 5000,
+    "rules": [
+      {
+        "name": "AWSManagedRulesCommonRuleSet",
+        "priority": 1,
+        "overrideAction": {
+          "none": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "CommonRuleSetMetric"
+        },
+        "statement": {
+          "managedRuleGroupStatement": {
+            "vendorName": "AWS",
+            "name": "AWSManagedRulesCommonRuleSet",
+            "excludedRules": []
+          }
+        }
+      },
+      {
+        "name": "AWSManagedRulesKnownBadInputsRuleSet",
+        "priority": 2,
+        "overrideAction": {
+          "none": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "KnownBadInputsMetric"
+        },
+        "statement": {
+          "managedRuleGroupStatement": {
+            "vendorName": "AWS",
+            "name": "AWSManagedRulesKnownBadInputsRuleSet"
+          }
+        }
+      },
+      {
+        "name": "AWSManagedRulesLinuxRuleSet",
+        "priority": 3,
+        "overrideAction": {
+          "none": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "LinuxRuleSetMetric"
+        },
+        "statement": {
+          "managedRuleGroupStatement": {
+            "vendorName": "AWS",
+            "name": "AWSManagedRulesLinuxRuleSet"
+          }
+        }
+      },
+      {
+        "name": "AWSManagedRulesSQLiRuleSet",
+        "priority": 4,
+        "overrideAction": {
+          "none": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "SQLiRuleSetMetric"
+        },
+        "statement": {
+          "managedRuleGroupStatement": {
+            "vendorName": "AWS",
+            "name": "AWSManagedRulesSQLiRuleSet"
+          }
+        }
+      },
+      {
+        "name": "GermanGeographicRestriction",
+        "priority": 10,
+        "action": {
+          "allow": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "GermanGeographicRestrictionMetric"
+        },
+        "statement": {
+          "geoMatchStatement": {
+            "countryCodes": [
+              "DE",
+              "AT",
+              "CH",
+              "LI",
+              "LU",
+              "BE",
+              "NL",
+              "FR",
+              "IT",
+              "PL",
+              "CZ",
+              "DK",
+              "SE",
+              "NO",
+              "FI",
+              "US",
+              "CA",
+              "GB",
+              "IE"
+            ]
+          }
+        }
+      },
+      {
+        "name": "BlockNonAllowedCountries",
+        "priority": 11,
+        "action": {
+          "block": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "BlockNonAllowedCountriesMetric"
+        },
+        "statement": {
+          "notStatement": {
+            "statement": {
+              "geoMatchStatement": {
+                "countryCodes": [
+                  "DE",
+                  "AT",
+                  "CH",
+                  "LI",
+                  "LU",
+                  "BE",
+                  "NL",
+                  "FR",
+                  "IT",
+                  "PL",
+                  "CZ",
+                  "DK",
+                  "SE",
+                  "NO",
+                  "FI",
+                  "US",
+                  "CA",
+                  "GB",
+                  "IE"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "GermanBusinessHoursRateLimit",
+        "priority": 20,
+        "action": {
+          "block": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "GermanBusinessHoursRateLimitMetric"
+        },
+        "statement": {
+          "rateBasedStatement": {
+            "limit": 2000,
+            "aggregateKeyType": "IP",
+            "scopeDownStatement": {
+              "andStatement": {
+                "statements": [
+                  {
+                    "geoMatchStatement": {
+                      "countryCodes": ["DE", "AT", "CH"]
+                    }
+                  },
+                  {
+                    "byteMatchStatement": {
+                      "searchString": "CET",
+                      "fieldToMatch": {
+                        "singleHeader": {
+                          "name": "cloudfront-viewer-time-zone"
+                        }
+                      },
+                      "textTransformations": [
+                        {
+                          "priority": 0,
+                          "type": "NONE"
+                        }
+                      ],
+                      "positionalConstraint": "CONTAINS"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "HolidayPlanningSeasonRateLimit",
+        "priority": 21,
+        "action": {
+          "block": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "HolidayPlanningSeasonRateLimitMetric"
+        },
+        "statement": {
+          "rateBasedStatement": {
+            "limit": 500,
+            "aggregateKeyType": "IP",
+            "scopeDownStatement": {
+              "andStatement": {
+                "statements": [
+                  {
+                    "geoMatchStatement": {
+                      "countryCodes": ["DE", "AT", "CH"]
+                    }
+                  },
+                  {
+                    "orStatement": {
+                      "statements": [
+                        {
+                          "byteMatchStatement": {
+                            "searchString": "/api/v1/bridge-weekends",
+                            "fieldToMatch": {
+                              "uriPath": {}
+                            },
+                            "textTransformations": [
+                              {
+                                "priority": 0,
+                                "type": "LOWERCASE"
+                              }
+                            ],
+                            "positionalConstraint": "STARTS_WITH"
+                          }
+                        },
+                        {
+                          "byteMatchStatement": {
+                            "searchString": "/api/v1/holidays",
+                            "fieldToMatch": {
+                              "uriPath": {}
+                            },
+                            "textTransformations": [
+                              {
+                                "priority": 0,
+                                "type": "LOWERCASE"
+                              }
+                            ],
+                            "positionalConstraint": "STARTS_WITH"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "APIEndpointRateLimit",
+        "priority": 30,
+        "action": {
+          "block": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "APIEndpointRateLimitMetric"
+        },
+        "statement": {
+          "rateBasedStatement": {
+            "limit": 1000,
+            "aggregateKeyType": "IP",
+            "scopeDownStatement": {
+              "byteMatchStatement": {
+                "searchString": "/api/",
+                "fieldToMatch": {
+                  "uriPath": {}
+                },
+                "textTransformations": [
+                  {
+                    "priority": 0,
+                    "type": "LOWERCASE"
+                  }
+                ],
+                "positionalConstraint": "STARTS_WITH"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "GermanIPReputationList",
+        "priority": 40,
+        "action": {
+          "allow": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "GermanIPReputationListMetric"
+        },
+        "statement": {
+          "managedRuleGroupStatement": {
+            "vendorName": "AWS",
+            "name": "AWSManagedRulesAmazonIpReputationList"
+          }
+        }
+      },
+      {
+        "name": "BlockKnownMaliciousIPs",
+        "priority": 41,
+        "action": {
+          "block": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "BlockKnownMaliciousIPsMetric"
+        },
+        "statement": {
+          "managedRuleGroupStatement": {
+            "vendorName": "AWS",
+            "name": "AWSManagedRulesAmazonIpReputationList",
+            "excludedRules": []
+          }
+        }
+      },
+      {
+        "name": "GDPRComplianceCheck",
+        "priority": 50,
+        "action": {
+          "block": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "GDPRComplianceCheckMetric"
+        },
+        "statement": {
+          "andStatement": {
+            "statements": [
+              {
+                "geoMatchStatement": {
+                  "countryCodes": ["DE", "AT", "CH", "LU", "LI"]
+                }
+              },
+              {
+                "notStatement": {
+                  "statement": {
+                    "byteMatchStatement": {
+                      "searchString": "gdpr_consent=true",
+                      "fieldToMatch": {
+                        "singleHeader": {
+                          "name": "cookie"
+                        }
+                      },
+                      "textTransformations": [
+                        {
+                          "priority": 0,
+                          "type": "URL_DECODE"
+                        }
+                      ],
+                      "positionalConstraint": "CONTAINS"
+                    }
+                  }
+                }
+              },
+              {
+                "notStatement": {
+                  "statement": {
+                    "orStatement": {
+                      "statements": [
+                        {
+                          "byteMatchStatement": {
+                            "searchString": "/api/v1/holidays",
+                            "fieldToMatch": {
+                              "uriPath": {}
+                            },
+                            "textTransformations": [
+                              {
+                                "priority": 0,
+                                "type": "LOWERCASE"
+                              }
+                            ],
+                            "positionalConstraint": "STARTS_WITH"
+                          }
+                        },
+                        {
+                          "byteMatchStatement": {
+                            "searchString": "/_next/static/",
+                            "fieldToMatch": {
+                              "uriPath": {}
+                            },
+                            "textTransformations": [
+                              {
+                                "priority": 0,
+                                "type": "LOWERCASE"
+                              }
+                            ],
+                            "positionalConstraint": "STARTS_WITH"
+                          }
+                        },
+                        {
+                          "byteMatchStatement": {
+                            "searchString": "/assets/",
+                            "fieldToMatch": {
+                              "uriPath": {}
+                            },
+                            "textTransformations": [
+                              {
+                                "priority": 0,
+                                "type": "LOWERCASE"
+                              }
+                            ],
+                            "positionalConstraint": "STARTS_WITH"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "ProtectGermanHolidayAPI",
+        "priority": 60,
+        "action": {
+          "count": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "ProtectGermanHolidayAPIMetric"
+        },
+        "statement": {
+          "andStatement": {
+            "statements": [
+              {
+                "byteMatchStatement": {
+                  "searchString": "/api/v1/holidays",
+                  "fieldToMatch": {
+                    "uriPath": {}
+                  },
+                  "textTransformations": [
+                    {
+                      "priority": 0,
+                      "type": "LOWERCASE"
+                    }
+                  ],
+                  "positionalConstraint": "STARTS_WITH"
+                }
+              },
+              {
+                "sizeConstraintStatement": {
+                  "fieldToMatch": {
+                    "queryString": {}
+                  },
+                  "comparisonOperator": "GT",
+                  "size": 1000,
+                  "textTransformations": [
+                    {
+                      "priority": 0,
+                      "type": "NONE"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "BotControl",
+        "priority": 70,
+        "overrideAction": {
+          "none": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "BotControlMetric"
+        },
+        "statement": {
+          "managedRuleGroupStatement": {
+            "vendorName": "AWS",
+            "name": "AWSManagedRulesBotControlRuleSet",
+            "managedRuleGroupConfigs": [
+              {
+                "awsManagedRulesBotControlRuleSet": {
+                  "inspectionLevel": "COMMON"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "WhitelistGermanCrawlers",
+        "priority": 71,
+        "action": {
+          "allow": {}
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": true,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "WhitelistGermanCrawlersMetric"
+        },
+        "statement": {
+          "orStatement": {
+            "statements": [
+              {
+                "byteMatchStatement": {
+                  "searchString": "Googlebot",
+                  "fieldToMatch": {
+                    "singleHeader": {
+                      "name": "user-agent"
+                    }
+                  },
+                  "textTransformations": [
+                    {
+                      "priority": 0,
+                      "type": "LOWERCASE"
+                    }
+                  ],
+                  "positionalConstraint": "CONTAINS"
+                }
+              },
+              {
+                "byteMatchStatement": {
+                  "searchString": "bingbot",
+                  "fieldToMatch": {
+                    "singleHeader": {
+                      "name": "user-agent"
+                    }
+                  },
+                  "textTransformations": [
+                    {
+                      "priority": 0,
+                      "type": "LOWERCASE"
+                    }
+                  ],
+                  "positionalConstraint": "CONTAINS"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "EmergencyMaintenanceMode",
+        "priority": 100,
+        "action": {
+          "block": {
+            "customResponse": {
+              "responseCode": 503,
+              "customResponseBodyKey": "maintenance_german",
+              "responseHeaders": [
+                {
+                  "name": "Retry-After",
+                  "value": "3600"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "text/html; charset=utf-8"
+                }
+              ]
+            }
+          }
+        },
+        "visibilityConfig": {
+          "sampledRequestsEnabled": false,
+          "cloudWatchMetricsEnabled": true,
+          "metricName": "EmergencyMaintenanceModeMetric"
+        },
+        "statement": {
+          "byteMatchStatement": {
+            "searchString": "EMERGENCY_MAINTENANCE_ENABLED",
+            "fieldToMatch": {
+              "singleHeader": {
+                "name": "x-maintenance-mode"
+              }
+            },
+            "textTransformations": [
+              {
+                "priority": 0,
+                "type": "NONE"
+              }
+            ],
+            "positionalConstraint": "EXACTLY"
+          }
+        }
+      }
+    ],
+    "customResponseBodies": {
+      "maintenance_german": {
+        "contentType": "TEXT_HTML",
+        "content": "<!DOCTYPE html><html lang=\"de\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Wartungsmodus - TimeButler Kalender</title><style>body{font-family:Arial,sans-serif;text-align:center;padding:50px;background-color:#f5f5f5}h1{color:#333}</style></head><body><h1>Wartungsmodus</h1><p>Der TimeButler Kalender wird derzeit gewartet. Bitte versuchen Sie es in einigen Minuten erneut.</p><p>Vielen Dank für Ihr Verständnis.</p><hr><p><em>Maintenance mode - TimeButler Calendar is currently under maintenance. Please try again in a few minutes. Thank you for your understanding.</em></p></body></html>"
+      }
+    },
+    "tags": [
+      {
+        "key": "Application",
+        "value": "TimeButlerCalendar"
+      },
+      {
+        "key": "Environment",
+        "value": "Production"
+      },
+      {
+        "key": "Market",
+        "value": "Germany"
+      },
+      {
+        "key": "Compliance",
+        "value": "GDPR"
+      }
+    ]
+  },
+  "logging": {
+    "logDestinationConfigs": [
+      {
+        "resourceArn": "arn:aws:logs:eu-central-1:123456789:log-group:timebutler-calendar-waf-logs",
+        "logFormat": "JSON"
+      },
+      {
+        "resourceArn": "arn:aws:s3:::timebutler-calendar-waf-logs-eu-central-1/waf-logs/",
+        "logFormat": "JSON"
+      }
+    ],
+    "redactionConfig": {
+      "fieldsToRedact": [
+        "headers.authorization",
+        "headers.cookie",
+        "uri-query.email",
+        "uri-query.phone"
+      ]
+    },
+    "logScope": "SECURITY_EVENTS"
+  },
+  "germanMarketSpecific": {
+    "gdprCompliance": {
+      "consentEnforcement": {
+        "enabled": true,
+        "cookieConsentRequired": true,
+        "exemptPaths": [
+          "/api/v1/holidays",
+          "/_next/static/",
+          "/assets/",
+          "/health",
+          "/robots.txt",
+          "/sitemap.xml"
+        ]
+      },
+      "dataMinimization": {
+        "logDataMinimization": true,
+        "ipAnonymization": true,
+        "headerRedaction": true
+      },
+      "rightToDelete": {
+        "automaticDeletion": "180 days",
+        "onDemandDeletion": "header based"
+      }
+    },
+    "germanCybersecurityFramework": {
+      "bsiCompliance": {
+        "category": "NORMAL",
+        "requirements": [
+          "protection_against_common_attacks",
+          "rate_limiting",
+          "geo_blocking_capabilities",
+          "bot_protection",
+          "ddos_mitigation"
+        ]
+      },
+      "criticalInfrastructureProtection": false,
+      "incidentReporting": {
+        "enabled": true,
+        "reportingThreshold": "significant_security_event",
+        "contactPoint": "security@timebutler.de"
+      }
+    },
+    "seasonalAdjustments": {
+      "holidayPlanningPeak": {
+        "months": ["november", "december", "january"],
+        "rateLimitAdjustment": "reduced_by_50_percent",
+        "additionalProtection": "enhanced_bot_detection"
+      },
+      "summerVacation": {
+        "months": ["july", "august"],
+        "rateLimitAdjustment": "normal",
+        "trafficPattern": "reduced"
+      }
+    }
+  },
+  "monitoring": {
+    "cloudwatchMetrics": {
+      "namespace": "AWS/WAFV2/TimeButler",
+      "metrics": [
+        "AllowedRequests",
+        "BlockedRequests",
+        "CountedRequests",
+        "PassedRequests",
+        "CaptchaRequests"
+      ],
+      "dimensions": [
+        "WebACL",
+        "Rule",
+        "Country",
+        "LabelNamespace"
+      ]
+    },
+    "alerts": {
+      "highBlockRate": {
+        "threshold": 10,
+        "period": 300,
+        "evaluationPeriods": 2,
+        "comparisonOperator": "GreaterThanThreshold",
+        "action": "arn:aws:sns:eu-central-1:123456789:timebutler-waf-alerts"
+      },
+      "gdprViolationAttempts": {
+        "threshold": 5,
+        "period": 300,
+        "evaluationPeriods": 1,
+        "comparisonOperator": "GreaterThanThreshold",
+        "action": "arn:aws:sns:eu-central-1:123456789:timebutler-gdpr-alerts"
+      },
+      "ddosAttack": {
+        "threshold": 1000,
+        "period": 60,
+        "evaluationPeriods": 2,
+        "comparisonOperator": "GreaterThanThreshold",
+        "action": "arn:aws:sns:eu-central-1:123456789:timebutler-emergency-alerts"
+      }
+    }
+  }
+}

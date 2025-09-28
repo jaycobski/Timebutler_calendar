@@ -1,0 +1,288 @@
+{
+  "title": "Ihren Urlaubsplan erstellen",
+  "subtitle": "Optimieren Sie Ihre freie Zeit mit intelligenten Brückentagen",
+  "description": "Erstellen Sie Ihren personalisierten Urlaubsplan basierend auf deutschen Feiertagen und Brückentagen",
+
+  "form": {
+    "stateLabel": "Ihr Bundesland",
+    "statePlaceholder": "Bundesland auswählen",
+    "stateRequired": "Bitte wählen Sie Ihr Bundesland aus",
+    "stateHint": "Wählen Sie das Bundesland, in dem Sie arbeiten, um die richtigen Feiertage zu erhalten",
+
+    "budgetLabel": "Verfügbare Urlaubstage",
+    "budgetPlaceholder": "Anzahl Ihrer Urlaubstage",
+    "budgetHint": "Deutscher Standard: 20-50 Tage pro Jahr (gesetzlicher Mindestanspruch: 20 Tage)",
+    "budgetRequired": "Urlaubstage sind erforderlich",
+    "budgetInvalidMin": "Mindestens 20 Urlaubstage sind nach deutschem Recht erforderlich",
+    "budgetInvalidMax": "Maximal 50 Urlaubstage können eingegeben werden",
+    "budgetInvalidNumber": "Bitte geben Sie eine gültige Anzahl von Urlaubstagen ein",
+
+    "bridgesLabel": "Brückenwochenenden auswählen",
+    "bridgesHint": "Wählen Sie die Brückenwochenenden aus, die Sie für Ihren Urlaub nutzen möchten",
+    "bridgesEmpty": "Keine Brückenwochenenden verfügbar",
+    "bridgesLoading": "Lade Brückenwochenenden...",
+    "bridgeSelectAll": "Alle auswählen",
+    "bridgeDeselectAll": "Alle abwählen",
+
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "ihre.email@example.de",
+    "emailRequired": "E-Mail-Adresse ist erforderlich",
+    "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "emailHint": "Ihr personalisierter Urlaubskalender wird an diese Adresse gesendet",
+
+    "languageLabel": "Sprache",
+    "languageGerman": "Deutsch",
+    "languageEnglish": "English",
+
+    "submitButton": "Urlaubsplan erstellen",
+    "submitting": "Wird verarbeitet...",
+    "submitSuccess": "Urlaubsplan erfolgreich erstellt!",
+    "submitError": "Fehler beim Erstellen des Urlaubsplans",
+
+    "resetButton": "Zurücksetzen",
+    "resetConfirm": "Möchten Sie wirklich alle Eingaben zurücksetzen?",
+
+    "requiredFields": "Pflichtfelder sind mit * markiert",
+    "formInvalid": "Bitte überprüfen Sie Ihre Eingaben"
+  },
+
+  "validation": {
+    "title": "Budgetübersicht",
+    "subtitle": "Überblick über Ihre Urlaubsplanung",
+
+    "metrics": {
+      "requiredDays": "Benötigte Urlaubstage",
+      "availableDays": "Verfügbare Urlaubstage",
+      "remainingDays": "Verbleibende Tage",
+      "usedPercentage": "Verwendete Prozent",
+      "efficiency": "Effizienz",
+      "totalDaysOff": "Gesamte freie Tage",
+      "averageEfficiency": "Durchschnittliche Effizienz",
+      "bestEfficiency": "Beste Effizienz",
+      "totalBridges": "Anzahl Brückenwochenenden"
+    },
+
+    "warnings": {
+      "title": "Hinweise",
+      "budgetExceeded": "Budget überschritten",
+      "budgetExceededMessage": "Sie benötigen {required} Urlaubstage, haben aber nur {available} zur Verfügung.",
+      "highUsage": "Hohe Budgetnutzung",
+      "highUsageMessage": "Sie verwenden {percentage}% Ihres Urlaubsbudgets.",
+      "lowEfficiency": "Niedrige Effizienz",
+      "lowEfficiencyMessage": "Niedrige Effizienz: {efficiency}x. Bessere Brücken könnten verfügbar sein.",
+      "seasonalConflict": "Saisonaler Konflikt",
+      "seasonalConflictMessage": "Einige Ihrer Brückenwochenenden überschneiden sich mit typischen Urlaubszeiten.",
+      "legalMinimum": "Unter gesetzlichem Minimum",
+      "legalMinimumMessage": "{budget} Tage sind unter dem deutschen Mindestanspruch von {minimum} Tagen."
+    },
+
+    "recommendations": {
+      "title": "Empfehlungen",
+      "reduceBridges": "Reduzieren Sie Ihre Brückenwochenenden-Auswahl",
+      "reserveDays": "Erwägen Sie, einige Tage für spontane Pläne zu reservieren",
+      "exploreBetter": "Erkunden Sie effizientere Brückenwochenenden",
+      "avoidPeakSeason": "Vermeiden Sie Haupturlaubszeiten für bessere Verfügbarkeit",
+      "considerCosts": "Berücksichtigen Sie höhere Reisekosten während Brückenzeiten",
+      "checkWeather": "Prüfen Sie typische Wetterbedingungen für Ihre geplanten Zeiten"
+    },
+
+    "status": {
+      "optimal": "Optimal",
+      "good": "Gut",
+      "acceptable": "Akzeptabel",
+      "problematic": "Problematisch",
+      "invalid": "Ungültig"
+    }
+  },
+
+  "bridges": {
+    "title": "Verfügbare Brückenwochenenden",
+    "subtitle": "Wählen Sie die für Sie passenden Brückentage aus",
+
+    "card": {
+      "vacationDays": "Urlaubstage",
+      "totalDays": "freie Tage gesamt",
+      "efficiency": "Effizienz",
+      "pattern": "Muster",
+      "holiday": "Feiertag",
+      "dates": "Zeitraum",
+      "selected": "Ausgewählt",
+      "select": "Auswählen",
+      "deselect": "Abwählen"
+    },
+
+    "patterns": {
+      "thursday-friday": "Donnerstag-Freitag Brücke",
+      "monday-tuesday": "Montag-Dienstag Brücke",
+      "tuesday-friday": "Dienstag-Freitag Brücke",
+      "sandwich": "Sandwich-Brücke",
+      "extend-weekend": "Wochenend-Verlängerung"
+    },
+
+    "sorting": {
+      "label": "Sortieren nach",
+      "efficiency": "Effizienz",
+      "vacationDays": "Urlaubstage",
+      "totalDays": "Gesamte Tage",
+      "startDate": "Startdatum",
+      "endDate": "Enddatum"
+    },
+
+    "filtering": {
+      "label": "Filter",
+      "allPatterns": "Alle Muster",
+      "maxVacationDays": "Max. Urlaubstage",
+      "minEfficiency": "Min. Effizienz",
+      "quarter": "Quartal",
+      "month": "Monat"
+    },
+
+    "empty": {
+      "title": "Keine Brückenwochenenden verfügbar",
+      "message": "Für Ihr ausgewähltes Bundesland wurden keine Brückenwochenenden gefunden.",
+      "selectState": "Bitte wählen Sie zunächst Ihr Bundesland aus."
+    },
+
+    "loading": {
+      "title": "Lade Brückenwochenenden...",
+      "message": "Berechne optimale Brückentage für Ihr Bundesland."
+    },
+
+    "error": {
+      "title": "Fehler beim Laden",
+      "message": "Die Brückenwochenenden konnten nicht geladen werden.",
+      "retry": "Erneut versuchen"
+    }
+  },
+
+  "gdpr": {
+    "title": "Datenschutz und Einverständniserklärung",
+    "subtitle": "Ihre Daten werden gemäß DSGVO verarbeitet",
+
+    "required": "Erforderlich für den Service",
+    "optional": "Optional für bessere Erfahrung",
+
+    "detailsShow": "Details anzeigen",
+    "detailsHide": "Details ausblenden",
+
+    "consent": {
+      "vacationPlanning": "Urlaubsplanung und Kalenderbearbeitung",
+      "vacationPlanningDesc": "Verarbeitung Ihrer Daten zur Erstellung Ihres personalisierten Urlaubskalenders",
+
+      "emailDelivery": "E-Mail-Zustellung Ihres Kalenders",
+      "emailDeliveryDesc": "Versendung Ihres Urlaubskalenders an die angegebene E-Mail-Adresse",
+
+      "analyticsAnonymous": "Anonyme Nutzungsstatistiken",
+      "analyticsAnonymousDesc": "Erfassung anonymer Daten zur Verbesserung unseres Services (keine Personendaten)",
+
+      "serviceImprovement": "Serviceverbesserung",
+      "serviceImprovementDesc": "Verwendung Ihrer Daten zur Optimierung und Weiterentwicklung unserer Services",
+
+      "marketingTimebutler": "TimeButler Produktinformationen",
+      "marketingTimebutlerDesc": "Gelegentliche Informationen über TimeButler's Zeiterfassungslösungen (abbestellbar)"
+    },
+
+    "legalBasis": {
+      "title": "Rechtsgrundlage",
+      "consent": "Einwilligung (Art. 6 Abs. 1 lit. a DSGVO)",
+      "contract": "Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO)",
+      "legitimateInterest": "Berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO)"
+    },
+
+    "dataRetention": {
+      "title": "Datenspeicherung",
+      "period": "90 Tage nach Erstellung",
+      "automaticDeletion": "Automatische Löschung nach Ablauf",
+      "manualDeletion": "Manuelle Löschung jederzeit möglich"
+    },
+
+    "rights": {
+      "title": "Ihre Rechte",
+      "access": "Auskunft über Ihre Daten (Art. 15 DSGVO)",
+      "rectification": "Berichtigung Ihrer Daten (Art. 16 DSGVO)",
+      "erasure": "Löschung Ihrer Daten (Art. 17 DSGVO)",
+      "portability": "Datenübertragbarkeit (Art. 20 DSGVO)",
+      "objection": "Widerspruch gegen Verarbeitung (Art. 21 DSGVO)",
+      "withdrawConsent": "Widerruf der Einwilligung jederzeit möglich"
+    },
+
+    "withdrawal": {
+      "title": "Widerruf der Einwilligung",
+      "method": "Per E-Mail-Link oder über unsere Website",
+      "effect": "Zukünftige Datenverarbeitung wird eingestellt",
+      "contact": "Kontakt: datenschutz@timebutler.de"
+    },
+
+    "controller": {
+      "title": "Verantwortlicher",
+      "company": "TimeButler GmbH",
+      "address": "Musterstraße 123, 12345 Berlin, Deutschland",
+      "email": "datenschutz@timebutler.de",
+      "phone": "+49 30 12345678"
+    },
+
+    "errors": {
+      "required": "Erforderliche Einverständniserklärungen fehlen",
+      "invalid": "Ungültige Einverständniserklärung",
+      "expired": "Einverständniserklärung ist abgelaufen"
+    }
+  },
+
+  "accessibility": {
+    "instructions": "Verwenden Sie die Tab-Taste zur Navigation und Enter zum Auswählen",
+    "keyboardShortcuts": "Tastenkürzel: Alt+S für Senden, Alt+R für Zurücksetzen",
+    "screenReaderOptimized": "Optimiert für Screenreader",
+    "highContrast": "Hoher Kontrast verfügbar",
+    "skipToContent": "Zum Hauptinhalt springen",
+    "skipToForm": "Zum Formular springen",
+    "regionForm": "Urlaubsplanungsformular",
+    "regionValidation": "Budgetvalidierung",
+    "regionBridges": "Brückenwochenenden-Auswahl",
+    "regionGdpr": "Datenschutz-Einstellungen"
+  },
+
+  "branding": {
+    "poweredBy": "Powered by TimeButler - Professionelle Zeiterfassung",
+    "tagline": "Optimieren Sie Ihre Arbeitszeit-Planung",
+    "learnMore": "Mehr über TimeButler erfahren",
+    "website": "https://timebutler.de",
+    "promotion": "Entdecken Sie TimeButler's umfassende Zeiterfassungslösungen für Ihr Unternehmen"
+  },
+
+  "errors": {
+    "general": "Ein Fehler ist aufgetreten",
+    "network": "Netzwerkfehler - Bitte überprüfen Sie Ihre Internetverbindung",
+    "server": "Serverfehler - Bitte versuchen Sie es später erneut",
+    "validation": "Validierungsfehler - Bitte überprüfen Sie Ihre Eingaben",
+    "timeout": "Zeitüberschreitung - Der Vorgang dauerte zu lange",
+    "forbidden": "Zugriff verweigert",
+    "notFound": "Ressource nicht gefunden",
+    "tooManyRequests": "Zu viele Anfragen - Bitte warten Sie einen Moment"
+  },
+
+  "loading": {
+    "form": "Formular wird geladen...",
+    "bridges": "Brückenwochenenden werden berechnet...",
+    "validation": "Eingaben werden validiert...",
+    "submission": "Urlaubsplan wird erstellt...",
+    "general": "Lädt..."
+  },
+
+  "success": {
+    "title": "Urlaubsplan erfolgreich erstellt!",
+    "message": "Ihr personalisierter Urlaubskalender wurde erstellt und wird per E-Mail an Sie gesendet.",
+    "emailSent": "E-Mail wurde versendet",
+    "checkInbox": "Bitte überprüfen Sie Ihr E-Mail-Postfach (auch den Spam-Ordner)",
+    "downloadReady": "Kalender steht zum Download bereit",
+    "planAnother": "Weiteren Plan erstellen"
+  },
+
+  "tips": {
+    "efficiency": "Höhere Effizienz bedeutet mehr freie Tage pro eingesetztem Urlaubstag",
+    "budgetPlanning": "Planen Sie etwa 20% Ihres Urlaubsbudgets für spontane Gelegenheiten",
+    "seasonalCosts": "Reisekosten sind während Brückenzeiten oft höher",
+    "weatherConsideration": "Berücksichtigen Sie das typische Wetter für Ihre geplanten Zeiten",
+    "workloadPlanning": "Informieren Sie Ihr Team frühzeitig über geplante Abwesenheiten",
+    "flexibilityReserve": "Halten Sie einige Urlaubstage für unvorhergesehene Ereignisse frei"
+  }
+}

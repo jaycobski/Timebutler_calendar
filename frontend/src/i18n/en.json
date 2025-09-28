@@ -1,0 +1,872 @@
+{
+  "app": {
+    "title": "TimeButler Vacation Planner",
+    "subtitle": "Smart bridge day optimization for Germany",
+    "description": "Maximize your time off by strategically using German holidays and bridge days. Fully GDPR-compliant and completely free.",
+    "tagline": "Professional vacation planning for working in Germany"
+  },
+
+  "navigation": {
+    "home": "Home",
+    "planner": "Vacation Planner",
+    "calendar": "Holiday Calendar",
+    "about": "About",
+    "privacy": "Privacy",
+    "imprint": "Legal Notice",
+    "contact": "Contact",
+    "help": "Help",
+    "language": "Language",
+    "menu": "Menu",
+    "close": "Close",
+    "back": "Back",
+    "forward": "Next",
+    "settings": "Settings"
+  },
+
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "reset": "Reset",
+    "clear": "Clear",
+    "select": "Select",
+    "deselect": "Deselect",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all",
+    "filter": "Filter",
+    "sort": "Sort",
+    "search": "Search",
+    "show": "Show",
+    "hide": "Hide",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "open": "Open",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "required": "Required",
+    "optional": "Optional",
+    "recommended": "Recommended",
+    "available": "Available",
+    "unavailable": "Not available",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "active": "Active",
+    "inactive": "Inactive",
+    "valid": "Valid",
+    "invalid": "Invalid",
+    "public": "Public",
+    "private": "Private"
+  },
+
+  "holidays": {
+    "title": "German Holidays",
+    "subtitle": "Official holidays and regional variations",
+    "types": {
+      "federal": "National Holiday",
+      "state": "State Holiday",
+      "regional": "Regional Holiday",
+      "religious": "Religious Holiday",
+      "catholic": "Catholic Holiday",
+      "protestant": "Protestant Holiday",
+      "orthodox": "Orthodox Holiday",
+      "secular": "Secular Holiday"
+    },
+    "names": {
+      "neujahr": "New Year's Day",
+      "heilige_drei_koenige": "Epiphany (Three Kings Day)",
+      "karfreitag": "Good Friday",
+      "ostermontag": "Easter Monday",
+      "tag_der_arbeit": "Labor Day",
+      "christi_himmelfahrt": "Ascension Day",
+      "pfingstmontag": "Whit Monday",
+      "fronleichnam": "Corpus Christi",
+      "mariae_himmelfahrt": "Assumption of Mary",
+      "tag_der_deutschen_einheit": "German Unity Day",
+      "reformationstag": "Reformation Day",
+      "allerheiligen": "All Saints' Day",
+      "buss_und_bettag": "Day of Repentance and Prayer",
+      "erster_weihnachtsfeiertag": "Christmas Day",
+      "zweiter_weihnachtsfeiertag": "Boxing Day"
+    },
+    "descriptions": {
+      "neujahr": "Start of the new calendar year",
+      "heilige_drei_koenige": "Christian feast celebrating the visit of the Magi to baby Jesus",
+      "karfreitag": "Commemoration of Jesus Christ's crucifixion",
+      "ostermontag": "Day after Easter Sunday",
+      "tag_der_arbeit": "International Workers' Day",
+      "christi_himmelfahrt": "Christian feast celebrating Jesus Christ's ascension into heaven",
+      "pfingstmontag": "Day after Pentecost Sunday (also known as Whitsun Monday)",
+      "fronleichnam": "Catholic feast honoring the Eucharist (Body and Blood of Christ)",
+      "mariae_himmelfahrt": "Catholic feast celebrating the assumption of Mary into heaven",
+      "tag_der_deutschen_einheit": "National holiday commemorating German reunification in 1990",
+      "reformationstag": "Protestant commemoration of the beginning of the Protestant Reformation",
+      "allerheiligen": "Catholic feast honoring all saints",
+      "buss_und_bettag": "Protestant day of repentance and prayer",
+      "erster_weihnachtsfeiertag": "Christmas Day - celebrating the birth of Jesus Christ",
+      "zweiter_weihnachtsfeiertag": "Boxing Day - second day of Christmas celebrations"
+    },
+    "status": {
+      "past": "Past",
+      "today": "Today",
+      "upcoming": "Upcoming",
+      "thisWeek": "This week",
+      "thisMonth": "This month",
+      "nextMonth": "Next month",
+      "thisYear": "This year"
+    }
+  },
+
+  "states": {
+    "label": "Select your German state",
+    "placeholder": "Choose where you work",
+    "searchPlaceholder": "Search for your state...",
+    "noResults": "No results found",
+    "loading": "Loading states...",
+    "error": "Error loading German states",
+    "required": "German state is required",
+    "clear": "Clear selection",
+    "expand": "Show options",
+    "collapse": "Hide options",
+    "selected": "selected",
+    "resultsFound": "results found",
+    "sortBy": "Sort by",
+    "sortOptions": {
+      "alphabetical": "Alphabetical",
+      "population": "Population",
+      "religious": "Religious majority"
+    },
+    "religionIndicator": {
+      "catholic": "Catholic majority",
+      "protestant": "Protestant majority",
+      "secular": "Secular",
+      "mixed": "Mixed"
+    },
+    "cityState": "City-state",
+    "populationLabel": "Population",
+    "capitalLabel": "Capital",
+    "names": {
+      "BW": "Baden-Württemberg",
+      "BY": "Bavaria (Bayern)",
+      "BE": "Berlin",
+      "BB": "Brandenburg",
+      "HB": "Bremen",
+      "HH": "Hamburg",
+      "HE": "Hesse (Hessen)",
+      "MV": "Mecklenburg-Western Pomerania",
+      "NI": "Lower Saxony (Niedersachsen)",
+      "NW": "North Rhine-Westphalia",
+      "RP": "Rhineland-Palatinate",
+      "SL": "Saarland",
+      "SN": "Saxony (Sachsen)",
+      "ST": "Saxony-Anhalt",
+      "SH": "Schleswig-Holstein",
+      "TH": "Thuringia (Thüringen)"
+    },
+    "descriptions": {
+      "BW": "Southwestern state with Stuttgart as capital - home to Mercedes-Benz and Porsche",
+      "BY": "Germany's largest state with Munich as capital - famous for Oktoberfest and beer culture",
+      "BE": "Germany's capital and largest city - rich in history and culture",
+      "BB": "State surrounding Berlin with Potsdam as capital - many lakes and forests",
+      "HB": "Smallest state consisting of Bremen and Bremerhaven - important port cities",
+      "HH": "Northern city-state and major port - Germany's 'Gateway to the World'",
+      "HE": "Central state with Wiesbaden as capital - Frankfurt am Main is the financial center",
+      "MV": "Northeastern state with Schwerin as capital - beautiful Baltic Sea coast",
+      "NI": "Northwestern state with Hanover as capital - mix of coast, plains and mountains",
+      "NW": "Most populous state with Düsseldorf as capital - industrial heartland of Germany",
+      "RP": "Western state with Mainz as capital - famous wine region along the Rhine",
+      "SL": "Smallest area state with Saarbrücken as capital - close to France and Luxembourg",
+      "SN": "Eastern state with Dresden as capital - rich cultural heritage and beautiful architecture",
+      "ST": "Central-eastern state with Magdeburg as capital - lots of history and nature",
+      "SH": "Northernmost state with Kiel as capital - between North and Baltic seas",
+      "TH": "Central state with Erfurt as capital - known as the 'Green Heart of Germany'"
+    }
+  },
+
+  "calendar": {
+    "title": "Holiday Calendar",
+    "subtitle": "German holidays and bridge days at a glance",
+    "monthView": "Month view",
+    "yearView": "Year view",
+    "listView": "List view",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "previousYear": "Previous year",
+    "nextYear": "Next year",
+    "today": "Today",
+    "goToToday": "Go to today",
+    "selectDate": "Select date",
+    "weekdays": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "weekdaysShort": {
+      "monday": "Mon",
+      "tuesday": "Tue",
+      "wednesday": "Wed",
+      "thursday": "Thu",
+      "friday": "Fri",
+      "saturday": "Sat",
+      "sunday": "Sun"
+    },
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    },
+    "quarters": {
+      "q1": "Q1",
+      "q2": "Q2",
+      "q3": "Q3",
+      "q4": "Q4"
+    }
+  },
+
+  "vacation": {
+    "title": "Vacation Planning",
+    "subtitle": "Strategic bridge day optimization",
+    "budget": {
+      "title": "Vacation Budget",
+      "available": "Available days",
+      "used": "Used days",
+      "remaining": "Remaining days",
+      "percentage": "Percentage",
+      "legalMinimum": "German legal minimum: 20 days",
+      "germanStandard": "German standard: 20-50 days",
+      "recommendation": "Tip: Save 20% for spontaneous plans"
+    },
+    "planning": {
+      "title": "Planning Assistant",
+      "step1": "Step 1: Select your German state",
+      "step2": "Step 2: Set vacation budget",
+      "step3": "Step 3: Choose bridge days",
+      "step4": "Step 4: Configure email delivery",
+      "complete": "Complete planning"
+    },
+    "optimization": {
+      "title": "Optimization Tips",
+      "efficiency": "Optimize efficiency",
+      "costSavings": "Cost savings",
+      "seasonalTips": "Seasonal advice",
+      "workloadConsideration": "Consider workload"
+    }
+  },
+
+  "bridgeWeekends": {
+    "title": "Bridge Weekends",
+    "subtitle": "Maximum efficiency through strategic vacation days",
+    "card": {
+      "vacationDays": "Vacation days",
+      "totalDays": "Total days off",
+      "efficiency": "Efficiency",
+      "pattern": "Pattern",
+      "holiday": "Holiday",
+      "dates": "Period",
+      "selected": "Selected",
+      "select": "Select",
+      "deselect": "Deselect",
+      "details": "Show details",
+      "hideDetails": "Hide details"
+    },
+    "patterns": {
+      "thursday-friday": "Thursday-Friday Bridge",
+      "monday-tuesday": "Monday-Tuesday Bridge",
+      "tuesday-friday": "Tuesday-Friday Bridge",
+      "sandwich": "Sandwich Bridge",
+      "extend-weekend": "Weekend Extension"
+    },
+    "patternDescriptions": {
+      "thursday-friday": "Perfect for short breaks with maximum weekend feeling",
+      "monday-tuesday": "Great way to start a relaxed week without Monday blues",
+      "tuesday-friday": "Maximum vacation days for a complete week of relaxation",
+      "sandwich": "Optimal use of holidays between two weekends",
+      "extend-weekend": "Short extension for maximum relaxation"
+    },
+    "efficiency": {
+      "excellent": "Excellent",
+      "veryGood": "Very good",
+      "good": "Good",
+      "standard": "Standard",
+      "excellentDesc": "Maximum vacation value - best investment of your vacation days",
+      "veryGoodDesc": "High vacation value - very worthwhile use",
+      "goodDesc": "Solid vacation value - good balance",
+      "standardDesc": "Basic vacation value - doable but not optimal"
+    },
+    "sorting": {
+      "label": "Sort by",
+      "efficiency": "Efficiency",
+      "vacationDays": "Vacation days",
+      "totalDays": "Total days",
+      "startDate": "Start date",
+      "endDate": "End date"
+    },
+    "filtering": {
+      "label": "Filter",
+      "allPatterns": "All patterns",
+      "maxVacationDays": "Max vacation days",
+      "minEfficiency": "Min efficiency",
+      "quarter": "Quarter",
+      "month": "Month",
+      "season": "Season"
+    },
+    "seasons": {
+      "spring": "Spring",
+      "summer": "Summer",
+      "autumn": "Fall",
+      "winter": "Winter"
+    },
+    "empty": {
+      "title": "No bridge weekends available",
+      "message": "No bridge weekends found for your selected state.",
+      "selectState": "Please select your German state first."
+    },
+    "loading": {
+      "title": "Loading bridge weekends...",
+      "message": "Calculating optimal bridge days for your state."
+    },
+    "error": {
+      "title": "Loading error",
+      "message": "Bridge weekends couldn't be loaded.",
+      "retry": "Try again"
+    }
+  },
+
+  "form": {
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "minLength": "At least {min} characters required",
+      "maxLength": "Maximum {max} characters allowed",
+      "pattern": "Format doesn't meet requirements",
+      "number": "Please enter a valid number",
+      "min": "At least {min} required",
+      "max": "Maximum {max} allowed",
+      "integer": "Please enter a whole number",
+      "positive": "Value must be positive",
+      "url": "Please enter a valid URL",
+      "date": "Please enter a valid date",
+      "phone": "Please enter a valid phone number"
+    },
+    "labels": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email address",
+      "phone": "Phone number",
+      "company": "Company",
+      "position": "Position",
+      "message": "Message",
+      "subject": "Subject",
+      "state": "German state",
+      "vacationDays": "Vacation days",
+      "language": "Language",
+      "timezone": "Timezone",
+      "format": "Format"
+    },
+    "placeholders": {
+      "firstName": "Your first name",
+      "lastName": "Your last name",
+      "email": "your.email@example.com",
+      "phone": "+49 30 12345678",
+      "company": "Your company",
+      "position": "Your position",
+      "message": "Your message...",
+      "subject": "Message subject",
+      "search": "Search...",
+      "filter": "Filter..."
+    },
+    "hints": {
+      "email": "We'll only use your email to send you the calendar",
+      "phone": "Only required if we need to follow up",
+      "vacationDays": "German legal minimum: 20 days per year",
+      "privacy": "Your data is processed according to GDPR"
+    }
+  },
+
+  "gdpr": {
+    "title": "Privacy and Consent",
+    "subtitle": "Your data is processed according to GDPR",
+    "required": "Required for service",
+    "optional": "Optional for better experience",
+    "detailsShow": "Show details",
+    "detailsHide": "Hide details",
+    "consent": {
+      "vacationPlanning": "Vacation planning and calendar processing",
+      "vacationPlanningDesc": "Processing your data to create your personalized vacation calendar",
+      "emailDelivery": "Email delivery of your calendar",
+      "emailDeliveryDesc": "Sending your vacation calendar to your email address",
+      "analyticsAnonymous": "Anonymous usage statistics",
+      "analyticsAnonymousDesc": "Collecting anonymous data to improve our service (no personal data)",
+      "serviceImprovement": "Service improvement",
+      "serviceImprovementDesc": "Using your data to optimize and develop our services",
+      "marketingTimebutler": "TimeButler product information",
+      "marketingTimebutlerDesc": "Occasional updates about TimeButler's time tracking solutions (you can unsubscribe anytime)"
+    },
+    "legalBasis": {
+      "title": "Legal Basis",
+      "consent": "Consent (Art. 6 para. 1 lit. a GDPR)",
+      "contract": "Contract performance (Art. 6 para. 1 lit. b GDPR)",
+      "legitimateInterest": "Legitimate interest (Art. 6 para. 1 lit. f GDPR)"
+    },
+    "dataRetention": {
+      "title": "Data Storage",
+      "period": "90 days after creation",
+      "automaticDeletion": "Automatic deletion after expiry",
+      "manualDeletion": "Manual deletion possible anytime"
+    },
+    "rights": {
+      "title": "Your Rights",
+      "access": "Access to your data (Art. 15 GDPR)",
+      "rectification": "Correct your data (Art. 16 GDPR)",
+      "erasure": "Delete your data (Art. 17 GDPR)",
+      "portability": "Data portability (Art. 20 GDPR)",
+      "objection": "Object to processing (Art. 21 GDPR)",
+      "withdrawConsent": "Withdraw consent anytime"
+    },
+    "withdrawal": {
+      "title": "Withdrawing Consent",
+      "method": "Via email link or our website",
+      "effect": "Future data processing will stop",
+      "contact": "Contact: privacy@timebutler.de"
+    },
+    "controller": {
+      "title": "Data Controller",
+      "company": "TimeButler GmbH",
+      "address": "Sample Street 123, 12345 Berlin, Germany",
+      "email": "privacy@timebutler.de",
+      "phone": "+49 30 12345678",
+      "representative": "Data Protection Officer"
+    },
+    "errors": {
+      "required": "Required consent is missing",
+      "invalid": "Invalid consent",
+      "expired": "Consent has expired"
+    }
+  },
+
+  "email": {
+    "title": "Email Delivery",
+    "subtitle": "Your personalized vacation calendar by email",
+    "delivery": {
+      "title": "Configure delivery",
+      "format": "Calendar format",
+      "formats": {
+        "ics": "Standard iCalendar (.ics)",
+        "outlook": "Microsoft Outlook",
+        "google": "Google Calendar",
+        "apple": "Apple Calendar"
+      },
+      "language": "Email language",
+      "template": "Email template",
+      "templates": {
+        "professional": "Professional",
+        "personal": "Personal",
+        "minimal": "Minimal"
+      }
+    },
+    "validation": {
+      "checking": "Checking email address...",
+      "valid": "Valid email address",
+      "invalid": "Invalid email address",
+      "domainCheck": "Domain check",
+      "suggestions": "Did you mean {suggestion}?"
+    },
+    "status": {
+      "queued": "Queued",
+      "sending": "Sending...",
+      "sent": "Sent",
+      "delivered": "Delivered",
+      "bounced": "Undeliverable",
+      "failed": "Failed",
+      "retry": "Try again"
+    },
+    "templates": {
+      "subject": {
+        "calendar": "Your TimeButler vacation calendar for {year}",
+        "reminder": "Reminder: Your vacation plan for {period}",
+        "update": "Updated vacation calendar"
+      },
+      "greeting": {
+        "formal": "Dear Sir/Madam,",
+        "personal": "Hi {name},"
+      },
+      "signature": "Best regards,\nThe TimeButler Team"
+    }
+  },
+
+  "accessibility": {
+    "skipToContent": "Skip to main content",
+    "skipToNavigation": "Skip to navigation",
+    "skipToForm": "Skip to form",
+    "mainContent": "Main content",
+    "navigation": "Navigation",
+    "sidebar": "Sidebar",
+    "footer": "Footer",
+    "breadcrumb": "Breadcrumb navigation",
+    "pagination": "Pagination",
+    "instructions": "Use Tab key to navigate and Enter to select",
+    "keyboardShortcuts": "Keyboard shortcuts: Alt+S to submit, Alt+R to reset",
+    "screenReaderOptimized": "Optimized for screen readers",
+    "highContrast": "High contrast available",
+    "textSize": "Change text size",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "resetZoom": "Reset zoom",
+    "regions": {
+      "form": "Vacation planning form",
+      "validation": "Budget validation",
+      "bridges": "Bridge weekend selection",
+      "gdpr": "Privacy settings",
+      "calendar": "Holiday calendar",
+      "results": "Search results"
+    },
+    "status": {
+      "loading": "Content loading",
+      "error": "Error occurred",
+      "success": "Action successful",
+      "selected": "Selected",
+      "expanded": "Expanded",
+      "collapsed": "Collapsed",
+      "disabled": "Disabled",
+      "required": "Required field"
+    },
+    "actions": {
+      "clickToSelect": "Click to select",
+      "clickForDetails": "Click for details",
+      "pressEnterToActivate": "Press Enter to activate",
+      "useArrowKeys": "Use arrow keys to navigate",
+      "escapeToClose": "Press Escape to close"
+    }
+  },
+
+  "errors": {
+    "general": "Something went wrong",
+    "network": "Network error - Please check your internet connection",
+    "server": "Server error - Please try again later",
+    "validation": "Validation error - Please check your inputs",
+    "timeout": "Timeout - The operation took too long",
+    "forbidden": "Access denied",
+    "unauthorized": "Not authorized",
+    "notFound": "Resource not found",
+    "conflict": "Data conflict occurred",
+    "tooManyRequests": "Too many requests - Please wait a moment",
+    "serviceUnavailable": "Service temporarily unavailable",
+    "badRequest": "Invalid request",
+    "internalError": "Internal server error",
+    "maintenance": "Maintenance - Service temporarily unavailable",
+    "retry": "Try again",
+    "reportIssue": "Report issue",
+    "contactSupport": "Contact support"
+  },
+
+  "success": {
+    "title": "Vacation plan created successfully!",
+    "message": "Your personalized vacation calendar has been created and will be sent to you by email.",
+    "emailSent": "Email sent",
+    "checkInbox": "Please check your email inbox (including spam folder)",
+    "downloadReady": "Calendar ready for download",
+    "planAnother": "Create another plan",
+    "saved": "Successfully saved",
+    "updated": "Successfully updated",
+    "deleted": "Successfully deleted",
+    "sent": "Successfully sent",
+    "subscribed": "Successfully subscribed",
+    "unsubscribed": "Successfully unsubscribed"
+  },
+
+  "tips": {
+    "title": "Helpful Tips",
+    "efficiency": "Higher efficiency means more days off per vacation day used",
+    "budgetPlanning": "Plan about 20% of your vacation budget for spontaneous opportunities",
+    "seasonalCosts": "Travel costs are often higher during bridge periods",
+    "weatherConsideration": "Consider typical weather for your planned times",
+    "workloadPlanning": "Let your team know about planned time off early",
+    "flexibilityReserve": "Keep some vacation days for unexpected events",
+    "earlyBooking": "Book travel early for better prices and availability",
+    "teamCoordination": "Coordinate vacation times with your colleagues",
+    "documentBackup": "Document important tasks before your vacation",
+    "autoResponder": "Set up an out-of-office message",
+    "emergencyContact": "Leave emergency contacts for urgent matters"
+  },
+
+  "branding": {
+    "poweredBy": "Powered by TimeButler - Professional Time Tracking",
+    "tagline": "Optimize your work-life balance",
+    "learnMore": "Learn more about TimeButler",
+    "website": "https://timebutler.de",
+    "promotion": "Discover TimeButler's comprehensive time tracking solutions for your business",
+    "features": {
+      "timeTracking": "Precise time tracking",
+      "projectManagement": "Project management",
+      "reporting": "Detailed reports",
+      "integration": "System integration",
+      "compliance": "GDPR compliance"
+    },
+    "callToAction": {
+      "freeTrial": "Free trial",
+      "getDemo": "Request demo",
+      "learnMore": "Learn more",
+      "contact": "Get in touch"
+    }
+  },
+
+  "accessibility": {
+    "labels": {
+      "skipToContent": "Skip to main content",
+      "skipToNavigation": "Skip to navigation",
+      "skipToFooter": "Skip to footer",
+      "mainNavigation": "Main navigation",
+      "breadcrumbNavigation": "Breadcrumb navigation",
+      "pagination": "Page navigation",
+      "searchForm": "Search form",
+      "languageSelector": "Language selector",
+      "menuToggle": "Toggle menu",
+      "closeDialog": "Close dialog",
+      "openDialog": "Open dialog",
+      "loading": "Loading",
+      "error": "Error",
+      "success": "Success",
+      "warning": "Warning",
+      "info": "Information",
+      "required": "Required field",
+      "optional": "Optional",
+      "expand": "Expand",
+      "collapse": "Collapse",
+      "sortAscending": "Sort ascending",
+      "sortDescending": "Sort descending",
+      "filterResults": "Filter results",
+      "clearFilter": "Clear filter",
+      "selectDate": "Select date",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "currentDate": "Current date",
+      "calendarNavigation": "Calendar navigation",
+      "dataTable": "Data table",
+      "rowHeader": "Row header",
+      "columnHeader": "Column header",
+      "tableCaption": "Table description"
+    },
+    "descriptions": {
+      "holidayCalendar": "Interactive calendar showing German holidays and bridge weekends for optimal vacation planning",
+      "bridgeWeekendCard": "Card showing bridge weekend details with required vacation days and efficiency",
+      "vacationPlanForm": "Form for creating and managing vacation plans with bridge day optimization",
+      "stateSelector": "Selection of German federal state for correct holiday display",
+      "emailForm": "Form for sending vacation plan via email",
+      "languageToggle": "Switch between German and English language",
+      "bridgeWeekendList": "List of all available bridge weekends sorted by efficiency",
+      "vacationDaysBudget": "Input for available vacation days budget for the year",
+      "holidayDetails": "Detailed information about holidays and regional differences",
+      "exportOptions": "Options for exporting vacation planning to various calendar formats"
+    },
+    "instructions": {
+      "keyboardNavigation": "Use arrow keys to navigate, Enter to select, Escape to close",
+      "formNavigation": "Use Tab to navigate between fields, Enter to submit",
+      "calendarNavigation": "Use arrow keys for date navigation, Home/End for month start/end",
+      "listNavigation": "Use arrow keys to navigate lists, Enter to select",
+      "dialogNavigation": "Focus is trapped in dialog. Use Escape to close",
+      "tableNavigation": "Use arrow keys to navigate tables, Tab to exit",
+      "menuNavigation": "Use arrow keys for menu navigation, Enter to select",
+      "searchNavigation": "Typing starts automatic search, arrow keys for suggestions"
+    },
+    "announcements": {
+      "pageLoaded": "Page loaded. TimeButler vacation planner ready for use",
+      "formSubmitted": "Form successfully submitted",
+      "dataLoaded": "Data successfully loaded",
+      "error": "Error occurred. Please try again",
+      "navigationChanged": "Navigation changed to",
+      "selectionChanged": "Selection changed",
+      "filterApplied": "Filter applied",
+      "sortChanged": "Sort order changed",
+      "languageChanged": "Language changed to English",
+      "dialogOpened": "Dialog opened",
+      "dialogClosed": "Dialog closed",
+      "menuOpened": "Menu opened",
+      "menuClosed": "Menu closed",
+      "loadingStarted": "Loading started",
+      "loadingCompleted": "Loading completed"
+    },
+    "errors": {
+      "formValidation": "Form contains errors. Please check your inputs",
+      "networkError": "Network error. Please check your internet connection",
+      "serverError": "Server error. Please try again later",
+      "dataLoadError": "Error loading data",
+      "invalidInput": "Invalid input",
+      "requiredField": "This field is required",
+      "invalidEmail": "Invalid email address",
+      "invalidDate": "Invalid date",
+      "accessibilityError": "Accessibility error detected"
+    },
+    "success": {
+      "dataSaved": "Data successfully saved",
+      "emailSent": "Email successfully sent",
+      "calendarExported": "Calendar successfully exported",
+      "settingsSaved": "Settings saved",
+      "actionCompleted": "Action successfully completed"
+    }
+  },
+
+  "footer": {
+    "company": "TimeButler GmbH",
+    "address": "Sample Street 123, 12345 Berlin",
+    "links": {
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "imprint": "Legal Notice",
+      "contact": "Contact",
+      "support": "Support",
+      "about": "About us"
+    },
+    "social": {
+      "linkedin": "LinkedIn",
+      "xing": "XING",
+      "twitter": "Twitter",
+      "facebook": "Facebook"
+    },
+    "copyright": "© {year} TimeButler GmbH. All rights reserved.",
+    "madeInGermany": "Made in Germany"
+  },
+
+  "loading": {
+    "form": "Loading form...",
+    "bridges": "Calculating bridge weekends...",
+    "validation": "Validating inputs...",
+    "submission": "Creating vacation plan...",
+    "calendar": "Loading calendar...",
+    "holidays": "Loading holidays...",
+    "states": "Loading German states...",
+    "email": "Sending email...",
+    "general": "Loading...",
+    "pleaseWait": "Please wait...",
+    "processing": "Processing..."
+  },
+
+  "legal": {
+    "dsgvo": "DSGVO",
+    "gdpr": "GDPR",
+    "privacy": "Privacy",
+    "terms": "Terms and Conditions",
+    "imprint": "Legal Notice",
+    "liability": "Liability",
+    "disclaimer": "Disclaimer",
+    "copyright": "Copyright",
+    "dataProtection": "Data Protection",
+    "cookiePolicy": "Cookie Policy",
+    "rightToWithdraw": "Right to Withdraw",
+    "dataController": "Data Controller",
+    "dataProcessor": "Data Processor",
+    "supervisoryAuthority": "Supervisory Authority"
+  },
+
+  "formats": {
+    "date": {
+      "short": "MM/DD/YYYY",
+      "long": "dddd, MMMM DD, YYYY",
+      "month": "MMMM YYYY",
+      "year": "YYYY"
+    },
+    "time": {
+      "short": "h:mm A",
+      "long": "h:mm:ss A"
+    },
+    "currency": {
+      "symbol": "€",
+      "format": "€{amount}",
+      "decimal": ".",
+      "thousand": ","
+    },
+    "number": {
+      "decimal": ".",
+      "thousand": ","
+    }
+  },
+
+  "timeTracking": {
+    "title": "Time Tracking",
+    "subtitle": "Professional time tracking with TimeButler",
+    "benefits": {
+      "accuracy": "Precise time tracking to the second",
+      "compliance": "GDPR-compliant data processing",
+      "integration": "Seamless integration into existing systems",
+      "reporting": "Comprehensive evaluations and reports",
+      "mobile": "Mobile time tracking on the go",
+      "automated": "Automated workflows and processes"
+    },
+    "features": {
+      "projectTime": "Project time tracking",
+      "absenceManagement": "Absence management",
+      "overtimeTracking": "Overtime tracking",
+      "teamCollaboration": "Team collaboration",
+      "customReports": "Custom reports",
+      "apiIntegration": "API integration"
+    }
+  },
+
+  "confirmation": {
+    "pageTitle": "Email Successfully Sent",
+    "pageDescription": "Your vacation calendar has been successfully sent via email",
+    "title": "Your Vacation Calendar Has Been Sent!",
+    "subtitle": "Check your email inbox for your personalized vacation calendar",
+    "statusMessages": {
+      "sent": "Email successfully delivered",
+      "pending": "Email is being processed",
+      "failed": "Email delivery failed"
+    },
+    "emailSentTo": "Email sent to:",
+    "planReference": "Plan reference:",
+    "checkInboxTitle": "Next Steps",
+    "checkInboxItems": [
+      "Check your email inbox (including spam folder)",
+      "Open the email from TimeButler",
+      "Download your vacation calendar",
+      "Import the calendar into your preferred calendar app"
+    ],
+    "downloadTitle": "Direct Download",
+    "downloadDescription": "You can also download your calendar directly:",
+    "downloadButton": "Download Calendar",
+    "downloadExpiry": "Download link valid until: {date}",
+    "downloading": "Downloading...",
+    "brandingTitle": "About TimeButler",
+    "brandingText": "TimeButler is your partner for professional time tracking and workforce management. Discover our solutions for more efficient workflows.",
+    "brandingCta": "Learn More",
+    "secondaryActionsTitle": "Additional Options",
+    "createNewPlan": "Create New Vacation Plan",
+    "contactSupport": "Contact Support",
+    "backToPlanner": "Back to Planner",
+    "accessibility": {
+      "successIcon": "Success icon",
+      "downloadIcon": "Download icon",
+      "calendarIcon": "Calendar icon",
+      "emailIcon": "Email icon",
+      "languageToggle": "Switch language",
+      "skipToContent": "Skip to main content",
+      "brandLogo": "TimeButler Logo"
+    },
+    "errors": {
+      "downloadFailed": "Download failed. Please try again or contact support."
+    }
+  }
+}

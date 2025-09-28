@@ -1,0 +1,65 @@
+{
+  "name": "@timebutler/calendar-mvp",
+  "version": "1.0.0",
+  "description": "TimeButler Calendar MVP - German holiday bridge weekend optimizer",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "test:e2e": "cd frontend && npm run test:e2e",
+    "test:integration": "npm run test:backend && npm run test:frontend -- --testPathPattern=integration",
+    "test:load": "k6 run tests/load/main.k6.js",
+    "test:load:german": "k6 run tests/load/german-scenarios.k6.js",
+    "test:load:peak": "k6 run tests/load/peak-season.k6.js",
+    "test:load:constitutional": "k6 run tests/load/constitutional-validation.k6.js",
+    "test:load:stress": "k6 run tests/load/stress-test.k6.js",
+    "test:load:monitoring": "k6 run --out influxdb=http://localhost:8086/k6 tests/load/main.k6.js",
+    "load:prepare": "docker-compose -f docker-compose.load-test.yml up -d",
+    "load:cleanup": "docker-compose -f docker-compose.load-test.yml down",
+    "load:report": "node scripts/load-test-report.js",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint",
+    "format": "npm run format:backend && npm run format:frontend",
+    "format:backend": "cd backend && npm run format",
+    "format:frontend": "cd frontend && npm run format",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "husky": "^8.0.3",
+    "k6": "^0.46.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timebutler/calendar-mvp.git"
+  },
+  "keywords": [
+    "timebutler",
+    "calendar",
+    "holidays",
+    "vacation",
+    "bridge-weekends",
+    "germany",
+    "performance",
+    "load-testing",
+    "accessibility"
+  ],
+  "author": "TimeButler Team",
+  "license": "MIT"
+}

@@ -1,0 +1,288 @@
+{
+  "title": "Create Your Vacation Plan",
+  "subtitle": "Maximize your time off with smart bridge days",
+  "description": "Create your personalized vacation plan based on German holidays and bridge opportunities",
+
+  "form": {
+    "stateLabel": "Your German State",
+    "statePlaceholder": "Select your state",
+    "stateRequired": "Please select your German state",
+    "stateHint": "Choose the state where you work to get the correct holidays",
+
+    "budgetLabel": "Available Vacation Days",
+    "budgetPlaceholder": "Number of vacation days",
+    "budgetHint": "German standard: 20-50 days per year (legal minimum: 20 days)",
+    "budgetRequired": "Vacation days are required",
+    "budgetInvalidMin": "At least 20 vacation days are required under German law",
+    "budgetInvalidMax": "Maximum 50 vacation days can be entered",
+    "budgetInvalidNumber": "Please enter a valid number of vacation days",
+
+    "bridgesLabel": "Select Bridge Weekends",
+    "bridgesHint": "Choose the bridge weekends you want to use for your vacation",
+    "bridgesEmpty": "No bridge weekends available",
+    "bridgesLoading": "Loading bridge weekends...",
+    "bridgeSelectAll": "Select all",
+    "bridgeDeselectAll": "Deselect all",
+
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "your.email@example.com",
+    "emailRequired": "Email address is required",
+    "emailInvalid": "Please enter a valid email address",
+    "emailHint": "Your personalized vacation calendar will be sent to this address",
+
+    "languageLabel": "Language",
+    "languageGerman": "Deutsch",
+    "languageEnglish": "English",
+
+    "submitButton": "Create Vacation Plan",
+    "submitting": "Processing...",
+    "submitSuccess": "Vacation plan created successfully!",
+    "submitError": "Error creating vacation plan",
+
+    "resetButton": "Reset",
+    "resetConfirm": "Do you really want to reset all inputs?",
+
+    "requiredFields": "Required fields are marked with *",
+    "formInvalid": "Please check your inputs"
+  },
+
+  "validation": {
+    "title": "Budget Overview",
+    "subtitle": "Overview of your vacation planning",
+
+    "metrics": {
+      "requiredDays": "Required vacation days",
+      "availableDays": "Available vacation days",
+      "remainingDays": "Remaining days",
+      "usedPercentage": "Used percentage",
+      "efficiency": "Efficiency",
+      "totalDaysOff": "Total days off",
+      "averageEfficiency": "Average efficiency",
+      "bestEfficiency": "Best efficiency",
+      "totalBridges": "Number of bridge weekends"
+    },
+
+    "warnings": {
+      "title": "Warnings",
+      "budgetExceeded": "Budget exceeded",
+      "budgetExceededMessage": "You need {required} vacation days but only have {available} available.",
+      "highUsage": "High budget usage",
+      "highUsageMessage": "You're using {percentage}% of your vacation budget.",
+      "lowEfficiency": "Low efficiency",
+      "lowEfficiencyMessage": "Low efficiency: {efficiency}x. Better bridge opportunities might be available.",
+      "seasonalConflict": "Seasonal conflict",
+      "seasonalConflictMessage": "Some of your bridge weekends overlap with typical vacation periods.",
+      "legalMinimum": "Below legal minimum",
+      "legalMinimumMessage": "{budget} days is below the German minimum entitlement of {minimum} days."
+    },
+
+    "recommendations": {
+      "title": "Recommendations",
+      "reduceBridges": "Reduce your bridge weekend selection",
+      "reserveDays": "Consider saving some days for spontaneous plans",
+      "exploreBetter": "Explore more efficient bridge weekends",
+      "avoidPeakSeason": "Avoid peak vacation times for better availability",
+      "considerCosts": "Consider higher travel costs during bridge periods",
+      "checkWeather": "Check typical weather conditions for your planned times"
+    },
+
+    "status": {
+      "optimal": "Optimal",
+      "good": "Good",
+      "acceptable": "Acceptable",
+      "problematic": "Problematic",
+      "invalid": "Invalid"
+    }
+  },
+
+  "bridges": {
+    "title": "Available Bridge Weekends",
+    "subtitle": "Select the bridge days that work for you",
+
+    "card": {
+      "vacationDays": "vacation days",
+      "totalDays": "total days off",
+      "efficiency": "Efficiency",
+      "pattern": "Pattern",
+      "holiday": "Holiday",
+      "dates": "Period",
+      "selected": "Selected",
+      "select": "Select",
+      "deselect": "Deselect"
+    },
+
+    "patterns": {
+      "thursday-friday": "Thursday-Friday Bridge",
+      "monday-tuesday": "Monday-Tuesday Bridge",
+      "tuesday-friday": "Tuesday-Friday Bridge",
+      "sandwich": "Sandwich Bridge",
+      "extend-weekend": "Weekend Extension"
+    },
+
+    "sorting": {
+      "label": "Sort by",
+      "efficiency": "Efficiency",
+      "vacationDays": "Vacation days",
+      "totalDays": "Total days",
+      "startDate": "Start date",
+      "endDate": "End date"
+    },
+
+    "filtering": {
+      "label": "Filter",
+      "allPatterns": "All patterns",
+      "maxVacationDays": "Max vacation days",
+      "minEfficiency": "Min efficiency",
+      "quarter": "Quarter",
+      "month": "Month"
+    },
+
+    "empty": {
+      "title": "No bridge weekends available",
+      "message": "No bridge weekends found for your selected state.",
+      "selectState": "Please select your state first."
+    },
+
+    "loading": {
+      "title": "Loading bridge weekends...",
+      "message": "Calculating optimal bridge days for your state."
+    },
+
+    "error": {
+      "title": "Loading error",
+      "message": "Bridge weekends could not be loaded.",
+      "retry": "Try again"
+    }
+  },
+
+  "gdpr": {
+    "title": "Privacy and Consent",
+    "subtitle": "Your data is processed in accordance with GDPR",
+
+    "required": "Required for service",
+    "optional": "Optional for better experience",
+
+    "detailsShow": "Show details",
+    "detailsHide": "Hide details",
+
+    "consent": {
+      "vacationPlanning": "Vacation planning and calendar processing",
+      "vacationPlanningDesc": "Processing your data to create your personalized vacation calendar",
+
+      "emailDelivery": "Email delivery of your calendar",
+      "emailDeliveryDesc": "Sending your vacation calendar to the provided email address",
+
+      "analyticsAnonymous": "Anonymous usage statistics",
+      "analyticsAnonymousDesc": "Collection of anonymous data to improve our service (no personal data)",
+
+      "serviceImprovement": "Service improvement",
+      "serviceImprovementDesc": "Using your data to optimize and develop our services",
+
+      "marketingTimebutler": "TimeButler product information",
+      "marketingTimebutlerDesc": "Occasional information about TimeButler's time tracking solutions (unsubscribe anytime)"
+    },
+
+    "legalBasis": {
+      "title": "Legal Basis",
+      "consent": "Consent (Art. 6 para. 1 lit. a GDPR)",
+      "contract": "Contract performance (Art. 6 para. 1 lit. b GDPR)",
+      "legitimateInterest": "Legitimate interest (Art. 6 para. 1 lit. f GDPR)"
+    },
+
+    "dataRetention": {
+      "title": "Data Retention",
+      "period": "90 days after creation",
+      "automaticDeletion": "Automatic deletion after expiry",
+      "manualDeletion": "Manual deletion possible at any time"
+    },
+
+    "rights": {
+      "title": "Your Rights",
+      "access": "Information about your data (Art. 15 GDPR)",
+      "rectification": "Correction of your data (Art. 16 GDPR)",
+      "erasure": "Deletion of your data (Art. 17 GDPR)",
+      "portability": "Data portability (Art. 20 GDPR)",
+      "objection": "Objection to processing (Art. 21 GDPR)",
+      "withdrawConsent": "Withdrawal of consent possible at any time"
+    },
+
+    "withdrawal": {
+      "title": "Withdrawal of Consent",
+      "method": "Via email link or through our website",
+      "effect": "Future data processing will be stopped",
+      "contact": "Contact: privacy@timebutler.de"
+    },
+
+    "controller": {
+      "title": "Data Controller",
+      "company": "TimeButler GmbH",
+      "address": "Sample Street 123, 12345 Berlin, Germany",
+      "email": "privacy@timebutler.de",
+      "phone": "+49 30 12345678"
+    },
+
+    "errors": {
+      "required": "Required consent is missing",
+      "invalid": "Invalid consent",
+      "expired": "Consent has expired"
+    }
+  },
+
+  "accessibility": {
+    "instructions": "Use Tab key to navigate and Enter to select",
+    "keyboardShortcuts": "Keyboard shortcuts: Alt+S to submit, Alt+R to reset",
+    "screenReaderOptimized": "Optimized for screen readers",
+    "highContrast": "High contrast available",
+    "skipToContent": "Skip to main content",
+    "skipToForm": "Skip to form",
+    "regionForm": "Vacation planning form",
+    "regionValidation": "Budget validation",
+    "regionBridges": "Bridge weekend selection",
+    "regionGdpr": "Privacy settings"
+  },
+
+  "branding": {
+    "poweredBy": "Powered by TimeButler - Professional Time Tracking",
+    "tagline": "Optimize your work-life balance",
+    "learnMore": "Learn more about TimeButler",
+    "website": "https://timebutler.de",
+    "promotion": "Discover TimeButler's comprehensive time tracking solutions for your business"
+  },
+
+  "errors": {
+    "general": "An error occurred",
+    "network": "Network error - Please check your internet connection",
+    "server": "Server error - Please try again later",
+    "validation": "Validation error - Please check your inputs",
+    "timeout": "Timeout - The operation took too long",
+    "forbidden": "Access denied",
+    "notFound": "Resource not found",
+    "tooManyRequests": "Too many requests - Please wait a moment"
+  },
+
+  "loading": {
+    "form": "Loading form...",
+    "bridges": "Calculating bridge weekends...",
+    "validation": "Validating inputs...",
+    "submission": "Creating vacation plan...",
+    "general": "Loading..."
+  },
+
+  "success": {
+    "title": "Vacation plan created successfully!",
+    "message": "Your personalized vacation calendar has been created and will be sent to you by email.",
+    "emailSent": "Email sent",
+    "checkInbox": "Please check your email inbox (including spam folder)",
+    "downloadReady": "Calendar ready for download",
+    "planAnother": "Create another plan"
+  },
+
+  "tips": {
+    "efficiency": "Higher efficiency means more days off per vacation day used",
+    "budgetPlanning": "Plan about 20% of your vacation budget for spontaneous opportunities",
+    "seasonalCosts": "Travel costs are often higher during bridge periods",
+    "weatherConsideration": "Consider typical weather for your planned times",
+    "workloadPlanning": "Inform your team early about planned absences",
+    "flexibilityReserve": "Keep some vacation days for unexpected events"
+  }
+}

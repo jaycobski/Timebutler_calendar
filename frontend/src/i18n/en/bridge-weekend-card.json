@@ -1,0 +1,135 @@
+{
+  "title": "Bridge Weekend",
+  "subtitle": "Smart Vacation Planning",
+  "efficiency": {
+    "label": "Efficiency",
+    "rating": {
+      "excellent": "Excellent",
+      "veryGood": "Very Good",
+      "good": "Good",
+      "standard": "Standard"
+    },
+    "description": {
+      "excellent": "Maximum vacation value - best investment of your vacation days",
+      "veryGood": "High vacation value - very worthwhile use",
+      "good": "Solid vacation value - good balance",
+      "standard": "Basic vacation value - doable but not optimal"
+    }
+  },
+  "metrics": {
+    "vacationDays": "Vacation Days",
+    "daysOff": "Days Off",
+    "totalDuration": "Total Duration",
+    "value": "Value",
+    "savings": "Savings",
+    "roi": "ROI",
+    "efficiency": "Efficiency"
+  },
+  "breakdown": {
+    "title": "Breakdown",
+    "weekendDays": "Weekend days",
+    "holidays": "Holidays",
+    "vacationDaysUsed": "Vacation days used",
+    "workingDaysOff": "Working days off"
+  },
+  "patterns": {
+    "title": "Vacation Patterns",
+    "difficulty": "Difficulty",
+    "difficultyLevels": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "types": {
+      "thursday-friday": {
+        "name": "Thursday-Friday Bridge",
+        "description": "Perfect for short breaks with maximum weekend vibes",
+        "tip": "Great for quick getaways or extended relaxation",
+        "usage": "Take Thursday and Friday off for a 4-day weekend"
+      },
+      "monday-tuesday": {
+        "name": "Monday-Tuesday Bridge",
+        "description": "Beat the Monday blues with a relaxed week start",
+        "tip": "Especially valuable after stressful project phases",
+        "usage": "Take Monday and Tuesday off for a relaxed week start"
+      },
+      "tuesday-friday": {
+        "name": "Tuesday-Friday Bridge",
+        "description": "Maximum vacation days for a full week of rest",
+        "tip": "Perfect for real vacations or important family events",
+        "usage": "Take Tuesday through Friday off for a full week break"
+      },
+      "sandwich": {
+        "name": "Sandwich Bridge",
+        "description": "Holiday between two weekends optimally utilized",
+        "tip": "Just 1-2 vacation days for up to 9 days of free time",
+        "usage": "Bridge a few days between weekends"
+      },
+      "extend-weekend": {
+        "name": "Weekend Extension",
+        "description": "Short extension for maximum relaxation",
+        "tip": "Ideal for spontaneous recovery or family time",
+        "usage": "Extend weekend by 1-2 days"
+      }
+    }
+  },
+  "valueCalculation": {
+    "title": "Value Calculation",
+    "based_on": "Based on German average salary 2025",
+    "daily_rate": "Daily rate",
+    "vacation_multiplier": "Vacation value factor",
+    "estimated_savings": "Estimated savings",
+    "explanation": "Calculated based on the value of gained free days minus used vacation days"
+  },
+  "actions": {
+    "select": "Select",
+    "selected": "Selected",
+    "deselect": "Deselect",
+    "showDetails": "Show details",
+    "hideDetails": "Hide details",
+    "addToCalendar": "Add to calendar",
+    "share": "Share",
+    "favorite": "Favorite",
+    "unfavorite": "Remove favorite"
+  },
+  "accessibility": {
+    "cardRole": "Bridge weekend option",
+    "selected": "selected",
+    "notSelected": "not selected",
+    "clickToSelect": "Click to select",
+    "clickForDetails": "Click for details",
+    "efficiencyRating": "Efficiency rating",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
+  "states": {
+    "loading": "Loading bridge weekends...",
+    "error": "Error loading data",
+    "noData": "No bridge weekends available",
+    "disabled": "Not available",
+    "expired": "Expired"
+  },
+  "context": {
+    "german_vacation": "German vacation optimization",
+    "public_holiday": "Public holiday",
+    "state_holiday": "State holiday",
+    "regional_holiday": "Regional holiday",
+    "catholic_holiday": "Catholic holiday",
+    "protestant_holiday": "Protestant holiday"
+  },
+  "optimization": {
+    "title": "Optimization Tips",
+    "may_cluster": "Optimize May holiday clusters",
+    "christmas_mega": "Plan Christmas mega-bridges",
+    "catholic_advantage": "Catholic state advantages",
+    "early_booking": "Early booking recommended",
+    "team_coordination": "Consider team coordination"
+  },
+  "examples": {
+    "easter_bridge": "Easter bridge weekend",
+    "pentecost_bridge": "Pentecost extension",
+    "christmas_bridge": "Christmas bridge",
+    "may_optimization": "May optimization",
+    "autumn_break": "Autumn break"
+  }
+}

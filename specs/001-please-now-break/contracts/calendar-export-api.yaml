@@ -1,0 +1,357 @@
+openapi: 3.0.3
+info:
+  title: Timebutler Calendar - Export & Email API
+  description: Calendar export generation and email delivery
+  version: 1.0.0
+  contact:
+    name: TimeButler Team
+
+servers:
+  - url: https://api.timebutler-calendar.com/v1
+    description: Production server
+  - url: http://localhost:3000/v1
+    description: Development server
+
+paths:
+  /vacation-plan:
+    post:
+      summary: Create vacation plan session
+      description: Create a new vacation planning session with selected bridge weekends
+      tags:
+        - Vacation Planning
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - state
+                - vacation_days_available
+                - selected_bridges
+                - language
+              properties:
+                state:
+                  type: string
+                  pattern: '^[A-Z]{2}$'
+                  example: "BY"
+                vacation_days_available:
+                  type: integer
+                  minimum: 0
+                  maximum: 50
+                  example: 25
+                selected_bridges:
+                  type: array
+                  items:
+                    type: string
+                  example: ["bridge-christi-himmelfahrt-2025", "bridge-tag-der-einheit-2025"]
+                  minItems: 1
+                  maxItems: 10
+                language:
+                  type: string
+                  enum: [de, en]
+                  example: "de"
+      responses:
+        '201':
+          description: Vacation plan created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session_id:
+                    type: string
+                    example: "sess_7f8a9b2c4d5e6f1a2b3c4d5e6f7a8b9c"
+                  vacation_plan:
+                    $ref: '#/components/schemas/VacationPlan'
+                  summary:
+                    $ref: '#/components/schemas/PlanSummary'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Vacation budget exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /vacation-plan/{session_id}/email:
+    post:
+      summary: Send calendar via email
+      description: Send vacation plan summary and calendar export links via email
+      tags:
+        - Email Delivery
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "sess_7f8a9b2c4d5e6f1a2b3c4d5e6f7a8b9c"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - gdpr_consent
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "user@example.com"
+                gdpr_consent:
+                  type: boolean
+                  example: true
+                  description: User must explicitly consent to data processing
+                gdpr_timestamp:
+                  type: string
+                  format: date-time
+                  example: "2025-01-24T12:00:00Z"
+      responses:
+        '200':
+          description: Email sent successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "email_sent"
+                  email_id:
+                    type: string
+                    example: "email_abc123def456"
+                  delivery_time:
+                    type: string
+                    format: date-time
+                    example: "2025-01-24T12:00:05Z"
+                  export_links:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExportLink'
+        '400':
+          description: Invalid email or missing consent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Session not found or expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /export/{export_id}:
+    get:
+      summary: Download calendar export
+      description: Download generated calendar file (iCal format)
+      tags:
+        - Calendar Export
+      parameters:
+        - name: export_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [ical, google, outlook]
+            default: ical
+          description: Calendar format preference
+      responses:
+        '200':
+          description: Calendar file download
+          content:
+            text/calendar:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Content-Disposition:
+              description: Attachment filename
+              schema:
+                type: string
+                example: 'attachment; filename="timebutler-calendar-2025.ics"'
+            Cache-Control:
+              description: Cache settings
+              schema:
+                type: string
+                example: "private, max-age=3600"
+        '404':
+          description: Export not found or expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '410':
+          description: Export link expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /health:
+    get:
+      summary: Health check endpoint
+      description: Check API health and email service status
+      tags:
+        - System
+      responses:
+        '200':
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
+                  timestamp:
+                    type: string
+                    format: date-time
+                  services:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        enum: [healthy, degraded, down]
+                      database:
+                        type: string
+                        enum: [healthy, degraded, down]
+                      cache:
+                        type: string
+                        enum: [healthy, degraded, down]
+
+components:
+  schemas:
+    VacationPlan:
+      type: object
+      required:
+        - session_id
+        - state_code
+        - vacation_days_available
+        - selected_bridges
+        - language
+      properties:
+        session_id:
+          type: string
+          example: "sess_7f8a9b2c4d5e6f1a2b3c4d5e6f7a8b9c"
+        state_code:
+          type: string
+          pattern: '^[A-Z]{2}$'
+          example: "BY"
+        vacation_days_available:
+          type: integer
+          example: 25
+        vacation_days_used:
+          type: integer
+          example: 3
+        language:
+          type: string
+          enum: [de, en]
+        selected_bridges:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        email_sent_at:
+          type: string
+          format: date-time
+          nullable: true
+
+    PlanSummary:
+      type: object
+      properties:
+        total_vacation_days_used:
+          type: integer
+          example: 6
+        total_days_off_gained:
+          type: integer
+          example: 24
+        overall_efficiency:
+          type: number
+          format: float
+          example: 4.0
+        bridge_weekends:
+          type: array
+          items:
+            type: object
+            properties:
+              holiday_name:
+                type: string
+              dates:
+                type: string
+                example: "29 May - 1 Jun 2025"
+              vacation_days:
+                type: integer
+              total_days:
+                type: integer
+
+    ExportLink:
+      type: object
+      required:
+        - export_id
+        - format
+        - download_url
+        - expires_at
+      properties:
+        export_id:
+          type: string
+          format: uuid
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        format:
+          type: string
+          enum: [ical, google, outlook]
+        download_url:
+          type: string
+          format: uri
+          example: "https://api.timebutler-calendar.com/v1/export/550e8400-e29b-41d4-a716-446655440000"
+        expires_at:
+          type: string
+          format: date-time
+          example: "2025-02-23T12:00:00Z"
+        file_size:
+          type: integer
+          example: 2048
+          description: File size in bytes
+
+    Error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          example: "VALIDATION_ERROR"
+        message:
+          type: string
+          example: "Vacation days used (30) exceeds available days (25)"
+        details:
+          type: object
+          nullable: true
+        timestamp:
+          type: string
+          format: date-time

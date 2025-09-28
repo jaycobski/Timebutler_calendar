@@ -1,0 +1,310 @@
+{
+  "mappings": [
+    {
+      "id": "german-holidays-2025",
+      "name": "German Holidays 2025",
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/v1/holidays",
+        "queryParameters": {
+          "year": {
+            "equalTo": "2025"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "X-Cache-Status": "{{randomValue type='WEIGHTED' values='HIT,HIT,HIT,HIT,MISS'}}",
+          "X-Response-Time": "{{randomInt lower=50 upper=200}}ms"
+        },
+        "jsonBody": [
+          {
+            "id": "neujahr-2025",
+            "name": "Neujahr",
+            "name_en": "New Year's Day",
+            "date": "2025-01-01",
+            "type": "federal",
+            "states": ["ALL"],
+            "religious": false
+          },
+          {
+            "id": "heilige-drei-koenige-2025",
+            "name": "Heilige Drei Könige",
+            "name_en": "Epiphany",
+            "date": "2025-01-06",
+            "type": "state",
+            "states": ["BY", "BW", "ST"],
+            "religious": true,
+            "denomination": "catholic"
+          },
+          {
+            "id": "karfreitag-2025",
+            "name": "Karfreitag",
+            "name_en": "Good Friday",
+            "date": "2025-04-18",
+            "type": "federal",
+            "states": ["ALL"],
+            "religious": true,
+            "denomination": "christian"
+          },
+          {
+            "id": "ostermontag-2025",
+            "name": "Ostermontag",
+            "name_en": "Easter Monday",
+            "date": "2025-04-21",
+            "type": "federal",
+            "states": ["ALL"],
+            "religious": true,
+            "denomination": "christian"
+          },
+          {
+            "id": "maifeiertag-2025",
+            "name": "Maifeiertag",
+            "name_en": "Labor Day",
+            "date": "2025-05-01",
+            "type": "federal",
+            "states": ["ALL"],
+            "religious": false
+          },
+          {
+            "id": "christi-himmelfahrt-2025",
+            "name": "Christi Himmelfahrt",
+            "name_en": "Ascension Day",
+            "date": "2025-05-29",
+            "type": "federal",
+            "states": ["ALL"],
+            "religious": true,
+            "denomination": "christian"
+          },
+          {
+            "id": "pfingstmontag-2025",
+            "name": "Pfingstmontag",
+            "name_en": "Whit Monday",
+            "date": "2025-06-09",
+            "type": "federal",
+            "states": ["ALL"],
+            "religious": true,
+            "denomination": "christian"
+          },
+          {
+            "id": "fronleichnam-2025",
+            "name": "Fronleichnam",
+            "name_en": "Corpus Christi",
+            "date": "2025-06-19",
+            "type": "state",
+            "states": ["BY", "BW", "HE", "NW", "RP", "SL"],
+            "religious": true,
+            "denomination": "catholic"
+          },
+          {
+            "id": "tag-der-deutschen-einheit-2025",
+            "name": "Tag der Deutschen Einheit",
+            "name_en": "German Unity Day",
+            "date": "2025-10-03",
+            "type": "federal",
+            "states": ["ALL"],
+            "religious": false
+          },
+          {
+            "id": "reformationstag-2025",
+            "name": "Reformationstag",
+            "name_en": "Reformation Day",
+            "date": "2025-10-31",
+            "type": "state",
+            "states": ["BB", "HB", "HH", "MV", "NI", "SN", "ST", "SH", "TH"],
+            "religious": true,
+            "denomination": "protestant"
+          },
+          {
+            "id": "allerheiligen-2025",
+            "name": "Allerheiligen",
+            "name_en": "All Saints' Day",
+            "date": "2025-11-01",
+            "type": "state",
+            "states": ["BY", "BW", "NW", "RP", "SL"],
+            "religious": true,
+            "denomination": "catholic"
+          },
+          {
+            "id": "1-weihnachtstag-2025",
+            "name": "1. Weihnachtstag",
+            "name_en": "Christmas Day",
+            "date": "2025-12-25",
+            "type": "federal",
+            "states": ["ALL"],
+            "religious": true,
+            "denomination": "christian"
+          },
+          {
+            "id": "2-weihnachtstag-2025",
+            "name": "2. Weihnachtstag",
+            "name_en": "Boxing Day",
+            "date": "2025-12-26",
+            "type": "federal",
+            "states": ["ALL"],
+            "religious": true,
+            "denomination": "christian"
+          }
+        ],
+        "fixedDelayMilliseconds": "{{randomInt lower=10 upper=150}}"
+      }
+    },
+    {
+      "id": "bridge-weekends-calculation",
+      "name": "Bridge Weekends Calculation",
+      "request": {
+        "method": "POST",
+        "urlPath": "/v1/bridge-weekends"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json",
+          "X-Cache-Status": "{{randomValue type='WEIGHTED' values='HIT,HIT,MISS'}}",
+          "X-Calculation-Time": "{{randomInt lower=80 upper=300}}ms"
+        },
+        "jsonBody": {
+          "bridge_weekends": [
+            {
+              "id": "easter-bridge-2025",
+              "holiday_name": "Karfreitag & Ostermontag",
+              "holiday_name_en": "Good Friday & Easter Monday",
+              "start_date": "2025-04-18",
+              "end_date": "2025-04-21",
+              "vacation_days_needed": 0,
+              "total_days_off": 4,
+              "efficiency": "infinite",
+              "pattern": "natural_long_weekend"
+            },
+            {
+              "id": "ascension-bridge-2025",
+              "holiday_name": "Christi Himmelfahrt",
+              "holiday_name_en": "Ascension Day",
+              "start_date": "2025-05-29",
+              "end_date": "2025-06-01",
+              "vacation_days_needed": 1,
+              "total_days_off": 4,
+              "efficiency": 4.0,
+              "pattern": "thursday_friday_bridge"
+            },
+            {
+              "id": "christmas-bridge-2025",
+              "holiday_name": "Weihnachten",
+              "holiday_name_en": "Christmas",
+              "start_date": "2025-12-24",
+              "end_date": "2025-12-28",
+              "vacation_days_needed": 2,
+              "total_days_off": 5,
+              "efficiency": 2.5,
+              "pattern": "christmas_week_bridge"
+            },
+            {
+              "id": "new-year-bridge-2026",
+              "holiday_name": "Neujahr",
+              "holiday_name_en": "New Year's Day",
+              "start_date": "2025-12-29",
+              "end_date": "2026-01-05",
+              "vacation_days_needed": 4,
+              "total_days_off": 8,
+              "efficiency": 2.0,
+              "pattern": "year_transition_bridge"
+            }
+          ],
+          "optimization_summary": {
+            "total_vacation_days_used": 7,
+            "total_days_off_achieved": 21,
+            "overall_efficiency": 3.0,
+            "recommended_bridges": ["easter-bridge-2025", "ascension-bridge-2025", "christmas-bridge-2025"]
+          },
+          "state": "{{request.body.state}}",
+          "year": "{{request.body.year}}",
+          "language": "{{request.body.language}}"
+        },
+        "fixedDelayMilliseconds": "{{randomInt lower=50 upper=250}}"
+      }
+    },
+    {
+      "id": "vacation-plan-creation",
+      "name": "Vacation Plan Creation",
+      "request": {
+        "method": "POST",
+        "urlPath": "/v1/vacation-plan"
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json",
+          "Location": "/v1/vacation-plan/{{randomValue type='UUID'}}"
+        },
+        "jsonBody": {
+          "id": "{{randomValue type='UUID'}}",
+          "created_at": "{{now format='yyyy-MM-dd HH:mm:ss'}}",
+          "state": "{{request.body.state}}",
+          "language": "{{request.body.language}}",
+          "email": "{{request.body.email}}",
+          "vacation_plan_name": "{{request.body.vacation_plan_name}}",
+          "selected_bridges": "{{request.body.selected_bridges}}",
+          "gdpr_consent": "{{request.body.gdpr_consent}}",
+          "status": "created",
+          "calendar_ready": true,
+          "pdf_ready": "{{randomValue type='BOOLEAN'}}"
+        },
+        "fixedDelayMilliseconds": "{{randomInt lower=100 upper=400}}"
+      }
+    },
+    {
+      "id": "email-delivery",
+      "name": "Email Delivery",
+      "request": {
+        "method": "POST",
+        "urlPathPattern": "/v1/vacation-plan/([a-f0-9-]+)/email"
+      },
+      "response": {
+        "status": "{{randomValue type='WEIGHTED' values='200,200,200,200,202'}}",
+        "headers": {
+          "Content-Type": "application/json",
+          "X-GDPR-Compliant": "true",
+          "X-Email-Service": "Resend"
+        },
+        "jsonBody": {
+          "status": "{{randomValue type='WEIGHTED' values='sent,sent,sent,queued'}}",
+          "message_id": "{{randomValue type='UUID'}}",
+          "email_sent_to": "{{request.body.email || 'test@example.com'}}",
+          "delivery_language": "{{request.body.delivery_language}}",
+          "queue_time": "{{randomInt lower=50 upper=500}}",
+          "processing_time": "{{randomInt lower=200 upper=1500}}",
+          "template_render_time": "{{randomInt lower=100 upper=400}}",
+          "smtp_connection_time": "{{randomInt lower=20 upper=150}}",
+          "estimated_delivery": "{{now offset='5 seconds' format='yyyy-MM-dd HH:mm:ss'}}",
+          "attachments": {
+            "calendar": true,
+            "pdf_summary": "{{randomValue type='BOOLEAN'}}"
+          }
+        },
+        "fixedDelayMilliseconds": "{{randomInt lower=200 upper=2000}}"
+      }
+    },
+    {
+      "id": "health-check",
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "urlPath": "/__admin/health"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "status": "healthy",
+          "timestamp": "{{now format='yyyy-MM-dd HH:mm:ss'}}",
+          "version": "1.0.0",
+          "environment": "load_testing"
+        }
+      }
+    }
+  ]
+}

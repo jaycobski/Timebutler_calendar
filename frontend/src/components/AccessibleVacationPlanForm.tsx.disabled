@@ -1,0 +1,618 @@
+/**
+ * Accessible Vacation Plan Form
+ * Enhanced version with comprehensive accessibility features
+ */
+
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import type { BridgeWeekend, Holiday } from '../types/holiday';
+import type { GermanStateCode, Language } from '../types/state';
+import {
+  useA11yLabels,
+  useKeyboardNavigation,
+  useFocusManagement,
+  useScreenReader,
+  useAccessibility,
+  type BilingualA11yContent
+} from '../hooks/a11y';
+
+interface AccessibleVacationPlanFormProps {
+  availableBridges: BridgeWeekend[];
+  holidays: Holiday[];
+  language: Language;
+  onSubmit?: (data: VacationPlanFormData) => Promise<void>;
+  className?: string;
+  'data-testid'?: string;
+}
+
+interface VacationPlanFormData {
+  state_code: GermanStateCode | null;
+  vacation_days_budget: number;
+  selected_bridges: BridgeWeekend[];
+  email: string;
+  language_preference: Language;
+}
+
+interface FormErrors {
+  state_code?: BilingualA11yContent;
+  vacation_days_budget?: BilingualA11yContent;
+  selected_bridges?: BilingualA11yContent;
+  email?: BilingualA11yContent;
+  general?: BilingualA11yContent;
+}
+
+export default function AccessibleVacationPlanForm({
+  availableBridges,
+  holidays,
+  language,
+  onSubmit,
+  className = '',
+  'data-testid': testId
+}: AccessibleVacationPlanFormProps) {
+  // Accessibility hooks
+  const {
+    getLabel,
+    getAriaAttributes,
+    commonLabels,
+    errorMessages,
+    successMessages
+  } = useA11yLabels();
+
+  const {
+    keyboardProps,
+    setupKeyboardNav,
+    handleArrowKeys
+  } = useKeyboardNavigation({
+    enabled: true,
+    arrowKeyNavigation: true,
+    homeEndNavigation: true
+  });
+
+  const {
+    focusProps,
+    focus,
+    focusFirstError
+  } = useFocusManagement({
+    autoFocus: true,
+    restoreFocus: true
+  });
+
+  const {
+    announcePolite,
+    announceAssertive,
+    announceError,
+    announceStatus
+  } = useScreenReader();
+
+  const {
+    preferences,
+    announcePolite: contextAnnouncePolite,
+    getA11yLabel
+  } = useAccessibility();
+
+  // Form state
+  const [formData, setFormData] = useState<VacationPlanFormData>({
+    state_code: null,
+    vacation_days_budget: 25, // German standard
+    selected_bridges: [],
+    email: '',
+    language_preference: language
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+
+  // Refs
+  const formRef = useRef<HTMLFormElement>(null);
+  const firstErrorRef = useRef<HTMLElement | null>(null);
+
+  // Validation
+  const validateField = useCallback((field: keyof VacationPlanFormData, value: any): BilingualA11yContent | null => {
+    switch (field) {
+      case 'state_code':
+        if (!value) {
+          return {
+            de: 'Bitte wählen Sie ein Bundesland aus',
+            en: 'Please select a federal state'
+          };
+        }
+        break;
+
+      case 'vacation_days_budget':
+        if (!value || value < 1) {
+          return {
+            de: 'Urlaubstage müssen mindestens 1 betragen',
+            en: 'Vacation days must be at least 1'
+          };
+        }
+        if (value > 50) {
+          return {
+            de: 'Urlaubstage sollten maximal 50 betragen',
+            en: 'Vacation days should be maximum 50'
+          };
+        }
+        break;
+
+      case 'email':
+        if (!value) {
+          return {
+            de: 'E-Mail-Adresse ist erforderlich',
+            en: 'Email address is required'
+          };
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          return {
+            de: 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+            en: 'Please enter a valid email address'
+          };
+        }
+        break;
+
+      case 'selected_bridges':
+        if (value.length === 0) {
+          return {
+            de: 'Bitte wählen Sie mindestens ein Brückenwochenende aus',
+            en: 'Please select at least one bridge weekend'
+          };
+        }
+        const totalDays = value.reduce((sum: number, bridge: BridgeWeekend) => sum + bridge.vacation_days_needed, 0);
+        if (totalDays > formData.vacation_days_budget) {
+          return {
+            de: `Ausgewählte Brückenwochenenden benötigen ${totalDays} Urlaubstage, aber nur ${formData.vacation_days_budget} sind verfügbar`,
+            en: `Selected bridge weekends require ${totalDays} vacation days, but only ${formData.vacation_days_budget} are available`
+          };
+        }
+        break;
+    }
+    return null;
+  }, [formData.vacation_days_budget]);
+
+  // Validate entire form
+  const validateForm = useCallback(() => {
+    const newErrors: FormErrors = {};
+    let hasErrors = false;
+
+    Object.entries(formData).forEach(([key, value]) => {
+      const error = validateField(key as keyof VacationPlanFormData, value);
+      if (error) {
+        newErrors[key as keyof FormErrors] = error;
+        hasErrors = true;
+      }
+    });
+
+    setErrors(newErrors);
+    setIsValid(!hasErrors);
+
+    return !hasErrors;
+  }, [formData, validateField]);
+
+  // Handle field changes with validation
+  const handleFieldChange = useCallback((field: keyof VacationPlanFormData, value: any) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+
+    // Real-time validation
+    const error = validateField(field, value);
+    setErrors(prev => ({
+      ...prev,
+      [field]: error
+    }));
+
+    // Announce validation result for screen readers
+    if (error) {
+      const errorMessage = getLabel({ error }, 'error');
+      announceError({
+        de: `Validierungsfehler in ${field}: ${errorMessage}`,
+        en: `Validation error in ${field}: ${errorMessage}`
+      });
+    } else if (errors[field]) {
+      announceStatus({
+        de: `${field} ist jetzt gültig`,
+        en: `${field} is now valid`
+      });
+    }
+  }, [validateField, errors, getLabel, announceError, announceStatus]);
+
+  // Handle bridge selection
+  const handleBridgeToggle = useCallback((bridge: BridgeWeekend) => {
+    const isSelected = formData.selected_bridges.some(b => b.holiday_id === bridge.holiday_id);
+    const newBridges = isSelected
+      ? formData.selected_bridges.filter(b => b.holiday_id !== bridge.holiday_id)
+      : [...formData.selected_bridges, bridge];
+
+    handleFieldChange('selected_bridges', newBridges);
+
+    // Announce selection change
+    const action = isSelected ? 'abgewählt' : 'ausgewählt';
+    const actionEn = isSelected ? 'deselected' : 'selected';
+    announcePolite({
+      de: `Brückenwochenende ${action}. ${newBridges.length} von ${availableBridges.length} ausgewählt`,
+      en: `Bridge weekend ${actionEn}. ${newBridges.length} of ${availableBridges.length} selected`
+    });
+  }, [formData.selected_bridges, availableBridges.length, handleFieldChange, announcePolite]);
+
+  // Form submission
+  const handleSubmit = useCallback(async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!validateForm()) {
+      // Focus first error
+      focusFirstError();
+
+      // Announce validation errors
+      const errorCount = Object.keys(errors).length;
+      announceAssertive({
+        de: `Formular enthält ${errorCount} Fehler. Bitte korrigieren Sie diese`,
+        en: `Form contains ${errorCount} errors. Please correct them`
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    announcePolite({
+      de: 'Formular wird übermittelt...',
+      en: 'Submitting form...'
+    });
+
+    try {
+      await onSubmit?.(formData);
+
+      announceStatus({
+        de: 'Urlaubsplan erfolgreich erstellt',
+        en: 'Vacation plan created successfully'
+      });
+    } catch (error) {
+      setErrors({
+        general: {
+          de: 'Fehler beim Übermitteln des Formulars',
+          en: 'Error submitting form'
+        }
+      });
+
+      announceError({
+        de: 'Fehler beim Übermitteln des Formulars',
+        en: 'Error submitting form'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [validateForm, focusFirstError, errors, onSubmit, formData, announceAssertive, announcePolite, announceStatus, announceError]);
+
+  // Keyboard navigation setup
+  useEffect(() => {
+    if (formRef.current) {
+      const cleanup = setupKeyboardNav(formRef.current, {
+        enabled: true,
+        arrowKeyNavigation: true,
+        enterHandler: () => {
+          if (isValid && !isSubmitting) {
+            handleSubmit(new Event('submit') as any);
+          }
+        }
+      });
+
+      return cleanup;
+    }
+  }, [setupKeyboardNav, isValid, isSubmitting, handleSubmit]);
+
+  // ARIA attributes for form
+  const formAriaAttributes = getAriaAttributes({
+    label: {
+      de: 'Urlaubsplaner Formular',
+      en: 'Vacation planner form'
+    },
+    description: {
+      de: 'Erstellen Sie einen optimierten Urlaubsplan mit Brückentagen',
+      en: 'Create an optimized vacation plan with bridge days'
+    }
+  });
+
+  // Generate error message IDs
+  const getErrorId = (field: string) => `${field}-error`;
+  const getHelpId = (field: string) => `${field}-help`;
+
+  return (
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      className={`vacation-plan-form ${className}`}
+      data-testid={testId}
+      noValidate
+      {...formAriaAttributes}
+    >
+      {/* Form Title */}
+      <h2 className="form-title">
+        {getLabel({
+          label: {
+            de: 'Urlaubsplanung erstellen',
+            en: 'Create Vacation Plan'
+          }
+        }, 'label')}
+      </h2>
+
+      {/* General Error */}
+      {errors.general && (
+        <div
+          className="form-error general-error"
+          role="alert"
+          aria-live="assertive"
+        >
+          {getLabel({ error: errors.general }, 'error')}
+        </div>
+      )}
+
+      {/* State Selection */}
+      <div className="form-field">
+        <label
+          htmlFor="state_code"
+          className={`form-label ${errors.state_code ? 'error' : ''}`}
+        >
+          {getLabel({
+            label: {
+              de: 'Bundesland',
+              en: 'Federal State'
+            }
+          }, 'label')}
+          <span className="required" aria-label={getLabel(commonLabels.required, 'label')}>*</span>
+        </label>
+
+        <select
+          id="state_code"
+          value={formData.state_code || ''}
+          onChange={(e) => handleFieldChange('state_code', e.target.value as GermanStateCode)}
+          className={`form-select ${errors.state_code ? 'error' : ''}`}
+          aria-describedby={`${getHelpId('state_code')} ${errors.state_code ? getErrorId('state_code') : ''}`}
+          aria-invalid={!!errors.state_code}
+          required
+        >
+          <option value="">
+            {getLabel({
+              label: {
+                de: 'Bundesland auswählen',
+                en: 'Select federal state'
+              }
+            }, 'label')}
+          </option>
+          {/* State options would be populated here */}
+        </select>
+
+        <div id={getHelpId('state_code')} className="form-help">
+          {getLabel({
+            description: {
+              de: 'Wählen Sie Ihr Bundesland für korrekte Feiertagsanzeige',
+              en: 'Select your federal state for correct holiday display'
+            }
+          }, 'description')}
+        </div>
+
+        {errors.state_code && (
+          <div
+            id={getErrorId('state_code')}
+            className="form-error"
+            role="alert"
+            aria-live="polite"
+          >
+            {getLabel({ error: errors.state_code }, 'error')}
+          </div>
+        )}
+      </div>
+
+      {/* Vacation Days Budget */}
+      <div className="form-field">
+        <label
+          htmlFor="vacation_days_budget"
+          className={`form-label ${errors.vacation_days_budget ? 'error' : ''}`}
+        >
+          {getLabel({
+            label: {
+              de: 'Verfügbare Urlaubstage',
+              en: 'Available Vacation Days'
+            }
+          }, 'label')}
+          <span className="required" aria-label={getLabel(commonLabels.required, 'label')}>*</span>
+        </label>
+
+        <input
+          type="number"
+          id="vacation_days_budget"
+          value={formData.vacation_days_budget}
+          onChange={(e) => handleFieldChange('vacation_days_budget', parseInt(e.target.value) || 0)}
+          min="1"
+          max="50"
+          className={`form-input ${errors.vacation_days_budget ? 'error' : ''}`}
+          aria-describedby={`${getHelpId('vacation_days_budget')} ${errors.vacation_days_budget ? getErrorId('vacation_days_budget') : ''}`}
+          aria-invalid={!!errors.vacation_days_budget}
+          required
+        />
+
+        <div id={getHelpId('vacation_days_budget')} className="form-help">
+          {getLabel({
+            description: {
+              de: 'Anzahl der verfügbaren Urlaubstage für das Jahr',
+              en: 'Number of available vacation days for the year'
+            }
+          }, 'description')}
+        </div>
+
+        {errors.vacation_days_budget && (
+          <div
+            id={getErrorId('vacation_days_budget')}
+            className="form-error"
+            role="alert"
+            aria-live="polite"
+          >
+            {getLabel({ error: errors.vacation_days_budget }, 'error')}
+          </div>
+        )}
+      </div>
+
+      {/* Email */}
+      <div className="form-field">
+        <label
+          htmlFor="email"
+          className={`form-label ${errors.email ? 'error' : ''}`}
+        >
+          {getLabel({
+            label: {
+              de: 'E-Mail-Adresse',
+              en: 'Email Address'
+            }
+          }, 'label')}
+          <span className="required" aria-label={getLabel(commonLabels.required, 'label')}>*</span>
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          value={formData.email}
+          onChange={(e) => handleFieldChange('email', e.target.value)}
+          className={`form-input ${errors.email ? 'error' : ''}`}
+          aria-describedby={`${getHelpId('email')} ${errors.email ? getErrorId('email') : ''}`}
+          aria-invalid={!!errors.email}
+          autoComplete="email"
+          required
+        />
+
+        <div id={getHelpId('email')} className="form-help">
+          {getLabel({
+            description: {
+              de: 'E-Mail-Adresse für den Kalender-Export',
+              en: 'Email address for calendar export'
+            }
+          }, 'description')}
+        </div>
+
+        {errors.email && (
+          <div
+            id={getErrorId('email')}
+            className="form-error"
+            role="alert"
+            aria-live="polite"
+          >
+            {getLabel({ error: errors.email }, 'error')}
+          </div>
+        )}
+      </div>
+
+      {/* Bridge Weekend Selection */}
+      <fieldset className="form-fieldset">
+        <legend className="form-legend">
+          {getLabel({
+            label: {
+              de: 'Brückenwochenenden auswählen',
+              en: 'Select Bridge Weekends'
+            }
+          }, 'label')}
+        </legend>
+
+        <div
+          className="bridge-list"
+          role="group"
+          aria-labelledby="bridge-selection-legend"
+          {...keyboardProps}
+        >
+          {availableBridges.map((bridge, index) => (
+            <div
+              key={bridge.holiday_id}
+              className={`bridge-item ${formData.selected_bridges.some(b => b.holiday_id === bridge.holiday_id) ? 'selected' : ''}`}
+            >
+              <input
+                type="checkbox"
+                id={`bridge-${bridge.holiday_id}`}
+                checked={formData.selected_bridges.some(b => b.holiday_id === bridge.holiday_id)}
+                onChange={() => handleBridgeToggle(bridge)}
+                className="bridge-checkbox"
+                aria-describedby={`bridge-desc-${bridge.holiday_id}`}
+              />
+
+              <label
+                htmlFor={`bridge-${bridge.holiday_id}`}
+                className="bridge-label"
+              >
+                <span className="bridge-title">
+                  {/* Bridge title would be formatted here */}
+                  Bridge Weekend {index + 1}
+                </span>
+                <span
+                  id={`bridge-desc-${bridge.holiday_id}`}
+                  className="bridge-description sr-only"
+                >
+                  {getLabel({
+                    description: {
+                      de: `${bridge.vacation_days_needed} Urlaubstag${bridge.vacation_days_needed !== 1 ? 'e' : ''} für ${bridge.total_days_off} freie Tage`,
+                      en: `${bridge.vacation_days_needed} vacation day${bridge.vacation_days_needed !== 1 ? 's' : ''} for ${bridge.total_days_off} days off`
+                    }
+                  }, 'description')}
+                </span>
+              </label>
+            </div>
+          ))}
+        </div>
+
+        {errors.selected_bridges && (
+          <div
+            className="form-error"
+            role="alert"
+            aria-live="polite"
+          >
+            {getLabel({ error: errors.selected_bridges }, 'error')}
+          </div>
+        )}
+      </fieldset>
+
+      {/* Submit Button */}
+      <div className="form-actions">
+        <button
+          type="submit"
+          className={`form-submit ${isValid && !isSubmitting ? 'enabled' : 'disabled'}`}
+          disabled={!isValid || isSubmitting}
+          aria-describedby="submit-help"
+        >
+          {isSubmitting ? (
+            <>
+              <span aria-hidden="true">⏳</span>
+              {getLabel({
+                label: {
+                  de: 'Wird übermittelt...',
+                  en: 'Submitting...'
+                }
+              }, 'label')}
+            </>
+          ) : (
+            getLabel({
+              label: {
+                de: 'Urlaubsplan erstellen',
+                en: 'Create Vacation Plan'
+              }
+            }, 'label')
+          )}
+        </button>
+
+        <div id="submit-help" className="form-help">
+          {getLabel({
+            description: {
+              de: 'Erstellt einen personalisierten Urlaubsplan und sendet ihn per E-Mail',
+              en: 'Creates a personalized vacation plan and sends it via email'
+            }
+          }, 'description')}
+        </div>
+      </div>
+
+      {/* Loading state announcement for screen readers */}
+      {isSubmitting && (
+        <div
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+        >
+          {getLabel({
+            label: {
+              de: 'Urlaubsplan wird erstellt, bitte warten...',
+              en: 'Creating vacation plan, please wait...'
+            }
+          }, 'label')}
+        </div>
+      )}
+    </form>
+  );
+}

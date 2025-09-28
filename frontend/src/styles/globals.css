@@ -1,0 +1,306 @@
+/**
+ * Global CSS for TimeButler Calendar MVP
+ * Performance-optimized styles with accessibility support
+ */
+
+/* Tailwind CSS imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Performance optimizations */
+@layer base {
+  /* Font optimization for German text */
+  html {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: 'cv03', 'cv04', 'cv11';
+    scroll-behavior: smooth;
+  }
+
+  /* Base typography optimized for German business content */
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: theme('colors.gray.900');
+    background-color: theme('colors.white');
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Accessibility: Ensure focus indicators are always visible */
+  *:focus {
+    outline: 2px solid theme('colors.blue.500');
+    outline-offset: 2px;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    body {
+      color: #000;
+      background-color: #fff;
+    }
+
+    .bg-gray-50 {
+      background-color: #f8f9fa !important;
+    }
+
+    .text-gray-600 {
+      color: #333 !important;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Print styles for accessibility */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+
+    body {
+      color: black !important;
+      background: white !important;
+    }
+
+    .bg-blue-600,
+    .bg-gray-900 {
+      background: white !important;
+      color: black !important;
+      border: 1px solid black !important;
+    }
+  }
+}
+
+/* Component layer for reusable patterns */
+@layer components {
+  /* Skip navigation links */
+  .skip-nav {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50;
+    @apply bg-blue-600 text-white px-4 py-2 rounded font-medium;
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-300;
+  }
+
+  /* Button base styles for consistency */
+  .btn-base {
+    @apply inline-flex items-center justify-center px-4 py-2 border border-transparent;
+    @apply text-sm font-medium rounded-md transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn-base bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+  }
+
+  .btn-secondary {
+    @apply btn-base bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+  }
+
+  /* Card component base */
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200;
+    @apply hover:shadow-md transition-shadow duration-200;
+  }
+
+  /* Form input base styles */
+  .form-input {
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md;
+    @apply text-gray-900 placeholder-gray-400;
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    @apply disabled:bg-gray-50 disabled:cursor-not-allowed;
+  }
+
+  /* Error states */
+  .form-input-error {
+    @apply border-red-300 focus:ring-red-500 focus:border-red-500;
+  }
+
+  /* Loading states */
+  .loading-spinner {
+    @apply animate-spin h-5 w-5 border-2 border-current border-t-transparent rounded-full;
+  }
+
+  /* Accessibility helpers */
+  .sr-only-focusable {
+    @apply sr-only focus:not-sr-only focus:absolute focus:z-50;
+    @apply focus:p-2 focus:bg-white focus:border focus:border-gray-300 focus:rounded;
+  }
+
+  /* Language-specific typography */
+  .text-de {
+    /* German text tends to be longer, adjust spacing */
+    letter-spacing: -0.01em;
+  }
+
+  .text-en {
+    /* English text optimization */
+    letter-spacing: normal;
+  }
+}
+
+/* Utility layer for specific adjustments */
+@layer utilities {
+  /* Performance optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  /* GPU acceleration for animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+  }
+
+  /* Text optimization for German market */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Focus management */
+  .focus-within-ring:focus-within {
+    @apply ring-2 ring-blue-500 ring-offset-2;
+  }
+
+  /* Custom scrollbar for better UX */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.gray.400') theme('colors.gray.100');
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: theme('colors.gray.100');
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: theme('colors.gray.400');
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.gray.500');
+  }
+}
+
+/* Landing page specific styles */
+.hero-gradient {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.hero-stats {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Animation classes for performance */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for CTAs */
+.pulse-subtle {
+  animation: pulse-subtle 2s infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Mobile-first responsive images */
+.responsive-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  loading: lazy;
+}
+
+/* Performance: Critical CSS inlining helper */
+.above-fold {
+  /* Styles for above-the-fold content */
+  will-change: auto;
+}
+
+.below-fold {
+  /* Styles for below-the-fold content */
+  content-visibility: auto;
+  contain-intrinsic-size: 500px;
+}
+
+/* German number formatting helpers */
+.number-de {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* WCAG AA color contrast helpers */
+.contrast-aa {
+  /* Ensures 4.5:1 minimum contrast ratio */
+  color: #1f2937; /* gray-800 */
+}
+
+.contrast-aaa {
+  /* Ensures 7:1 contrast ratio for AAA */
+  color: #111827; /* gray-900 */
+}
+
+/* Landing page component spacing */
+.section-spacing {
+  @apply py-16 lg:py-24;
+}
+
+.container-spacing {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}

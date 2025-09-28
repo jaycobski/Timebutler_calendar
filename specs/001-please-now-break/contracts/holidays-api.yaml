@@ -1,0 +1,291 @@
+openapi: 3.0.3
+info:
+  title: Timebutler Calendar - Holidays API
+  description: German holiday data and bridge weekend calculations
+  version: 1.0.0
+  contact:
+    name: TimeButler Team
+
+servers:
+  - url: https://api.timebutler-calendar.com/v1
+    description: Production server
+  - url: http://localhost:3000/v1
+    description: Development server
+
+paths:
+  /holidays:
+    get:
+      summary: Get holidays for a state and year range
+      description: Returns all federal and state-specific holidays for 2025-2026
+      tags:
+        - Holidays
+      parameters:
+        - name: state
+          in: query
+          required: true
+          schema:
+            type: string
+            pattern: '^[A-Z]{2}$'
+            example: "BY"
+          description: Two-letter German state code (Bundesland)
+        - name: year
+          in: query
+          required: false
+          schema:
+            type: integer
+            enum: [2025, 2026]
+            default: 2025
+          description: Year to get holidays for
+        - name: lang
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [de, en]
+            default: de
+          description: Language for holiday names
+      responses:
+        '200':
+          description: Successful response with holidays
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  holidays:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Holiday'
+                  state_info:
+                    $ref: '#/components/schemas/State'
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /bridge-weekends:
+    post:
+      summary: Calculate optimal bridge weekends
+      description: Calculate and rank bridge weekend opportunities for user's vacation days
+      tags:
+        - Bridge Weekends
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - state
+                - vacation_days
+              properties:
+                state:
+                  type: string
+                  pattern: '^[A-Z]{2}$'
+                  example: "BY"
+                vacation_days:
+                  type: integer
+                  minimum: 0
+                  maximum: 50
+                  example: 25
+                years:
+                  type: array
+                  items:
+                    type: integer
+                    enum: [2025, 2026]
+                  default: [2025, 2026]
+                max_vacation_per_bridge:
+                  type: integer
+                  minimum: 1
+                  maximum: 4
+                  default: 3
+                  description: Maximum vacation days to use for single bridge
+      responses:
+        '200':
+          description: Bridge weekend recommendations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recommendations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BridgeWeekend'
+                  total_opportunities:
+                    type: integer
+                  vacation_budget:
+                    $ref: '#/components/schemas/VacationBudget'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Holiday:
+      type: object
+      required:
+        - id
+        - date
+        - name_de
+        - name_en
+        - type
+        - states
+      properties:
+        id:
+          type: string
+          example: "heilige-drei-koenige-2025"
+        date:
+          type: string
+          format: date
+          example: "2025-01-06"
+        name_de:
+          type: string
+          example: "Heilige Drei Könige"
+        name_en:
+          type: string
+          example: "Epiphany"
+        type:
+          type: string
+          enum: [federal, state, regional]
+        states:
+          type: array
+          items:
+            type: string
+            pattern: '^[A-Z]{2}$'
+          example: ["BY", "BW", "ST"]
+        regions:
+          type: array
+          items:
+            type: string
+          nullable: true
+        religious:
+          type: string
+          enum: [catholic, protestant]
+          nullable: true
+
+    State:
+      type: object
+      required:
+        - code
+        - name_de
+        - name_en
+      properties:
+        code:
+          type: string
+          pattern: '^[A-Z]{2}$'
+          example: "BY"
+        name_de:
+          type: string
+          example: "Bayern"
+        name_en:
+          type: string
+          example: "Bavaria"
+        population:
+          type: integer
+          example: 13140000
+        dominant_religion:
+          type: string
+          enum: [catholic, protestant, mixed]
+
+    BridgeWeekend:
+      type: object
+      required:
+        - id
+        - holiday_id
+        - start_date
+        - end_date
+        - vacation_days_needed
+        - total_days_off
+        - efficiency
+      properties:
+        id:
+          type: string
+          example: "bridge-christi-himmelfahrt-2025"
+        holiday_id:
+          type: string
+          example: "christi-himmelfahrt-2025"
+        holiday_name:
+          type: string
+          example: "Christi Himmelfahrt"
+        start_date:
+          type: string
+          format: date
+          example: "2025-05-29"
+        end_date:
+          type: string
+          format: date
+          example: "2025-06-01"
+        vacation_days_needed:
+          type: integer
+          minimum: 1
+          maximum: 4
+          example: 1
+        total_days_off:
+          type: integer
+          minimum: 3
+          example: 4
+        efficiency:
+          type: number
+          format: float
+          minimum: 1.0
+          example: 4.0
+          description: Total days off divided by vacation days needed
+        pattern:
+          type: string
+          enum: [thursday-friday, monday-tuesday, sandwich]
+          example: "thursday-friday"
+        calendar_dates:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              type:
+                type: string
+                enum: [holiday, vacation, weekend]
+              name:
+                type: string
+                nullable: true
+
+    VacationBudget:
+      type: object
+      properties:
+        available:
+          type: integer
+          example: 25
+        used:
+          type: integer
+          example: 0
+        remaining:
+          type: integer
+          example: 25
+
+    Error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          example: "INVALID_STATE"
+        message:
+          type: string
+          example: "State code 'XY' is not a valid German Bundesland"
+        details:
+          type: object
+          nullable: true

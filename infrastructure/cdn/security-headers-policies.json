@@ -1,0 +1,427 @@
+{
+  "comment": "Security Headers and Response Policies for TimeButler Calendar CDN - German Market",
+  "version": "2.0",
+  "lastUpdated": "2025-01-24",
+  "responseHeadersPolicies": {
+    "GERMAN_SECURITY_HEADERS_POLICY": {
+      "name": "TimeButler-German-Security-Headers",
+      "comment": "Security headers optimized for German GDPR compliance and market requirements",
+      "securityHeadersConfig": {
+        "strictTransportSecurity": {
+          "accessControlMaxAgeSec": 31536000,
+          "includeSubdomains": true,
+          "preload": true,
+          "override": true
+        },
+        "contentTypeOptions": {
+          "override": true
+        },
+        "frameOptions": {
+          "frameOption": "DENY",
+          "override": true
+        },
+        "referrerPolicy": {
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "override": true
+        },
+        "contentSecurityPolicy": {
+          "contentSecurityPolicy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.timebutler.de https://analytics.timebutler.de; style-src 'self' 'unsafe-inline' https://cdn.timebutler.de; img-src 'self' data: https:; font-src 'self' https://cdn.timebutler.de; connect-src 'self' https://api.timebutler.de https://calendar.timebutler.de; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; upgrade-insecure-requests",
+          "override": true
+        }
+      },
+      "customHeaders": {
+        "X-Content-Type-Options": {
+          "value": "nosniff",
+          "override": true
+        },
+        "X-Frame-Options": {
+          "value": "DENY",
+          "override": true
+        },
+        "X-XSS-Protection": {
+          "value": "1; mode=block",
+          "override": true
+        },
+        "Permissions-Policy": {
+          "value": "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()",
+          "override": true
+        },
+        "X-Powered-By": {
+          "value": "",
+          "override": true
+        },
+        "Server": {
+          "value": "",
+          "override": true
+        },
+        "X-German-Data-Processing": {
+          "value": "EU-ONLY",
+          "override": false,
+          "comment": "Indicates data processing location for GDPR compliance"
+        },
+        "X-GDPR-Compliant": {
+          "value": "true",
+          "override": false,
+          "comment": "GDPR compliance indicator"
+        },
+        "X-Data-Retention": {
+          "value": "180-days",
+          "override": false,
+          "comment": "Data retention period per GDPR requirements"
+        }
+      },
+      "corsConfig": {
+        "accessControlAllowCredentials": false,
+        "accessControlAllowHeaders": {
+          "items": [
+            "Accept",
+            "Accept-Language",
+            "Content-Type",
+            "Authorization",
+            "X-Requested-With",
+            "X-CSRF-Token"
+          ]
+        },
+        "accessControlAllowMethods": {
+          "items": [
+            "GET",
+            "HEAD",
+            "POST",
+            "OPTIONS"
+          ]
+        },
+        "accessControlAllowOrigins": {
+          "items": [
+            "https://calendar.timebutler.de",
+            "https://timebutler.de"
+          ]
+        },
+        "accessControlExposeHeaders": {
+          "items": [
+            "Content-Length",
+            "Date",
+            "Server"
+          ]
+        },
+        "accessControlMaxAgeSec": 86400,
+        "originOverride": false
+      }
+    },
+    "API_SECURITY_HEADERS_POLICY": {
+      "name": "TimeButler-API-Security-Headers",
+      "comment": "Security headers for API endpoints",
+      "securityHeadersConfig": {
+        "strictTransportSecurity": {
+          "accessControlMaxAgeSec": 31536000,
+          "includeSubdomains": true,
+          "preload": true,
+          "override": true
+        },
+        "contentTypeOptions": {
+          "override": true
+        },
+        "frameOptions": {
+          "frameOption": "DENY",
+          "override": true
+        },
+        "referrerPolicy": {
+          "referrerPolicy": "no-referrer",
+          "override": true
+        },
+        "contentSecurityPolicy": {
+          "contentSecurityPolicy": "default-src 'none'; frame-ancestors 'none'",
+          "override": true
+        }
+      },
+      "customHeaders": {
+        "X-Content-Type-Options": {
+          "value": "nosniff",
+          "override": true
+        },
+        "X-Frame-Options": {
+          "value": "DENY",
+          "override": true
+        },
+        "X-API-Version": {
+          "value": "v1",
+          "override": false
+        },
+        "X-Rate-Limit-Policy": {
+          "value": "300-per-minute",
+          "override": false
+        },
+        "X-German-Holiday-Data": {
+          "value": "official-source",
+          "override": false,
+          "comment": "Indicates official German government holiday data source"
+        }
+      }
+    },
+    "STATIC_ASSETS_HEADERS_POLICY": {
+      "name": "TimeButler-Static-Assets-Headers",
+      "comment": "Headers for static assets (JS, CSS, images)",
+      "customHeaders": {
+        "Cache-Control": {
+          "value": "public, max-age=31536000, immutable",
+          "override": true
+        },
+        "X-Content-Type-Options": {
+          "value": "nosniff",
+          "override": true
+        },
+        "Access-Control-Allow-Origin": {
+          "value": "*",
+          "override": true
+        }
+      }
+    },
+    "FONT_HEADERS_POLICY": {
+      "name": "TimeButler-Font-Headers",
+      "comment": "Headers for web fonts with CORS support",
+      "customHeaders": {
+        "Cache-Control": {
+          "value": "public, max-age=31536000, immutable",
+          "override": true
+        },
+        "Access-Control-Allow-Origin": {
+          "value": "*",
+          "override": true
+        },
+        "Access-Control-Allow-Methods": {
+          "value": "GET, HEAD",
+          "override": true
+        },
+        "Vary": {
+          "value": "Origin",
+          "override": true
+        }
+      }
+    },
+    "IMAGE_HEADERS_POLICY": {
+      "name": "TimeButler-Image-Headers",
+      "comment": "Headers for images with format negotiation",
+      "customHeaders": {
+        "Cache-Control": {
+          "value": "public, max-age=604800",
+          "override": true
+        },
+        "Vary": {
+          "value": "Accept",
+          "override": true
+        },
+        "X-Content-Type-Options": {
+          "value": "nosniff",
+          "override": true
+        }
+      }
+    },
+    "ENGLISH_SECURITY_HEADERS_POLICY": {
+      "name": "TimeButler-English-Security-Headers",
+      "comment": "Security headers for English language pages",
+      "securityHeadersConfig": {
+        "strictTransportSecurity": {
+          "accessControlMaxAgeSec": 31536000,
+          "includeSubdomains": true,
+          "preload": true,
+          "override": true
+        },
+        "contentTypeOptions": {
+          "override": true
+        },
+        "frameOptions": {
+          "frameOption": "DENY",
+          "override": true
+        },
+        "referrerPolicy": {
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "override": true
+        },
+        "contentSecurityPolicy": {
+          "contentSecurityPolicy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.timebutler.de; style-src 'self' 'unsafe-inline' https://cdn.timebutler.de; img-src 'self' data: https:; font-src 'self' https://cdn.timebutler.de; connect-src 'self' https://api.timebutler.de https://calendar.timebutler.de; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; upgrade-insecure-requests",
+          "override": true
+        }
+      },
+      "customHeaders": {
+        "X-Market": {
+          "value": "international",
+          "override": false
+        },
+        "X-Language": {
+          "value": "en",
+          "override": false
+        }
+      }
+    }
+  },
+  "originRequestPolicies": {
+    "GERMAN_ORIGIN_REQUEST_POLICY": {
+      "name": "TimeButler-German-Origin-Request",
+      "comment": "Origin request policy for German market optimization",
+      "cookiesConfig": {
+        "cookieBehavior": "whitelist",
+        "cookies": [
+          "locale",
+          "gdpr_consent",
+          "timezone",
+          "state_selection",
+          "user_preferences"
+        ]
+      },
+      "headersConfig": {
+        "headerBehavior": "whitelist",
+        "headers": [
+          "Accept",
+          "Accept-Language",
+          "Accept-Encoding",
+          "CloudFront-Viewer-Country",
+          "CloudFront-Viewer-Country-Region",
+          "CloudFront-Is-Mobile-Viewer",
+          "CloudFront-Is-Desktop-Viewer",
+          "CloudFront-Viewer-Time-Zone",
+          "User-Agent",
+          "X-Forwarded-For",
+          "X-Forwarded-Proto"
+        ]
+      },
+      "queryStringsConfig": {
+        "queryStringBehavior": "whitelist",
+        "queryStrings": [
+          "state",
+          "lang",
+          "year",
+          "month",
+          "timezone",
+          "format",
+          "utm_source",
+          "utm_medium",
+          "utm_campaign"
+        ]
+      }
+    },
+    "ENGLISH_ORIGIN_REQUEST_POLICY": {
+      "name": "TimeButler-English-Origin-Request",
+      "comment": "Origin request policy for English/international users",
+      "cookiesConfig": {
+        "cookieBehavior": "whitelist",
+        "cookies": [
+          "locale",
+          "gdpr_consent",
+          "timezone",
+          "state_selection"
+        ]
+      },
+      "headersConfig": {
+        "headerBehavior": "whitelist",
+        "headers": [
+          "Accept",
+          "Accept-Language",
+          "Accept-Encoding",
+          "CloudFront-Viewer-Country",
+          "CloudFront-Is-Mobile-Viewer",
+          "User-Agent"
+        ]
+      },
+      "queryStringsConfig": {
+        "queryStringBehavior": "whitelist",
+        "queryStrings": [
+          "state",
+          "lang",
+          "year",
+          "format"
+        ]
+      }
+    },
+    "SIMPLE_CORS_ORIGIN_REQUEST_POLICY": {
+      "name": "TimeButler-Simple-CORS-Origin-Request",
+      "comment": "Simple origin request policy for static assets",
+      "cookiesConfig": {
+        "cookieBehavior": "none"
+      },
+      "headersConfig": {
+        "headerBehavior": "whitelist",
+        "headers": [
+          "Accept",
+          "Accept-Encoding",
+          "Origin"
+        ]
+      },
+      "queryStringsConfig": {
+        "queryStringBehavior": "whitelist",
+        "queryStrings": [
+          "v",
+          "version",
+          "hash"
+        ]
+      }
+    }
+  },
+  "germanComplianceFeatures": {
+    "gdprCompliance": {
+      "dataMinimization": {
+        "enabled": true,
+        "headerFiltering": "Only necessary headers forwarded to origin",
+        "cookieFiltering": "Only essential cookies processed",
+        "queryParamFiltering": "Only required parameters forwarded"
+      },
+      "consentManagement": {
+        "cookieConsentHeader": "gdpr_consent",
+        "consentRequired": true,
+        "consentWithdrawalSupport": true
+      },
+      "dataProcessingLocation": {
+        "restriction": "EU_ONLY",
+        "enforcement": "strict",
+        "monitoring": "enabled"
+      },
+      "rightToDelete": {
+        "enabled": true,
+        "mechanism": "header_based_exclusion"
+      }
+    },
+    "germanCybersecurityCompliance": {
+      "bsiCompliance": {
+        "tlsVersion": "minimum_1.2_preferred_1.3",
+        "cipherSuites": "strong_ciphers_only",
+        "certificateValidation": "extended_validation"
+      },
+      "securityHeaders": {
+        "hstsPreload": true,
+        "contentSecurityPolicy": "strict",
+        "frameOptions": "deny",
+        "contentTypeOptions": "nosniff"
+      }
+    }
+  },
+  "securityTesting": {
+    "headerValidation": {
+      "automated": true,
+      "frequency": "daily",
+      "checks": [
+        "security_headers_present",
+        "header_values_correct",
+        "csp_policy_effective",
+        "hsts_configuration",
+        "cors_configuration"
+      ]
+    },
+    "complianceValidation": {
+      "gdpr": {
+        "frequency": "weekly",
+        "checks": [
+          "data_minimization_headers",
+          "consent_enforcement",
+          "data_processing_location",
+          "retention_period_headers"
+        ]
+      },
+      "germanCybersecurity": {
+        "frequency": "monthly",
+        "checks": [
+          "bsi_tls_compliance",
+          "cipher_suite_strength",
+          "certificate_validation"
+        ]
+      }
+    }
+  }
+}
