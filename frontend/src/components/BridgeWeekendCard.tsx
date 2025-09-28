@@ -228,7 +228,7 @@ export default function BridgeWeekendCard({
   bridge,
   holiday,
   language = 'de',
-  state,
+  state: _state,
   selected = false,
   disabled = false,
   showROI = true,
@@ -244,7 +244,7 @@ export default function BridgeWeekendCard({
   'data-testid': testId = 'bridge-weekend-card'
 }: BridgeWeekendCardProps) {
   // Translation hook for bilingual support
-  const { t } = useTranslation('bridge-weekend-card');
+  const { t: _t } = useTranslation('bridge-weekend-card');
   const isGerman = language === 'de';
 
   // Component state

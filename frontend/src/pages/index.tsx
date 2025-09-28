@@ -42,7 +42,6 @@ import { useRouter } from 'next/router';
 import StateSelector from '../components/StateSelector';
 import BridgeWeekendCard from '../components/BridgeWeekendCard';
 // Note: Import specific exports for better tree-shaking
-import React from 'react';
 
 // Import hooks and utilities
 // Note: These hooks might need implementation - using fallbacks for now
