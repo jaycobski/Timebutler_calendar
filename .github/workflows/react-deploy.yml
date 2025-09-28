@@ -156,7 +156,8 @@ jobs:
             <div class="stat-number">30+</div>
             <div>Holidays 2025</div>
         </div>
-        <div class="stat-number">15+</div>
+        <div class="stat">
+            <div class="stat-number">15+</div>
             <div>Bridge Opportunities</div>
         </div>
         <div class="stat">
