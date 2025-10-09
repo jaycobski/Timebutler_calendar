@@ -275,3 +275,5 @@ resend-webhooks.log
 # German network simulation
 /network-profiles/
 /3g-simulation-logs/
+# Local Netlify folder
+.netlify

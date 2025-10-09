@@ -18,7 +18,6 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
 
 // Type imports
 import type { SupportedLanguage } from '../types/language';
@@ -109,16 +108,17 @@ interface ConfirmationPageProps {
 }
 
 // Confirmation page component
-const ConfirmationPage: React.FC<ConfirmationPageProps> = ({
-  planId,
-  email,
-  language: initialLanguage = 'de',
-  deliveryStatus = 'sent',
-  downloadLink,
-  expiryDate
-}) => {
+const ConfirmationPage: React.FC<ConfirmationPageProps> = () => {
   const router = useRouter();
   const { language, t, switchLanguage } = useLanguage();
+
+  // Get data from URL query parameters (client-side)
+  const planId = router.query.planId as string;
+  const email = router.query.email as string;
+  const initialLanguage = (router.query.lang as SupportedLanguage) || 'de';
+  const deliveryStatus = (router.query.status as 'sent' | 'pending' | 'failed') || 'sent';
+  const downloadLink = router.query.downloadLink as string;
+  const expiryDate = router.query.expiryDate as string;
 
   // State management
   const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>(
@@ -138,6 +138,13 @@ const ConfirmationPage: React.FC<ConfirmationPageProps> = ({
 
   // Get translated content using the translation system
   const content = useMemo(() => {
+    const checkInboxItemsRaw = t('confirmation.checkInboxItems');
+    const checkInboxItems = Array.isArray(checkInboxItemsRaw)
+      ? checkInboxItemsRaw
+      : typeof checkInboxItemsRaw === 'string'
+        ? [checkInboxItemsRaw]
+        : [];
+
     return {
       pageTitle: t('confirmation.pageTitle'),
       pageDescription: t('confirmation.pageDescription'),
@@ -151,7 +158,7 @@ const ConfirmationPage: React.FC<ConfirmationPageProps> = ({
       emailSentTo: t('confirmation.emailSentTo'),
       planReference: t('confirmation.planReference'),
       checkInboxTitle: t('confirmation.checkInboxTitle'),
-      checkInboxItems: t('confirmation.checkInboxItems'),
+      checkInboxItems,
       downloadTitle: t('confirmation.downloadTitle'),
       downloadDescription: t('confirmation.downloadDescription'),
       downloadButton: t('confirmation.downloadButton'),
@@ -528,42 +535,6 @@ const ConfirmationPage: React.FC<ConfirmationPageProps> = ({
       )}
     </>
   );
-};
-
-// Server-side props for confirmation page
-export const getServerSideProps: GetServerSideProps<ConfirmationPageProps> = async (context) => {
-  const { query } = context;
-
-  // Extract URL parameters
-  const planId = query.planId as string;
-  const email = query.email as string;
-  const language = (query.lang as SupportedLanguage) || 'de';
-  const deliveryStatus = (query.status as 'sent' | 'pending' | 'failed') || 'sent';
-  const downloadLink = query.downloadLink as string;
-  const expiryDate = query.expiryDate as string;
-
-  // Validate required parameters
-  if (!planId) {
-    return {
-      notFound: true,
-    };
-  }
-
-  // Set security headers
-  context.res.setHeader('X-Frame-Options', 'DENY');
-  context.res.setHeader('X-Content-Type-Options', 'nosniff');
-  context.res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-
-  return {
-    props: {
-      planId,
-      email: email || null,
-      language,
-      deliveryStatus,
-      downloadLink: downloadLink || null,
-      expiryDate: expiryDate || null,
-    },
-  };
 };
 
 export default ConfirmationPage;

@@ -31,7 +31,6 @@ import type {
   CalendarA11yConfig,
   CalendarPerformanceConfig,
   BridgePattern,
-  DEFAULT_A11Y_CONFIG,
   DEFAULT_PERFORMANCE_CONFIG,
 } from '../types/holiday';
 
@@ -412,16 +411,23 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
 
   // Accessibility configuration
   const a11yConfig: CalendarA11yConfig = {
-    ...DEFAULT_A11Y_CONFIG,
     announceNavigation: true,
+    announceHolidays: true,
     announceBridges: true,
+    detailedDescriptions: true,
     keyboardNavigation: true,
     screenReaderOptimized: true,
+    highContrast: false,
+    reducedMotion: false,
   };
 
   // Performance configuration
   const performanceConfig: CalendarPerformanceConfig = {
-    ...DEFAULT_PERFORMANCE_CONFIG,
+    enableLazyLoading: true,
+    enableVirtualization: true,
+    debounceDelay: 150,
+    maxConcurrentRequests: 3,
+    cacheExpiration: 3600000,
     cacheHolidays: true,
     cacheBridges: true,
     debounceFilters: 200, // Faster for real-time updates
@@ -1401,9 +1407,7 @@ export const getStaticProps: GetStaticProps<PlanningPageProps> = async () => {
       initialHolidays,
       initialYear: currentYear,
       defaultLanguage: 'de' as Language,
-    },
-    // Regenerate the page every hour to keep holiday data fresh
-    revalidate: 3600,
+    }
   };
 };
 
