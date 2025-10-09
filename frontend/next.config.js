@@ -5,8 +5,8 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Netlify deployment configuration (not static export)
-  // output: 'export', // Commented out for Netlify
+  // Static export for Netlify deployment
+  output: 'export',
   trailingSlash: true,
   images: {
     unoptimized: true,
