@@ -303,7 +303,7 @@ export default function BridgeWeekendCard({
       };
     } else if (efficiency >= 3.0) {
       return {
-        color: 'text-blue-700 bg-blue-50 border-blue-200',
+        color: 'text-timebutler-700 bg-timebutler-100 border-timebutler-200',
         label: isGerman ? 'Sehr gut' : 'Very Good',
         icon: StarSolidIcon,
         description: isGerman ? 'Hoher Urlaubswert' : 'High vacation value'
@@ -330,12 +330,12 @@ export default function BridgeWeekendCard({
   // Component CSS classes
   const cardClasses = clsx(
     'relative block w-full',
-    'border rounded-lg shadow-sm transition-all duration-200',
-    'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+    'border rounded-lg shadow-timebutler transition-all duration-200',
+    'focus:outline-none focus:ring-2 focus:ring-timebutler-500 focus:ring-offset-2',
     {
       // Selection states
-      'border-blue-500 bg-blue-50 shadow-md': selected,
-      'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md': !selected && !disabled && interactive,
+      'border-timebutler-500 bg-timebutler-50 shadow-timebutler-lg': selected,
+      'border-timebutler-200 bg-white hover:border-timebutler-300 hover:shadow-timebutler-lg': !selected && !disabled && interactive,
       'border-gray-200 bg-white': !interactive || disabled,
 
       // Disabled state
@@ -393,7 +393,7 @@ export default function BridgeWeekendCard({
               </span>
             )}
             {holiday && (
-              <span className={clsx('block text-blue-600 mt-1', {
+              <span className={clsx('block text-timebutler-600 mt-1', {
                 'text-xs font-normal': compact,
                 'text-sm font-medium': !compact
               })}>
@@ -453,7 +453,7 @@ export default function BridgeWeekendCard({
         {/* ROI Value */}
         {showROI && showValueEstimation && (
           <div className="text-center">
-            <p className={clsx('font-semibold text-blue-600', {
+            <p className={clsx('font-semibold text-timebutler-600', {
               'text-lg': !compact,
               'text-base': compact
             })}>
@@ -473,7 +473,7 @@ export default function BridgeWeekendCard({
             {patternInfo.description}
           </p>
           {patternInfo.tip && (
-            <p className="text-xs text-blue-600 mt-1">
+            <p className="text-xs text-timebutler-600 mt-1">
               💡 {patternInfo.tip}
             </p>
           )}
@@ -539,7 +539,7 @@ export default function BridgeWeekendCard({
       {/* Selection Indicator */}
       {selected && interactive && (
         <div className="absolute top-2 right-2">
-          <CheckCircleIcon className="h-5 w-5 text-blue-600" />
+          <CheckCircleIcon className="h-5 w-5 text-timebutler-600" />
         </div>
       )}
 

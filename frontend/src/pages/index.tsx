@@ -284,7 +284,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
         <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossOrigin="" />
 
         {/* Progressive Web App */}
-        <meta name="theme-color" content="#2563eb" />
+        <meta name="theme-color" content="#293FCC" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
@@ -338,7 +338,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
       {/* Skip navigation for accessibility */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded z-50"
+        className="skip-nav"
       >
         Skip to main content
       </a>
@@ -357,7 +357,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
               </div>
               <button
                 onClick={handleLanguageToggle}
-                className="flex items-center space-x-2 px-3 py-1 text-sm text-gray-700 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+                className="flex items-center space-x-2 px-3 py-1 text-sm text-gray-700 hover:text-timebutler-600 focus:outline-none focus:ring-2 focus:ring-timebutler-500 rounded"
                 aria-label={`${t('navigation.language')}: ${isGerman ? 'English' : 'Deutsch'}`}
               >
                 <GlobeAltIcon className="h-4 w-4" />
@@ -388,13 +388,13 @@ const LandingPage: NextPage<LandingPageProps> = ({
                 </div>
               </div>
               <div className="hidden md:flex items-center space-x-6">
-                <a href="#features" className="text-gray-700 hover:text-blue-600">
+                <a href="#features" className="text-gray-700 hover:text-timebutler-600">
                   {t('navigation.features', 'Features')}
                 </a>
-                <a href="#how-it-works" className="text-gray-700 hover:text-blue-600">
+                <a href="#how-it-works" className="text-gray-700 hover:text-timebutler-600">
                   {t('navigation.howItWorks', 'How it works')}
                 </a>
-                <a href="#about" className="text-gray-700 hover:text-blue-600">
+                <a href="#about" className="text-gray-700 hover:text-timebutler-600">
                   {t('navigation.about')}
                 </a>
               </div>
@@ -403,7 +403,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
         </nav>
 
         {/* Hero Section */}
-        <main id="main-content" className="bg-gradient-to-b from-blue-50 to-white">
+        <main id="main-content" className="hero-gradient">
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Hero Content */}
@@ -412,16 +412,16 @@ const LandingPage: NextPage<LandingPageProps> = ({
                   {isGerman ? (
                     <>
                       Maximieren Sie Ihre{' '}
-                      <span className="text-blue-600">Urlaubstage</span>{' '}
+                      <span className="text-timebutler-600">Urlaubstage</span>{' '}
                       durch intelligente{' '}
-                      <span className="text-blue-600">Brückentage</span>
+                      <span className="text-timebutler-600">Brückentage</span>
                     </>
                   ) : (
                     <>
                       Maximize Your{' '}
-                      <span className="text-blue-600">Vacation Days</span>{' '}
+                      <span className="text-timebutler-600">Vacation Days</span>{' '}
                       with Smart{' '}
-                      <span className="text-blue-600">Bridge Days</span>
+                      <span className="text-timebutler-600">Bridge Days</span>
                     </>
                   )}
                 </h2>
@@ -433,7 +433,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                 {/* Key Stats */}
                 <div className="grid grid-cols-3 gap-6 mb-8">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-1">
+                    <div className="text-3xl font-bold text-timebutler-600 mb-1">
                       {heroStats.bridgeOpportunities}+
                     </div>
                     <div className="text-sm text-gray-600">
@@ -449,7 +449,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-purple-600 mb-1">
+                    <div className="text-3xl font-bold text-accent-purple mb-1">
                       €{heroStats.averageSavings}
                     </div>
                     <div className="text-sm text-gray-600">
@@ -482,9 +482,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                       onClick={handleGetStarted}
                       disabled={isLoading}
                       className={clsx(
-                        'w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold',
-                        'hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-                        'transition-colors duration-200',
+                        'btn-cta w-full',
                         'disabled:opacity-50 disabled:cursor-not-allowed',
                         'flex items-center justify-center space-x-2'
                       )}
@@ -521,7 +519,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                     <span>DSGVO/GDPR</span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <CheckBadgeIcon className="h-5 w-5 text-blue-500" />
+                    <CheckBadgeIcon className="h-5 w-5 text-timebutler-500" />
                     <span>{isGerman ? 'Offiziell' : 'Official'}</span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -560,7 +558,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                           </div>
                           <div>
                             <span className="text-gray-500">{isGerman ? 'Freie Tage' : 'Days off'}:</span>
-                            <div className="font-semibold text-blue-600">{bridge.total_days_off}</div>
+                            <div className="font-semibold text-timebutler-600">{bridge.total_days_off}</div>
                           </div>
                           <div>
                             <span className="text-gray-500">{isGerman ? 'Zeitraum' : 'Period'}:</span>
@@ -573,8 +571,8 @@ const LandingPage: NextPage<LandingPageProps> = ({
                     ))}
                   </div>
 
-                  <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                    <div className="flex items-center space-x-2 text-sm text-blue-700">
+                  <div className="mt-4 p-3 bg-timebutler-50 rounded-lg">
+                    <div className="flex items-center space-x-2 text-sm text-timebutler-700">
                       <SparklesIcon className="h-4 w-4" />
                       <span>
                         {isGerman
@@ -587,8 +585,8 @@ const LandingPage: NextPage<LandingPageProps> = ({
                 </div>
 
                 {/* Floating elements for visual appeal */}
-                <div className="absolute -top-4 -left-4 w-20 h-20 bg-blue-100 rounded-full opacity-50 animate-pulse" />
-                <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-green-100 rounded-full opacity-50 animate-pulse delay-1000" />
+                <div className="blob-blue-bg absolute -top-4 -left-4" />
+                <div className="blob-yellow-bg absolute -bottom-6 -right-6" />
               </div>
             </div>
           </section>
@@ -611,9 +609,9 @@ const LandingPage: NextPage<LandingPageProps> = ({
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Feature cards */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="feature-card-compact">
                 <div className="flex items-center mb-4">
-                  <CalendarDaysIcon className="h-8 w-8 text-blue-600" />
+                  <CalendarDaysIcon className="h-8 w-8 text-timebutler-600" />
                   <h3 className="ml-3 text-lg font-semibold text-gray-900">
                     {isGerman ? 'Alle 16 Bundesländer' : 'All 16 German States'}
                   </h3>
@@ -626,7 +624,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                 </p>
               </div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="feature-card-compact">
                 <div className="flex items-center mb-4">
                   <ClockIcon className="h-8 w-8 text-green-600" />
                   <h3 className="ml-3 text-lg font-semibold text-gray-900">
@@ -641,9 +639,9 @@ const LandingPage: NextPage<LandingPageProps> = ({
                 </p>
               </div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="feature-card-compact">
                 <div className="flex items-center mb-4">
-                  <ShieldCheckIcon className="h-8 w-8 text-purple-600" />
+                  <ShieldCheckIcon className="h-8 w-8 text-accent-purple" />
                   <h3 className="ml-3 text-lg font-semibold text-gray-900">
                     {isGerman ? 'DSGVO-konform' : 'GDPR Compliant'}
                   </h3>
@@ -656,7 +654,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                 </p>
               </div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="feature-card-compact">
                 <div className="flex items-center mb-4">
                   <CurrencyEuroIcon className="h-8 w-8 text-yellow-600" />
                   <h3 className="ml-3 text-lg font-semibold text-gray-900">
@@ -671,7 +669,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                 </p>
               </div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="feature-card-compact">
                 <div className="flex items-center mb-4">
                   <StarSolidIcon className="h-8 w-8 text-orange-600" />
                   <h3 className="ml-3 text-lg font-semibold text-gray-900">
@@ -686,7 +684,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                 </p>
               </div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+              <div className="feature-card-compact">
                 <div className="flex items-center mb-4">
                   <GlobeAltIcon className="h-8 w-8 text-teal-600" />
                   <h3 className="ml-3 text-lg font-semibold text-gray-900">
@@ -721,8 +719,8 @@ const LandingPage: NextPage<LandingPageProps> = ({
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-blue-600">1</span>
+                <div className="w-16 h-16 bg-timebutler-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-timebutler-600">1</span>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   {isGerman ? 'Bundesland wählen' : 'Select State'}
@@ -751,8 +749,8 @@ const LandingPage: NextPage<LandingPageProps> = ({
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-purple-600">3</span>
+                <div className="w-16 h-16 bg-accent-purple bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-accent-purple">3</span>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   {isGerman ? 'Kalender erhalten' : 'Get Calendar'}
@@ -769,12 +767,12 @@ const LandingPage: NextPage<LandingPageProps> = ({
         </section>
 
         {/* Email Signup Section */}
-        <section className="py-16 bg-blue-600">
+        <section className="py-16 brand-gradient">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold text-white mb-4">
               {isGerman ? 'Bleiben Sie informiert' : 'Stay informed'}
             </h2>
-            <p className="text-xl text-blue-100 mb-8">
+            <p className="text-xl text-timebutler-100 mb-8">
               {isGerman
                 ? 'Erhalten Sie Updates zu neuen Feiertagen und Optimierungen für 2026'
                 : 'Get updates on new holidays and optimizations for 2026'
@@ -788,17 +786,17 @@ const LandingPage: NextPage<LandingPageProps> = ({
                   value={emailSignup}
                   onChange={(e) => setEmailSignup(e.target.value)}
                   placeholder={isGerman ? 'ihre.email@beispiel.de' : 'your.email@example.com'}
-                  className="flex-1 px-4 py-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  className="flex-1 px-4 py-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-timebutler-300"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-blue-800 text-white px-6 py-3 rounded-r-lg hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors"
+                  className="bg-timebutler-800 text-white px-6 py-3 rounded-r-lg hover:bg-timebutler-900 focus:outline-none focus:ring-2 focus:ring-timebutler-300 transition-colors"
                 >
                   {isGerman ? 'Anmelden' : 'Subscribe'}
                 </button>
               </div>
-              <p className="text-sm text-blue-200 mt-2">
+              <p className="text-sm text-timebutler-200 mt-2">
                 {isGerman
                   ? 'Kostenlos • Jederzeit kündbar • DSGVO-konform'
                   : 'Free • Cancel anytime • GDPR compliant'
@@ -841,7 +839,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
               <div className="space-x-4">
                 <a
                   href="https://timebutler.de"
-                  className="inline-flex items-center px-6 py-3 border border-gray-300 rounded-md text-base font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="btn-secondary inline-flex items-center"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -850,7 +848,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
                 </a>
                 <a
                   href="https://timebutler.de/demo"
-                  className="inline-flex items-center px-6 py-3 border border-transparent rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="btn-cta inline-flex items-center"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -965,9 +963,7 @@ export const getStaticProps: GetStaticProps<LandingPageProps> = async ({ locale 
           buildTime: new Date().toISOString(),
           staticGeneration: true
         }
-      },
-      // Revalidate every 24 hours to check for new holidays or updates
-      revalidate: 86400
+      }
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
@@ -978,8 +974,7 @@ export const getStaticProps: GetStaticProps<LandingPageProps> = async ({ locale 
         exampleBridges: EXAMPLE_BRIDGES,
         holidays: EXAMPLE_HOLIDAYS,
         currentYear: new Date().getFullYear()
-      },
-      revalidate: 86400
+      }
     };
   }
 };

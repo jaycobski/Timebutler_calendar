@@ -307,10 +307,12 @@ export function useLanguage(): UseLanguageReturn {
   // Storage utilities
   const savePreferences = useCallback((prefs: LanguagePreferences) => {
     try {
-      localStorage.setItem(
-        LANGUAGE_CONSTANTS.STORAGE_KEYS.PREFERENCES,
-        JSON.stringify(prefs)
-      );
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(
+          LANGUAGE_CONSTANTS.STORAGE_KEYS.PREFERENCES,
+          JSON.stringify(prefs)
+        );
+      }
       // Also set cookie for SSR
       Cookies.set('timebutler-language', prefs.language, {
         expires: 365,
@@ -324,7 +326,9 @@ export function useLanguage(): UseLanguageReturn {
 
   const loadPreferences = useCallback((): LanguagePreferences => {
     try {
-      const stored = localStorage.getItem(LANGUAGE_CONSTANTS.STORAGE_KEYS.PREFERENCES);
+      const stored = typeof window !== 'undefined'
+        ? localStorage.getItem(LANGUAGE_CONSTANTS.STORAGE_KEYS.PREFERENCES)
+        : null;
       if (stored) {
         return JSON.parse(stored);
       }

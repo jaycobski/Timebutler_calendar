@@ -22,7 +22,7 @@
     font-size: 16px;
     line-height: 1.6;
     color: theme('colors.gray.900');
-    background-color: theme('colors.white');
+    background-color: theme('colors.timebutler.50');
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -30,7 +30,7 @@
 
   /* Accessibility: Ensure focus indicators are always visible */
   *:focus {
-    outline: 2px solid theme('colors.blue.500');
+    outline: 2px solid theme('colors.timebutler.500');
     outline-offset: 2px;
   }
 
@@ -90,8 +90,8 @@
   /* Skip navigation links */
   .skip-nav {
     @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50;
-    @apply bg-blue-600 text-white px-4 py-2 rounded font-medium;
-    @apply focus:outline-none focus:ring-2 focus:ring-blue-300;
+    @apply bg-timebutler-600 text-white px-4 py-2 rounded font-medium;
+    @apply focus:outline-none focus:ring-2 focus:ring-timebutler-300;
   }
 
   /* Button base styles for consistency */
@@ -103,11 +103,12 @@
   }
 
   .btn-primary {
-    @apply btn-base bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+    @apply btn-base bg-timebutler-600 text-white hover:bg-timebutler-700 focus:ring-timebutler-500;
+    @apply shadow-timebutler hover:shadow-timebutler-lg;
   }
 
   .btn-secondary {
-    @apply btn-base bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+    @apply btn-base bg-timebutler-100 text-timebutler-800 hover:bg-timebutler-200 focus:ring-timebutler-500;
   }
 
   /* Card component base */
@@ -116,11 +117,16 @@
     @apply hover:shadow-md transition-shadow duration-200;
   }
 
+  /* Glassmorphism card variant */
+  .card-glass {
+    @apply glass-card;
+  }
+
   /* Form input base styles */
   .form-input {
     @apply block w-full px-3 py-2 border border-gray-300 rounded-md;
     @apply text-gray-900 placeholder-gray-400;
-    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    @apply focus:outline-none focus:ring-2 focus:ring-timebutler-500 focus:border-timebutler-500;
     @apply disabled:bg-gray-50 disabled:cursor-not-allowed;
   }
 
@@ -177,7 +183,7 @@
 
   /* Focus management */
   .focus-within-ring:focus-within {
-    @apply ring-2 ring-blue-500 ring-offset-2;
+    @apply ring-2 ring-timebutler-500 ring-offset-2;
   }
 
   /* Custom scrollbar for better UX */
@@ -207,13 +213,15 @@
 
 /* Landing page specific styles */
 .hero-gradient {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg, theme('colors.timebutler.50') 0%, theme('colors.timebutler.100') 100%);
 }
 
 .hero-stats {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 /* Animation classes for performance */
@@ -303,4 +311,53 @@
 
 .container-spacing {
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* TimeButler brand-specific components */
+.feature-card {
+  @apply glass-card p-6;
+  width: 267px;
+  min-height: 454px;
+}
+
+.feature-card-compact {
+  @apply bg-white rounded-2xl p-6;
+  @apply shadow-timebutler hover:shadow-timebutler-lg;
+  @apply transition-all duration-200;
+  border: 1px solid theme('colors.timebutler.200');
+}
+
+/* Decorative blobs positioning */
+.blob-decoration {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob-yellow-bg {
+  @apply blob-yellow blob-decoration;
+  width: 400px;
+  height: 400px;
+  opacity: 0.3;
+}
+
+.blob-purple-bg {
+  @apply blob-purple blob-decoration;
+  width: 350px;
+  height: 350px;
+  opacity: 0.3;
+}
+
+.blob-blue-bg {
+  @apply blob-blue blob-decoration;
+  width: 450px;
+  height: 450px;
+  opacity: 0.2;
+}
+
+/* TimeButler CTA button */
+.btn-cta {
+  @apply btn-primary text-base px-6 py-3 rounded-lg;
+  @apply brand-gradient hover:opacity-90;
+  @apply transform hover:scale-105 transition-transform;
 }

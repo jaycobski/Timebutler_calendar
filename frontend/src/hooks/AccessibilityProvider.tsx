@@ -40,7 +40,9 @@ export function AccessibilityProvider({
   const { language } = useLanguage();
   const [preferences, setPreferences] = useState<A11yUserPreferences>(() => {
     // Load preferences from localStorage
-    const stored = localStorage.getItem(A11Y_CONSTANTS.STORAGE.PREFERENCES);
+    const stored = typeof window !== 'undefined'
+      ? localStorage.getItem(A11Y_CONSTANTS.STORAGE.PREFERENCES)
+      : null;
     const storedPreferences = stored ? JSON.parse(stored) : {};
 
     return {
@@ -187,7 +189,9 @@ export function AccessibilityProvider({
       }
 
       preferencesTimeoutRef.current = setTimeout(() => {
-        localStorage.setItem(A11Y_CONSTANTS.STORAGE.PREFERENCES, JSON.stringify(updated));
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(A11Y_CONSTANTS.STORAGE.PREFERENCES, JSON.stringify(updated));
+        }
       }, 500);
 
       return updated;
@@ -198,7 +202,9 @@ export function AccessibilityProvider({
   const resetPreferences = useCallback(() => {
     const resetPrefs = { ...DEFAULT_A11Y_PREFERENCES, language };
     setPreferences(resetPrefs);
-    localStorage.removeItem(A11Y_CONSTANTS.STORAGE.PREFERENCES);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(A11Y_CONSTANTS.STORAGE.PREFERENCES);
+    }
   }, [language]);
 
   // Enhanced announce function with context

@@ -21,20 +21,27 @@ module.exports = {
   theme: {
     // Extend default theme with German market optimization
     extend: {
-      // TimeButler brand colors (German corporate identity)
+      // TimeButler brand colors (Actual brand from homepage design)
       colors: {
-        // Primary brand colors
+        // Primary brand colors (extracted from TimeButler homepage)
         timebutler: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9', // Primary brand blue
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          50: '#F8FAFF',      // Background - ultra light blue
+          100: '#EAECFA',     // Light purple/blue - cards
+          200: '#D4D9F5',     // Light blue - secondary elements
+          300: '#A78BFA',     // Accent purple - decorative
+          400: '#406CC1',     // Medium blue - decorative
+          500: '#293FCC',     // Primary brand blue - CTAs, links
+          600: '#0E2F7E',     // Dark navy - primary buttons, cards
+          700: '#0A2560',     // Darker navy
+          800: '#071B4A',     // Deepest navy
+          900: '#041133',     // Near black navy
+        },
+
+        // Accent colors from design
+        accent: {
+          yellow: '#FEF3C7',  // Yellow blob decorative
+          purple: '#A78BFA',  // Purple blob decorative
+          blue: '#406CC1',    // Blue blob decorative
         },
 
         // German flag-inspired accents (subtle usage)
@@ -112,15 +119,29 @@ module.exports = {
         },
       },
 
-      // Box shadows for depth (minimal for performance)
+      // Box shadows for depth (from TimeButler homepage design)
       boxShadow: {
-        'timebutler': '0 4px 6px -1px rgba(14, 165, 233, 0.1), 0 2px 4px -1px rgba(14, 165, 233, 0.06)',
-        'timebutler-lg': '0 10px 15px -3px rgba(14, 165, 233, 0.1), 0 4px 6px -2px rgba(14, 165, 233, 0.05)',
+        'timebutler': '0 4px 6px -1px rgba(41, 63, 204, 0.1), 0 2px 4px -1px rgba(41, 63, 204, 0.06)',
+        'timebutler-lg': '0 10px 15px -3px rgba(41, 63, 204, 0.1), 0 4px 6px -2px rgba(41, 63, 204, 0.05)',
+        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
       },
 
       // Border radius for German design preferences
       borderRadius: {
         '4xl': '2rem',
+      },
+
+      // Backdrop blur for glassmorphism effects
+      backdropBlur: {
+        xs: '2px',
+        sm: '4px',
+        md: '12px',
+        lg: '16px',
+        xl: '24px',
+        '2xl': '40px',
+        '3xl': '50px',
+        '4xl': '100px',
+        '5xl': '150px',
       },
 
       // Z-index scale
@@ -196,7 +217,7 @@ module.exports = {
       className: 'prose', // Single class name
     }),
 
-    // Custom plugin for German-specific utilities
+    // Custom plugin for TimeButler brand utilities
     function({ addUtilities, theme }) {
       const newUtilities = {
         // German text formatting
@@ -207,7 +228,43 @@ module.exports = {
 
         // TimeButler brand utilities
         '.brand-gradient': {
-          background: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)',
+          background: 'linear-gradient(135deg, #293FCC 0%, #0E2F7E 100%)',
+        },
+        '.brand-gradient-vertical': {
+          background: 'linear-gradient(180deg, #293FCC 0%, #0E2F7E 100%)',
+        },
+
+        // Glassmorphism effects (from homepage design)
+        '.glass': {
+          background: 'rgba(255, 255, 255, 0.7)',
+          backdropFilter: 'blur(50px)',
+          WebkitBackdropFilter: 'blur(50px)',
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+        },
+        '.glass-card': {
+          background: 'rgba(255, 255, 255, 0.6)',
+          backdropFilter: 'blur(100px)',
+          WebkitBackdropFilter: 'blur(100px)',
+          borderRadius: '20px',
+          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+        },
+        '.glass-dark': {
+          background: 'rgba(41, 63, 204, 0.1)',
+          backdropFilter: 'blur(50px)',
+          WebkitBackdropFilter: 'blur(50px)',
+          border: '1px solid rgba(41, 63, 204, 0.18)',
+        },
+
+        // Decorative blob gradients (from homepage design)
+        '.blob-yellow': {
+          background: 'radial-gradient(circle, #FEF3C7 0%, transparent 70%)',
+        },
+        '.blob-purple': {
+          background: 'radial-gradient(circle, #A78BFA 0%, transparent 70%)',
+        },
+        '.blob-blue': {
+          background: 'radial-gradient(circle, #406CC1 0%, transparent 70%)',
         },
 
         // Accessibility utilities
@@ -215,7 +272,7 @@ module.exports = {
           outline: '2px solid transparent',
           outlineOffset: '2px',
           '&:focus': {
-            outline: '2px solid #0ea5e9',
+            outline: '2px solid #293FCC',
             outlineOffset: '2px',
           },
         },
@@ -239,6 +296,8 @@ module.exports = {
     backdropOpacity: false,
     backdropSaturate: false,
     backdropSepia: false,
+    // backdropBlur: enabled (needed for glassmorphism)
+    // backdropFilter: enabled (needed for glassmorphism)
     scrollSnapType: false,
     scrollSnapAlign: false,
     scrollSnapStop: false,
