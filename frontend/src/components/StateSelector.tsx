@@ -13,7 +13,7 @@
  * - Keyboard navigation and screen reader support
  */
 
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo, useId } from 'react';
 import { ChevronDownIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import { ExclamationTriangleIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
@@ -269,8 +269,9 @@ export default function StateSelector({
   const listboxRef = useRef<HTMLUListElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
 
-  // Generate unique IDs for accessibility
-  const componentId = id || `state-selector-${Math.random().toString(36).substr(2, 9)}`;
+  // Generate stable unique IDs for accessibility (useId ensures server/client consistency)
+  const generatedId = useId();
+  const componentId = id || `state-selector-${generatedId}`;
   const listboxId = `${componentId}-listbox`;
   const labelId = `${componentId}-label`;
   const searchId = `${componentId}-search`;

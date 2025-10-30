@@ -25,6 +25,12 @@ interface GDPRConsentRecord {
   timestamp: Date;
   version: string;
   purposes: Record<string, boolean>;
+  ip_hash?: string;
+  user_agent_hash?: string;
+  consent_version?: string;
+  legal_basis?: string;
+  source?: string;
+  withdrawal_method?: string;
 }
 type ConsentPurpose = 'email_delivery' | 'calendar_export' | 'analytics' | 'marketing' | 'support';
 const REQUIRED_CONSENT_PURPOSES: ConsentPurpose[] = ['email_delivery', 'calendar_export'];
@@ -53,7 +59,10 @@ interface VacationPlanFormData {
   vacation_days_budget: number;
   selected_bridges: BridgeWeekend[];
   email: string;
-  gdpr_consent: Partial<GDPRConsentRecord>;
+  gdpr_consent: {
+    purposes?: ConsentPurpose[];
+    [key: string]: any;
+  };
   language_preference: Language;
 }
 
@@ -154,7 +163,7 @@ export default function VacationPlanForm({
   const [showGDPRDetails, setShowGDPRDetails] = useState(false);
 
   // Refs for accessibility
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
   const budgetInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
@@ -345,10 +354,10 @@ export default function VacationPlanForm({
     }));
 
     // Clear field-specific errors
-    if (errors[field]) {
+    if (field in errors && errors[field as keyof FormErrors]) {
       setErrors(prev => ({
         ...prev,
-        [field]: undefined
+        [field as keyof FormErrors]: undefined
       }));
     }
 
@@ -373,15 +382,21 @@ export default function VacationPlanForm({
 
   // Handle GDPR consent changes
   const handleConsentChange = useCallback((purpose: ConsentPurpose, granted: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      gdpr_consent: {
-        ...prev.gdpr_consent,
-        purposes: granted
-          ? [...(prev.gdpr_consent.purposes || []), purpose]
-          : (prev.gdpr_consent.purposes || []).filter(p => p !== purpose)
-      }
-    }));
+    setFormData(prev => {
+      const currentPurposes: ConsentPurpose[] = Array.isArray(prev.gdpr_consent.purposes)
+        ? prev.gdpr_consent.purposes
+        : [];
+      
+      return {
+        ...prev,
+        gdpr_consent: {
+          ...prev.gdpr_consent,
+          purposes: granted
+            ? [...currentPurposes, purpose]
+            : currentPurposes.filter(p => p !== purpose)
+        }
+      };
+    });
 
     onAnalytics?.('gdpr_consent_change', { purpose, granted });
   }, [onAnalytics]);
@@ -409,7 +424,9 @@ export default function VacationPlanForm({
     // GDPR consent validation
     if (enableGDPRConsent) {
       const requiredPurposes = REQUIRED_CONSENT_PURPOSES;
-      const grantedPurposes = formData.gdpr_consent.purposes || [];
+      const grantedPurposes: ConsentPurpose[] = Array.isArray(formData.gdpr_consent.purposes) 
+        ? formData.gdpr_consent.purposes 
+        : [];
       const missingRequired = requiredPurposes.filter(p => !grantedPurposes.includes(p));
 
       if (missingRequired.length > 0) {
@@ -431,7 +448,7 @@ export default function VacationPlanForm({
   };
 
   // Form submission
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent | React.MouseEvent) => {
     event.preventDefault();
 
     if (!validateForm()) {
@@ -453,22 +470,29 @@ export default function VacationPlanForm({
     });
 
     try {
+      // Convert purposes array to Record format for backend
+      const purposesArray = formData.gdpr_consent.purposes || [];
+      const purposesRecord: Record<string, boolean> = {};
+      purposesArray.forEach(purpose => {
+        purposesRecord[purpose] = true;
+      });
+      
       // Create complete GDPR consent record
       const completeGDPRConsent: GDPRConsentRecord = {
         timestamp: new Date(),
         ip_hash: 'client-side-hash', // Would be set server-side
         user_agent_hash: 'client-side-hash', // Would be set server-side
         consent_version: '1.1.0',
-        purposes: formData.gdpr_consent.purposes || [],
+        purposes: purposesRecord,
         legal_basis: 'consent',
         source: 'vacation_plan_form',
         withdrawal_method: 'email_link',
-        ...formData.gdpr_consent
+        version: '1.1.0'
       };
 
-      const completeFormData: VacationPlanFormData = {
+      const completeFormData: VacationPlanFormData & { gdpr_consent: GDPRConsentRecord } = {
         ...formData,
-        gdpr_consent: completeGDPRConsent
+        gdpr_consent: completeGDPRConsent as any
       };
 
       await onSubmit?.(completeFormData);
@@ -502,11 +526,9 @@ export default function VacationPlanForm({
   const formClassName = `vacation-plan-form ${className} ${compact ? 'vacation-plan-form--compact' : ''} vacation-plan-form--${theme}`;
 
   return (
-    <form
+    <div
       ref={formRef}
       className={formClassName}
-      onSubmit={handleSubmit}
-      noValidate
       aria-label={ariaLabel || translations.title}
       aria-describedby={ariaDescribedBy}
       data-testid={testId}
@@ -709,7 +731,7 @@ export default function VacationPlanForm({
                   <input
                     type="checkbox"
                     className="gdpr-consent__checkbox"
-                    checked={formData.gdpr_consent.purposes?.includes(purpose) || false}
+                    checked={Array.isArray(formData.gdpr_consent.purposes) && formData.gdpr_consent.purposes.includes(purpose)}
                     onChange={(e) => handleConsentChange(purpose, e.target.checked)}
                     required
                     data-testid={`gdpr-consent-${purpose}`}
@@ -752,11 +774,12 @@ export default function VacationPlanForm({
       {/* Submit button */}
       <div className="vacation-plan-form__actions">
         <button
-          type="submit"
+          type="button"
           className="vacation-plan-form__submit"
           disabled={isSubmitting}
           aria-describedby="submit-button-hint"
           data-testid="submit-button"
+          onClick={handleSubmit}
         >
           {isSubmitting ? translations.submitting : translations.submitButton}
         </button>
@@ -769,7 +792,7 @@ export default function VacationPlanForm({
       <div className="vacation-plan-form__branding">
         <p className="branding-text">{translations.brandedBy}</p>
       </div>
-    </form>
+    </div>
   );
 }
 

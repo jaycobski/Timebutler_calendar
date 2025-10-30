@@ -636,7 +636,7 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                   }
                 </h2>
 
-                <form onSubmit={handleFormSubmission} className="planning-form">
+                <div className="planning-form">
 
                   {/* State Selection */}
                   <div className="form-group">
@@ -659,6 +659,8 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                   {/* Vacation Budget Form */}
                   <div className="form-group">
                     <VacationPlanForm
+                      availableBridges={availableBridges}
+                      holidays={holidays}
                       initialData={{
                         available_vacation_days: vacationBudget,
                         preferred_months: [],
@@ -666,21 +668,10 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                       }}
                       onSubmit={handleVacationPlanSubmit}
                       language={currentLanguage}
-                      disabled={!selectedState}
                       data-testid="vacation-plan-form"
                     />
                   </div>
-
-                  {/* Progressive Enhancement: Noscript fallback */}
-                  <noscript>
-                    <button type="submit" className="btn btn-primary">
-                      {currentLanguage === 'de'
-                        ? 'Urlaubsplanung berechnen'
-                        : 'Calculate Vacation Plan'
-                      }
-                    </button>
-                  </noscript>
-                </form>
+                </div>
               </section>
 
               {/* Error Display */}
