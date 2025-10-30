@@ -154,7 +154,7 @@ export default function VacationPlanForm({
   const [showGDPRDetails, setShowGDPRDetails] = useState(false);
 
   // Refs for accessibility
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
   const budgetInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
@@ -431,7 +431,7 @@ export default function VacationPlanForm({
   };
 
   // Form submission
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent | React.MouseEvent) => {
     event.preventDefault();
 
     if (!validateForm()) {
@@ -502,7 +502,7 @@ export default function VacationPlanForm({
   const formClassName = `vacation-plan-form ${className} ${compact ? 'vacation-plan-form--compact' : ''} vacation-plan-form--${theme}`;
 
   return (
-    <form
+    <div
       ref={formRef}
       className={formClassName}
       onSubmit={handleSubmit}
@@ -752,11 +752,12 @@ export default function VacationPlanForm({
       {/* Submit button */}
       <div className="vacation-plan-form__actions">
         <button
-          type="submit"
+          type="button"
           className="vacation-plan-form__submit"
           disabled={isSubmitting}
           aria-describedby="submit-button-hint"
           data-testid="submit-button"
+          onClick={handleSubmit}
         >
           {isSubmitting ? translations.submitting : translations.submitButton}
         </button>
@@ -769,7 +770,7 @@ export default function VacationPlanForm({
       <div className="vacation-plan-form__branding">
         <p className="branding-text">{translations.brandedBy}</p>
       </div>
-    </form>
+    </div>
   );
 }
 
