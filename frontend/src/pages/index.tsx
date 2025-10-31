@@ -216,7 +216,7 @@ const LandingPage: NextPage<LandingPageProps> = ({
       }
 
       // Navigate to vacation planner
-      await router.push(`/planner?state=${selectedState}`);
+      await router.push(`/plan?state=${selectedState}`);
     } catch (error) {
       console.error('Navigation error:', error);
       setIsLoading(false);
