@@ -253,14 +253,15 @@ export default function StateSelector({
   onAnalytics
 }: StateSelectorProps) {
   // Translation hook for bilingual support
-  const { t, lang } = useTranslation('state-selector');
+  const { t, lang } = useTranslation();
   const isGerman = lang === 'de';
   
-  // Helper function to get state-selector translations (now using namespace)
+  // Helper function to get state-selector translations
   const tState = useCallback((key: string) => {
-    const translation = t(key);
+    const fullKey = `stateSelector.${key}`;
+    const translation = t(fullKey);
     // Fallback to key if translation not found
-    return translation !== key ? translation : key;
+    return translation !== fullKey ? translation : key;
   }, [t]);
 
   // Component state
@@ -495,7 +496,7 @@ export default function StateSelector({
    */
   const getReligionIndicator = useCallback((state: StateOption) => {
     const religionKey = `religionIndicator.${state.religious_majority}`;
-    const religionLabel = tState(religionKey);
+    const religionLabel = t(`stateSelector.${religionKey}`);
 
     const colors = {
       catholic: 'text-blue-600 bg-blue-50',

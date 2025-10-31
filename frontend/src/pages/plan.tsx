@@ -559,10 +559,27 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
   }, [optimizationResult]);
 
   const handleEmailSubmit = useCallback(async (data: EmailSubmissionData) => {
-    // TODO: Implement email submission logic
-    console.log('Submitting vacation plan via email:', data);
-    setShowEmailForm(false);
-  }, []);
+    try {
+      // TODO: Implement email submission logic to backend
+      console.log('Submitting vacation plan via email:', data);
+      
+      // Redirect to confirmation page with query parameters
+      const queryParams = new URLSearchParams({
+        email: data.email,
+        state: selectedState || '',
+        bridges: selectedBridges.length.toString(),
+        format: data.calendar_format || 'ics',
+      });
+      
+      await router.push(`/confirmation?${queryParams.toString()}`);
+    } catch (error) {
+      console.error('Email submission error:', error);
+      setError(currentLanguage === 'de' 
+        ? 'Fehler beim Senden der E-Mail. Bitte versuchen Sie es erneut.'
+        : 'Error sending email. Please try again.');
+      setShowEmailForm(false);
+    }
+  }, [router, selectedState, selectedBridges, currentLanguage]);
 
   // Progressive enhancement: Form submission for non-JS users
   const handleFormSubmission = useCallback((event: React.FormEvent) => {
@@ -1393,7 +1410,7 @@ export const getStaticProps: GetStaticProps<PlanningPageProps> = async () => {
   // In a real implementation, this would fetch from API
   const currentYear = new Date().getFullYear();
 
-  // Mock holiday data for SSG
+  // Mock holiday data for SSG - includes major German holidays for bridge calculation
   const initialHolidays: Holiday[] = [
     {
       id: 'neujahr-2025',
@@ -1405,7 +1422,76 @@ export const getStaticProps: GetStaticProps<PlanningPageProps> = async () => {
       is_catholic: false,
       is_protestant: false,
     },
-    // Add more holidays as needed for initial render
+    {
+      id: 'tag-der-arbeit-2025',
+      name_de: 'Tag der Arbeit',
+      name_en: 'Labour Day',
+      date: '2025-05-01',
+      type: 'federal',
+      states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'],
+      is_catholic: false,
+      is_protestant: false,
+    },
+    {
+      id: 'tag-der-deutschen-einheit-2025',
+      name_de: 'Tag der Deutschen Einheit',
+      name_en: 'German Unity Day',
+      date: '2025-10-03',
+      type: 'federal',
+      states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'],
+      is_catholic: false,
+      is_protestant: false,
+    },
+    {
+      id: 'weihnachtstag-2025',
+      name_de: '1. Weihnachtstag',
+      name_en: 'Christmas Day',
+      date: '2025-12-25',
+      type: 'federal',
+      states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'],
+      is_catholic: false,
+      is_protestant: false,
+    },
+    {
+      id: 'zweiter-weihnachtstag-2025',
+      name_de: '2. Weihnachtstag',
+      name_en: 'Boxing Day',
+      date: '2025-12-26',
+      type: 'federal',
+      states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'],
+      is_catholic: false,
+      is_protestant: false,
+    },
+    {
+      id: 'karfreitag-2025',
+      name_de: 'Karfreitag',
+      name_en: 'Good Friday',
+      date: '2025-04-18',
+      type: 'federal',
+      states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'],
+      is_catholic: false,
+      is_protestant: false,
+    },
+    {
+      id: 'ostermontag-2025',
+      name_de: 'Ostermontag',
+      name_en: 'Easter Monday',
+      date: '2025-04-21',
+      type: 'federal',
+      states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'],
+      is_catholic: false,
+      is_protestant: false,
+    },
+    {
+      id: 'pfingstmontag-2025',
+      name_de: 'Pfingstmontag',
+      name_en: 'Whit Monday',
+      date: '2025-06-09',
+      type: 'federal',
+      states: ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'],
+      is_catholic: false,
+      is_protestant: false,
+    },
   ];
 
   return {
