@@ -383,6 +383,8 @@ interface PlanningPageProps {
 }
 
 function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: PlanningPageProps) {
+  const router = useRouter();
+  
   // Core state management
   const [selectedState, setSelectedState] = useState<GermanStateCode | undefined>();
   const [selectedYear, setSelectedYear] = useState(initialYear);
@@ -406,6 +408,18 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showEmailForm, setShowEmailForm] = useState(false);
+
+  // Read state from URL query parameter on mount
+  useEffect(() => {
+    if (router.isReady && router.query.state) {
+      const stateFromQuery = router.query.state as GermanStateCode;
+      // Validate that it's a valid German state code
+      const validStates: GermanStateCode[] = ['BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 'NI', 'NW', 'RP', 'SL', 'SN', 'ST', 'SH', 'TH'];
+      if (validStates.includes(stateFromQuery)) {
+        setSelectedState(stateFromQuery);
+      }
+    }
+  }, [router.isReady, router.query.state]);
 
   // Performance monitoring
   const { metrics, measureCalculation } = usePerformanceMonitoring();
