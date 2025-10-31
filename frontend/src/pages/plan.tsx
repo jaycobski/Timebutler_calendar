@@ -9,6 +9,7 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 
 // Component imports
 import {
