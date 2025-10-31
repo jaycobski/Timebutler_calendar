@@ -597,6 +597,16 @@
       "holidayDetails": "Detailinformationen zu Feiertagen und regionalen Unterschieden",
       "exportOptions": "Optionen zum Exportieren der Urlaubsplanung in verschiedene Kalenderformate"
     },
+    "instructions": {
+      "keyboardNavigation": "Verwenden Sie die Pfeiltasten zur Navigation, Enter zum Auswählen, Escape zum Schließen",
+      "formNavigation": "Verwenden Sie Tab zum Navigieren zwischen Feldern, Enter zum Absenden",
+      "calendarNavigation": "Verwenden Sie die Pfeiltasten für die Datumsnavigation, Home/Ende für Monatsanfang/-ende",
+      "listNavigation": "Verwenden Sie die Pfeiltasten zum Navigieren in Listen, Enter zum Auswählen",
+      "dialogNavigation": "Fokus ist im Dialog eingeschlossen. Verwenden Sie Escape zum Schließen",
+      "tableNavigation": "Verwenden Sie die Pfeiltasten zum Navigieren in Tabellen, Tab zum Verlassen",
+      "menuNavigation": "Verwenden Sie die Pfeiltasten für die Menünavigation, Enter zum Auswählen",
+      "searchNavigation": "Eingabe startet automatische Suche, Pfeiltasten für Vorschläge"
+    },
     "announcements": {
       "pageLoaded": "Seite geladen. TimeButler Urlaubsplaner bereit zur Verwendung",
       "formSubmitted": "Formular erfolgreich übermittelt",

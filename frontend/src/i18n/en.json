@@ -597,6 +597,16 @@
       "holidayDetails": "Detailed information about holidays and regional differences",
       "exportOptions": "Options for exporting vacation planning to various calendar formats"
     },
+    "instructions": {
+      "keyboardNavigation": "Use arrow keys to navigate, Enter to select, Escape to close",
+      "formNavigation": "Use Tab to navigate between fields, Enter to submit",
+      "calendarNavigation": "Use arrow keys for date navigation, Home/End for month start/end",
+      "listNavigation": "Use arrow keys to navigate lists, Enter to select",
+      "dialogNavigation": "Focus is trapped in dialog. Use Escape to close",
+      "tableNavigation": "Use arrow keys to navigate tables, Tab to exit",
+      "menuNavigation": "Use arrow keys for menu navigation, Enter to select",
+      "searchNavigation": "Typing starts automatic search, arrow keys for suggestions"
+    },
     "announcements": {
       "pageLoaded": "Page loaded. TimeButler vacation planner ready for use",
       "formSubmitted": "Form successfully submitted",

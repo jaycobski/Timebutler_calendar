@@ -272,8 +272,10 @@ export default function VacationPlanForm({
         gdprDetailsHide: 'Details ausblenden',
         consentVacationPlanning: 'Urlaubsplanung und Kalenderversendung',
         consentEmailDelivery: 'E-Mail-Zustellung Ihres Kalenders',
+        consentCalendarExport: 'Kalenderexport',
         consentAnalytics: 'Anonyme Nutzungsstatistiken',
         consentImprovement: 'Serviceverbesserung',
+        consentSupport: 'Support und Kommunikation',
         consentMarketing: 'TimeButler Produktinformationen',
         submitButton: 'Urlaubsplan erstellen',
         submitting: 'Wird verarbeitet...',
@@ -313,8 +315,10 @@ export default function VacationPlanForm({
         gdprDetailsHide: 'Hide details',
         consentVacationPlanning: 'Vacation planning and calendar delivery',
         consentEmailDelivery: 'Email delivery of your calendar',
+        consentCalendarExport: 'Calendar export',
         consentAnalytics: 'Anonymous usage statistics',
         consentImprovement: 'Service improvement',
+        consentSupport: 'Support and communication',
         consentMarketing: 'TimeButler product information',
         submitButton: 'Create Vacation Plan',
         submitting: 'Processing...',
@@ -737,7 +741,12 @@ export default function VacationPlanForm({
                     data-testid={`gdpr-consent-${purpose}`}
                   />
                   <span className="gdpr-consent__label">
-                    {translations[`consent${purpose.split('_').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('')}` as keyof typeof translations] || purpose}
+                    {purpose === 'email_delivery' ? translations.consentEmailDelivery :
+                     purpose === 'calendar_export' ? translations.consentCalendarExport :
+                     purpose === 'analytics' ? translations.consentAnalytics :
+                     purpose === 'marketing' ? translations.consentMarketing :
+                     purpose === 'support' ? translations.consentSupport :
+                     purpose}
                   </span>
                 </label>
               ))}
@@ -756,7 +765,12 @@ export default function VacationPlanForm({
                     data-testid={`gdpr-consent-${purpose}`}
                   />
                   <span className="gdpr-consent__label">
-                    {translations[`consent${purpose.split('_').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('')}` as keyof typeof translations] || purpose}
+                    {purpose === 'email_delivery' ? translations.consentEmailDelivery :
+                     purpose === 'calendar_export' ? translations.consentCalendarExport :
+                     purpose === 'analytics' ? translations.consentAnalytics :
+                     purpose === 'marketing' ? translations.consentMarketing :
+                     purpose === 'support' ? translations.consentSupport :
+                     purpose}
                   </span>
                 </label>
               ))}

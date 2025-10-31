@@ -255,6 +255,13 @@ export default function StateSelector({
   // Translation hook for bilingual support
   const { t, lang } = useTranslation('state-selector');
   const isGerman = lang === 'de';
+  
+  // Helper function to get state-selector translations (now using namespace)
+  const tState = useCallback((key: string) => {
+    const translation = t(key);
+    // Fallback to key if translation not found
+    return translation !== key ? translation : key;
+  }, [t]);
 
   // Component state
   const [isOpen, setIsOpen] = useState(false);
@@ -488,7 +495,7 @@ export default function StateSelector({
    */
   const getReligionIndicator = useCallback((state: StateOption) => {
     const religionKey = `religionIndicator.${state.religious_majority}`;
-    const religionLabel = t(religionKey);
+    const religionLabel = tState(religionKey);
 
     const colors = {
       catholic: 'text-blue-600 bg-blue-50',
@@ -501,7 +508,7 @@ export default function StateSelector({
       label: religionLabel,
       className: colors[state.religious_majority]
     };
-  }, [t]);
+  }, [tState]);
 
   // Component CSS classes
   const containerClasses = clsx(
@@ -559,7 +566,7 @@ export default function StateSelector({
           error ? 'text-red-700' : 'text-gray-700'
         )}
       >
-        {t('label')}
+        {tState('label')}
         {required && (
           <span className="text-red-500 ml-1" aria-label={isGerman ? 'erforderlich' : 'required'}>
             *
@@ -579,7 +586,7 @@ export default function StateSelector({
         aria-hidden="true"
         tabIndex={-1}
       >
-        <option value="">{t('placeholder')}</option>
+        <option value="">{tState('placeholder')}</option>
         {GERMAN_STATES.map(state => (
           <option key={state.code} value={state.code}>
             {getStateName(state)} ({state.capital})
@@ -611,14 +618,14 @@ export default function StateSelector({
                   <span className="text-gray-500 ml-2">({selectedState.capital})</span>
                   {selectedState.is_city_state && (
                     <span className="ml-2 px-2 py-0.5 text-xs font-medium bg-indigo-100 text-indigo-800 rounded-full">
-                      {t('cityState')}
+                      {tState('cityState')}
                     </span>
                   )}
                 </>
               )}
             </span>
           ) : (
-            t('placeholder')
+            tState('placeholder')
           )}
         </span>
 
@@ -628,7 +635,7 @@ export default function StateSelector({
               type="button"
               onClick={handleClear}
               className="mr-2 p-1 hover:bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label={t('clear')}
+              aria-label={tState('clear')}
               data-testid={`${testId}-clear`}
             >
               <XMarkIcon className="h-4 w-4 text-gray-400" />
@@ -656,9 +663,9 @@ export default function StateSelector({
                 id={searchId}
                 value={searchTerm}
                 onChange={handleSearchChange}
-                placeholder={t('searchPlaceholder')}
+                placeholder={tState('searchPlaceholder')}
                 className="w-full pl-10 pr-3 py-2 text-sm border-0 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                aria-label={t('searchPlaceholder')}
+                aria-label={tState('searchPlaceholder')}
                 data-testid={`${testId}-search`}
               />
             </div>
@@ -667,7 +674,7 @@ export default function StateSelector({
             <div className="px-3 py-2 border-t border-gray-100">
               <div className="flex items-center space-x-2">
                 <label className="text-xs font-medium text-gray-700">
-                  {t('sortBy')}:
+                  {tState('sortBy')}:
                 </label>
                 <select
                   value={sortBy}
@@ -675,9 +682,9 @@ export default function StateSelector({
                   className="text-xs border-0 bg-transparent focus:outline-none focus:ring-1 focus:ring-blue-500 rounded"
                   data-testid={`${testId}-sort`}
                 >
-                  <option value="alphabetical">{t('sortOptions.alphabetical')}</option>
-                  <option value="population">{t('sortOptions.population')}</option>
-                  <option value="religious">{t('sortOptions.religious')}</option>
+                  <option value="alphabetical">{tState('sortOptions.alphabetical')}</option>
+                  <option value="population">{tState('sortOptions.population')}</option>
+                  <option value="religious">{tState('sortOptions.religious')}</option>
                 </select>
               </div>
             </div>
@@ -695,7 +702,7 @@ export default function StateSelector({
             {filteredStates.length === 0 ? (
               <li className="px-3 py-2 text-sm text-gray-500 text-center">
                 <ExclamationTriangleIcon className="h-5 w-5 text-gray-400 mx-auto mb-1" />
-                {t('noResults')}
+                {tState('noResults')}
               </li>
             ) : (
               filteredStates.map((state, index) => {
@@ -718,17 +725,17 @@ export default function StateSelector({
                           </div>
                           {showDetails && (
                             <div className="text-sm text-gray-500 flex items-center space-x-2">
-                              <span>{t('capitalLabel')}: {state.capital}</span>
+                              <span>{tState('capitalLabel')}: {state.capital}</span>
                               {state.is_city_state && (
                                 <span className="px-1.5 py-0.5 text-xs font-medium bg-indigo-100 text-indigo-800 rounded">
-                                  {t('cityState')}
+                                  {tState('cityState')}
                                 </span>
                               )}
                             </div>
                           )}
                           {showPopulation && (
                             <div className="text-xs text-gray-400 mt-1">
-                              {t('populationLabel')}: {formatPopulation(state.population)}
+                              {tState('populationLabel')}: {formatPopulation(state.population)}
                             </div>
                           )}
                         </div>
@@ -757,7 +764,7 @@ export default function StateSelector({
           {/* Results summary */}
           {searchTerm && (
             <div className="sticky bottom-0 bg-gray-50 px-3 py-2 text-xs text-gray-600 border-t border-gray-200">
-              {filteredStates.length} {t('resultsFound')}
+              {filteredStates.length} {tState('resultsFound')}
             </div>
           )}
         </div>
@@ -781,7 +788,7 @@ export default function StateSelector({
         <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center rounded-md">
           <div className="flex items-center text-sm text-gray-600">
             <div className="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full mr-2"></div>
-            {t('loading')}
+            {tState('loading')}
           </div>
         </div>
       )}
