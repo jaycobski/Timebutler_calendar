@@ -8,5 +8,9 @@ export const rumAnalytics = {
       // Simple console logging for now - can be enhanced later
       console.log('Analytics:', { category, action, label, metadata });
     }
+  },
+  destroy: () => {
+    // Cleanup method - no-op for now
+    // Can be extended if needed for cleanup
   }
 };

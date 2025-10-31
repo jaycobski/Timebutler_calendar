@@ -20,5 +20,9 @@ export const performanceMonitor = {
         // Silently fail
       }
     }
+  },
+  destroy: () => {
+    // Cleanup method - no-op for now
+    // Can be extended if needed for cleanup
   }
 };

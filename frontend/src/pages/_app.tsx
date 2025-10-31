@@ -107,8 +107,13 @@ function TimeButlerCalendarApp({ Component, pageProps }: AppProps) {
 
         return () => {
           observer.disconnect();
-          performanceMonitor.destroy();
-          rumAnalytics.destroy();
+          // Safely call destroy methods if they exist
+          if (performanceMonitor && typeof performanceMonitor.destroy === 'function') {
+            performanceMonitor.destroy();
+          }
+          if (rumAnalytics && typeof rumAnalytics.destroy === 'function') {
+            rumAnalytics.destroy();
+          }
         };
       } catch (error) {
         console.warn('Performance Observer not supported');
