@@ -619,60 +619,79 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
             {currentLanguage === 'de' ? 'Zum Hauptinhalt springen' : 'Skip to main content'}
           </a>
 
-          {/* Page Header */}
-          <header className="page-header" role="banner">
-            <div className="container">
-              <h1 className="page-title">
-                {currentLanguage === 'de'
-                  ? 'Urlaubsplanung für Deutschland'
-                  : 'Vacation Planning for Germany'
-                }
-              </h1>
-              <p className="page-subtitle">
-                {currentLanguage === 'de'
-                  ? 'Maximieren Sie Ihre freien Tage mit intelligenter Brückentag-Optimierung'
-                  : 'Maximize your time off with intelligent bridge day optimization'
-                }
-              </p>
+          {/* Hero Section - Matching Landing Page */}
+          <header className="hero-gradient py-16 lg:py-24" role="banner">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-8">
+                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                  {currentLanguage === 'de' ? (
+                    <>
+                      Optimieren Sie Ihre{' '}
+                      <span className="text-timebutler-600">Urlaubstage</span>{' '}
+                      mit intelligenter{' '}
+                      <span className="text-timebutler-600">Brückentag-Optimierung</span>
+                    </>
+                  ) : (
+                    <>
+                      Optimize Your{' '}
+                      <span className="text-timebutler-600">Vacation Days</span>{' '}
+                      with Smart{' '}
+                      <span className="text-timebutler-600">Bridge Day Optimization</span>
+                    </>
+                  )}
+                </h1>
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
+                  {currentLanguage === 'de'
+                    ? 'Maximieren Sie Ihre freien Tage durch strategische Nutzung deutscher Feiertage und Brückentage'
+                    : 'Maximize your time off by strategically using German holidays and bridge days'}
+                </p>
 
-              {/* Language Switch */}
-              <div className="language-controls">
-                <button
-                  onClick={() => setCurrentLanguage('de')}
-                  className={`lang-btn ${currentLanguage === 'de' ? 'active' : ''}`}
-                  aria-pressed={currentLanguage === 'de'}
-                >
-                  Deutsch
-                </button>
-                <button
-                  onClick={() => setCurrentLanguage('en')}
-                  className={`lang-btn ${currentLanguage === 'en' ? 'active' : ''}`}
-                  aria-pressed={currentLanguage === 'en'}
-                >
-                  English
-                </button>
+                {/* Language Switch */}
+                <div className="flex justify-center gap-2">
+                  <button
+                    onClick={() => setCurrentLanguage('de')}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                      currentLanguage === 'de'
+                        ? 'bg-timebutler-600 text-white shadow-md'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                    }`}
+                    aria-pressed={currentLanguage === 'de'}
+                  >
+                    Deutsch
+                  </button>
+                  <button
+                    onClick={() => setCurrentLanguage('en')}
+                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                      currentLanguage === 'en'
+                        ? 'bg-timebutler-600 text-white shadow-md'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                    }`}
+                    aria-pressed={currentLanguage === 'en'}
+                  >
+                    English
+                  </button>
+                </div>
               </div>
             </div>
           </header>
 
           {/* Main Content */}
-          <main id="main-content" className="main-content" role="main">
-            <div className="container">
+          <main id="main-content" className="bg-gray-50 py-12" role="main">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-              {/* Planning Form */}
-              <section className="planning-section" aria-labelledby="planning-title">
-                <h2 id="planning-title" className="section-title">
+              {/* Planning Form Section */}
+              <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8" aria-labelledby="planning-title">
+                <h2 id="planning-title" className="text-2xl font-bold text-gray-900 mb-6">
                   {currentLanguage === 'de'
                     ? 'Ihre Urlaubsplanung'
                     : 'Your Vacation Planning'
                   }
                 </h2>
 
-                <div className="planning-form">
-
+                <div className="space-y-6">
                   {/* State Selection */}
-                  <div className="form-group">
-                    <label htmlFor="state-selector" className="form-label">
+                  <div>
+                    <label htmlFor="state-selector" className="block text-sm font-semibold text-gray-700 mb-2">
                       {currentLanguage === 'de'
                         ? 'Wählen Sie Ihr Bundesland'
                         : 'Select Your State'
@@ -689,7 +708,7 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                   </div>
 
                   {/* Vacation Budget Form */}
-                  <div className="form-group">
+                  <div>
                     <VacationPlanForm
                       availableBridges={availableBridges}
                       holidays={holidays}
@@ -708,8 +727,8 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
 
               {/* Error Display */}
               {error && (
-                <div className="error-banner" role="alert" aria-live="polite">
-                  <strong>
+                <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6" role="alert" aria-live="polite">
+                  <strong className="font-semibold">
                     {currentLanguage === 'de' ? 'Fehler:' : 'Error:'}
                   </strong> {error}
                 </div>
@@ -717,19 +736,21 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
 
               {/* Loading State */}
               {loading && (
-                <div className="loading-banner" role="status" aria-live="polite">
-                  <span className="loading-spinner" aria-hidden="true"></span>
-                  {currentLanguage === 'de'
-                    ? 'Berechne Urlaubsmöglichkeiten...'
-                    : 'Calculating vacation opportunities...'
-                  }
+                <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-lg mb-6 flex items-center gap-3" role="status" aria-live="polite">
+                  <div className="animate-spin h-5 w-5 border-2 border-blue-600 border-t-transparent rounded-full" aria-hidden="true"></div>
+                  <span>
+                    {currentLanguage === 'de'
+                      ? 'Berechne Urlaubsmöglichkeiten...'
+                      : 'Calculating vacation opportunities...'
+                    }
+                  </span>
                 </div>
               )}
 
               {/* Results Section */}
               {selectedState && !loading && (
-                <section className="results-section" aria-labelledby="results-title">
-                  <h2 id="results-title" className="section-title">
+                <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8" aria-labelledby="results-title">
+                  <h2 id="results-title" className="text-2xl font-bold text-gray-900 mb-6">
                     {currentLanguage === 'de'
                       ? 'Ihre Urlaubsmöglichkeiten'
                       : 'Your Vacation Opportunities'
@@ -737,66 +758,66 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                   </h2>
 
                   {/* Current Efficiency Display */}
-                  <div className="efficiency-summary" role="region" aria-labelledby="efficiency-title">
-                    <h3 id="efficiency-title" className="efficiency-title">
+                  <div className="bg-gray-50 rounded-lg p-6 mb-6 border border-gray-200" role="region" aria-labelledby="efficiency-title">
+                    <h3 id="efficiency-title" className="text-lg font-semibold text-gray-900 mb-4">
                       {currentLanguage === 'de'
                         ? 'Aktuelle Effizienz'
                         : 'Current Efficiency'
                       }
                     </h3>
-                    <div className="efficiency-metrics">
-                      <div className="metric">
-                        <span className="metric-label">
-                          {currentLanguage === 'de' ? 'Effizienz:' : 'Efficiency:'}
-                        </span>
-                        <span className="metric-value efficiency-score">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="bg-white rounded-lg p-4 border border-gray-200">
+                        <div className="text-sm text-gray-600 mb-1">
+                          {currentLanguage === 'de' ? 'Effizienz' : 'Efficiency'}
+                        </div>
+                        <div className="text-2xl font-bold text-green-600">
                           {currentEfficiency.efficiency.toFixed(1)}x
-                        </span>
+                        </div>
                       </div>
-                      <div className="metric">
-                        <span className="metric-label">
-                          {currentLanguage === 'de' ? 'Freie Tage:' : 'Days Off:'}
-                        </span>
-                        <span className="metric-value">
+                      <div className="bg-white rounded-lg p-4 border border-gray-200">
+                        <div className="text-sm text-gray-600 mb-1">
+                          {currentLanguage === 'de' ? 'Freie Tage' : 'Days Off'}
+                        </div>
+                        <div className="text-2xl font-bold text-gray-900">
                           {currentEfficiency.totalDaysOff}
-                        </span>
+                        </div>
                       </div>
-                      <div className="metric">
-                        <span className="metric-label">
-                          {currentLanguage === 'de' ? 'Urlaubstage verwendet:' : 'Vacation Days Used:'}
-                        </span>
-                        <span className="metric-value">
+                      <div className="bg-white rounded-lg p-4 border border-gray-200">
+                        <div className="text-sm text-gray-600 mb-1">
+                          {currentLanguage === 'de' ? 'Urlaubstage verwendet' : 'Vacation Days Used'}
+                        </div>
+                        <div className="text-2xl font-bold text-gray-900">
                           {currentEfficiency.vacationDaysUsed} / {optimizationConstraints.max_vacation_days}
-                        </span>
+                        </div>
                       </div>
-                      <div className="metric">
-                        <span className="metric-label">
-                          {currentLanguage === 'de' ? 'Verbleibend:' : 'Remaining:'}
-                        </span>
-                        <span className="metric-value">
+                      <div className="bg-white rounded-lg p-4 border border-gray-200">
+                        <div className="text-sm text-gray-600 mb-1">
+                          {currentLanguage === 'de' ? 'Verbleibend' : 'Remaining'}
+                        </div>
+                        <div className="text-2xl font-bold text-gray-900">
                           {currentEfficiency.remainingDays}
-                        </span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Optimization Recommendation */}
                   {optimizationResult && (
-                    <div className="optimization-recommendation" role="region" aria-labelledby="optimization-title">
-                      <h3 id="optimization-title" className="optimization-title">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6" role="region" aria-labelledby="optimization-title">
+                      <h3 id="optimization-title" className="text-lg font-semibold text-green-900 mb-3">
                         {currentLanguage === 'de'
                           ? 'Optimierungsempfehlung'
                           : 'Optimization Recommendation'
                         }
                       </h3>
-                      <div className="optimization-summary">
-                        <p>
+                      <div className="space-y-3">
+                        <p className="text-green-800">
                           {currentLanguage === 'de'
                             ? `Empfohlene Strategie: ${optimizationResult.optimization_strategy === 'maximize_efficiency' ? 'Effizienz maximieren' : optimizationResult.optimization_strategy === 'maximize_days' ? 'Tage maximieren' : 'Ausgewogen'}`
                             : `Recommended strategy: ${optimizationResult.optimization_strategy.replace('_', ' ')}`
                           }
                         </p>
-                        <p>
+                        <p className="text-green-800">
                           {currentLanguage === 'de'
                             ? `Mit ${optimizationResult.total_vacation_days} Urlaubstagen erhalten Sie ${optimizationResult.total_days_off} freie Tage (Effizienz: ${optimizationResult.efficiency_score}x)`
                             : `With ${optimizationResult.total_vacation_days} vacation days, you get ${optimizationResult.total_days_off} days off (efficiency: ${optimizationResult.efficiency_score}x)`
@@ -804,7 +825,7 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                         </p>
                         <button
                           onClick={handleOptimizationApply}
-                          className="btn btn-secondary"
+                          className="btn-secondary mt-4"
                           type="button"
                         >
                           {currentLanguage === 'de'
@@ -817,8 +838,8 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                   )}
 
                   {/* Calendar View */}
-                  <div className="calendar-container" role="region" aria-labelledby="calendar-title">
-                    <h3 id="calendar-title" className="calendar-title">
+                  <div className="mb-8" role="region" aria-labelledby="calendar-title">
+                    <h3 id="calendar-title" className="text-xl font-semibold text-gray-900 mb-4">
                       {currentLanguage === 'de'
                         ? 'Kalenderansicht'
                         : 'Calendar View'
@@ -842,14 +863,14 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                   </div>
 
                   {/* Bridge Weekend Cards */}
-                  <div className="bridge-grid" role="region" aria-labelledby="bridges-title">
-                    <h3 id="bridges-title" className="bridges-title">
+                  <div className="mb-8" role="region" aria-labelledby="bridges-title">
+                    <h3 id="bridges-title" className="text-xl font-semibold text-gray-900 mb-4">
                       {currentLanguage === 'de'
                         ? 'Verfügbare Brückentage'
                         : 'Available Bridge Weekends'
                       }
                     </h3>
-                    <div className="bridge-cards">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {availableBridges.slice(0, 12).map((bridge) => (
                         <BridgeWeekendCard
                           key={bridge.id}
@@ -860,7 +881,7 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                           interactive={true}
                           selected={selectedBridges.some(b => b.id === bridge.id)}
                           onClick={() => handleBridgeToggle(bridge)}
-                          className={`bridge-card ${selectedBridges.some(b => b.id === bridge.id) ? 'selected' : ''}`}
+                          className={selectedBridges.some(b => b.id === bridge.id) ? 'ring-2 ring-timebutler-500' : ''}
                           data-testid={`bridge-card-${bridge.id}`}
                         />
                       ))}
@@ -868,11 +889,11 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="action-buttons">
+                  <div className="flex justify-center pt-6">
                     <button
                       onClick={() => setShowEmailForm(true)}
                       disabled={selectedBridges.length === 0}
-                      className="btn btn-primary btn-large"
+                      className="btn-cta px-8 py-4 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                       type="button"
                     >
                       {currentLanguage === 'de'
@@ -917,9 +938,9 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
           </main>
 
           {/* Footer */}
-          <footer className="page-footer" role="contentinfo">
-            <div className="container">
-              <p className="footer-text">
+          <footer className="bg-gray-900 text-white py-12" role="contentinfo">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <p className="text-gray-400">
                 {currentLanguage === 'de'
                   ? 'Powered by TimeButler - Ihre Zeiterfassung neu gedacht'
                   : 'Powered by TimeButler - Rethinking Time Tracking'
@@ -933,308 +954,8 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
               min-height: 100vh;
               display: flex;
               flex-direction: column;
-              background: #f8fafc;
+              background: #f9fafb;
               font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            }
-
-            .skip-nav {
-              position: absolute;
-              top: -40px;
-              left: 6px;
-              background: #000;
-              color: #fff;
-              padding: 8px;
-              text-decoration: none;
-              z-index: 1000;
-              border-radius: 4px;
-              font-size: 14px;
-            }
-
-            .skip-nav:focus {
-              top: 6px;
-            }
-
-            .container {
-              max-width: 1200px;
-              margin: 0 auto;
-              padding: 0 20px;
-            }
-
-            .page-header {
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              color: white;
-              padding: 2rem 0;
-              margin-bottom: 2rem;
-            }
-
-            .page-title {
-              font-size: 2.5rem;
-              font-weight: 700;
-              margin-bottom: 0.5rem;
-              line-height: 1.2;
-            }
-
-            .page-subtitle {
-              font-size: 1.125rem;
-              opacity: 0.9;
-              margin-bottom: 1.5rem;
-              max-width: 600px;
-            }
-
-            .language-controls {
-              display: flex;
-              gap: 0.5rem;
-            }
-
-            .lang-btn {
-              padding: 0.5rem 1rem;
-              border: 2px solid rgba(255, 255, 255, 0.3);
-              background: transparent;
-              color: white;
-              border-radius: 6px;
-              cursor: pointer;
-              font-weight: 500;
-              transition: all 0.2s ease;
-            }
-
-            .lang-btn:hover {
-              background: rgba(255, 255, 255, 0.1);
-            }
-
-            .lang-btn.active {
-              background: white;
-              color: #667eea;
-              border-color: white;
-            }
-
-            .main-content {
-              flex: 1;
-              padding-bottom: 3rem;
-            }
-
-            .section-title {
-              font-size: 1.875rem;
-              font-weight: 600;
-              margin-bottom: 1.5rem;
-              color: #1f2937;
-            }
-
-            .planning-section {
-              background: white;
-              border-radius: 12px;
-              padding: 2rem;
-              margin-bottom: 2rem;
-              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            }
-
-            .planning-form {
-              display: grid;
-              gap: 1.5rem;
-            }
-
-            .form-group {
-              display: grid;
-              gap: 0.5rem;
-            }
-
-            .form-label {
-              font-weight: 600;
-              color: #374151;
-              font-size: 0.875rem;
-              text-transform: uppercase;
-              letter-spacing: 0.05em;
-            }
-
-            .error-banner {
-              background: #fef2f2;
-              border: 1px solid #fecaca;
-              color: #dc2626;
-              padding: 1rem;
-              border-radius: 8px;
-              margin-bottom: 1rem;
-            }
-
-            .loading-banner {
-              background: #f0f9ff;
-              border: 1px solid #bae6fd;
-              color: #0369a1;
-              padding: 1rem;
-              border-radius: 8px;
-              margin-bottom: 1rem;
-              display: flex;
-              align-items: center;
-              gap: 0.75rem;
-            }
-
-            .loading-spinner {
-              width: 20px;
-              height: 20px;
-              border: 2px solid #bae6fd;
-              border-top-color: #0369a1;
-              border-radius: 50%;
-              animation: spin 1s linear infinite;
-            }
-
-            @keyframes spin {
-              to { transform: rotate(360deg); }
-            }
-
-            .results-section {
-              background: white;
-              border-radius: 12px;
-              padding: 2rem;
-              margin-bottom: 2rem;
-              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            }
-
-            .efficiency-summary {
-              background: #f8fafc;
-              border-radius: 8px;
-              padding: 1.5rem;
-              margin-bottom: 2rem;
-              border: 1px solid #e2e8f0;
-            }
-
-            .efficiency-title {
-              font-size: 1.25rem;
-              font-weight: 600;
-              margin-bottom: 1rem;
-              color: #1f2937;
-            }
-
-            .efficiency-metrics {
-              display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-              gap: 1rem;
-            }
-
-            .metric {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 0.75rem;
-              background: white;
-              border-radius: 6px;
-              border: 1px solid #e5e7eb;
-            }
-
-            .metric-label {
-              font-weight: 500;
-              color: #6b7280;
-              font-size: 0.875rem;
-            }
-
-            .metric-value {
-              font-weight: 700;
-              color: #1f2937;
-              font-size: 1rem;
-            }
-
-            .efficiency-score {
-              color: #059669;
-              font-size: 1.125rem;
-            }
-
-            .optimization-recommendation {
-              background: #ecfdf5;
-              border: 1px solid #a7f3d0;
-              border-radius: 8px;
-              padding: 1.5rem;
-              margin-bottom: 2rem;
-            }
-
-            .optimization-title {
-              font-size: 1.25rem;
-              font-weight: 600;
-              margin-bottom: 1rem;
-              color: #047857;
-            }
-
-            .optimization-summary p {
-              margin-bottom: 0.75rem;
-              color: #065f46;
-            }
-
-            .calendar-container,
-            .bridge-grid {
-              margin-bottom: 2rem;
-            }
-
-            .calendar-title,
-            .bridges-title {
-              font-size: 1.5rem;
-              font-weight: 600;
-              margin-bottom: 1.5rem;
-              color: #1f2937;
-            }
-
-            .bridge-cards {
-              display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-              gap: 1rem;
-            }
-
-            .bridge-card {
-              transition: transform 0.2s ease, box-shadow 0.2s ease;
-            }
-
-            .bridge-card:hover {
-              transform: translateY(-2px);
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            }
-
-            .bridge-card.selected {
-              ring: 2px solid #3b82f6;
-              transform: translateY(-2px);
-            }
-
-            .action-buttons {
-              display: flex;
-              justify-content: center;
-              margin-top: 2rem;
-            }
-
-            .btn {
-              padding: 0.75rem 1.5rem;
-              border-radius: 8px;
-              font-weight: 600;
-              text-decoration: none;
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              border: none;
-              font-size: 0.875rem;
-            }
-
-            .btn-primary {
-              background: #3b82f6;
-              color: white;
-            }
-
-            .btn-primary:hover:not(:disabled) {
-              background: #2563eb;
-              transform: translateY(-1px);
-            }
-
-            .btn-primary:disabled {
-              background: #9ca3af;
-              cursor: not-allowed;
-            }
-
-            .btn-secondary {
-              background: #6b7280;
-              color: white;
-            }
-
-            .btn-secondary:hover {
-              background: #4b5563;
-            }
-
-            .btn-large {
-              padding: 1rem 2rem;
-              font-size: 1rem;
             }
 
             .modal-overlay {
@@ -1268,18 +989,6 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
               color: #1f2937;
             }
 
-            .page-footer {
-              background: #1f2937;
-              color: #9ca3af;
-              padding: 2rem 0;
-              text-align: center;
-            }
-
-            .footer-text {
-              margin: 0;
-              font-size: 0.875rem;
-            }
-
             .dev-metrics {
               position: fixed;
               bottom: 1rem;
@@ -1300,103 +1009,6 @@ function PlanningPage({ initialHolidays, initialYear, defaultLanguage }: Plannin
 
             .dev-metrics p {
               margin: 0.25rem 0;
-            }
-
-            @media (max-width: 768px) {
-              .page-title {
-                font-size: 2rem;
-              }
-
-              .page-subtitle {
-                font-size: 1rem;
-              }
-
-              .efficiency-metrics {
-                grid-template-columns: 1fr;
-              }
-
-              .bridge-cards {
-                grid-template-columns: 1fr;
-              }
-
-              .planning-section,
-              .results-section {
-                padding: 1.5rem;
-              }
-
-              .container {
-                padding: 0 16px;
-              }
-            }
-
-            @media (prefers-reduced-motion: reduce) {
-              .bridge-card,
-              .btn,
-              .lang-btn,
-              .loading-spinner {
-                transition: none;
-                animation: none;
-              }
-            }
-
-            @media (prefers-color-scheme: dark) {
-              .planning-page {
-                background: #0f172a;
-                color: #f1f5f9;
-              }
-
-              .planning-section,
-              .results-section {
-                background: #1e293b;
-                border-color: #334155;
-              }
-
-              .section-title,
-              .efficiency-title,
-              .calendar-title,
-              .bridges-title {
-                color: #f1f5f9;
-              }
-
-              .form-label {
-                color: #cbd5e1;
-              }
-
-              .efficiency-summary {
-                background: #0f172a;
-                border-color: #334155;
-              }
-
-              .metric {
-                background: #1e293b;
-                border-color: #475569;
-              }
-
-              .metric-label {
-                color: #94a3b8;
-              }
-
-              .metric-value {
-                color: #f1f5f9;
-              }
-            }
-
-            /* Focus styles for accessibility */
-            .btn:focus,
-            .lang-btn:focus {
-              outline: 2px solid #3b82f6;
-              outline-offset: 2px;
-            }
-
-            /* High contrast mode support */
-            @media (prefers-contrast: high) {
-              .bridge-card {
-                border: 2px solid;
-              }
-
-              .btn {
-                border: 2px solid;
-              }
             }
           `}</style>
         </div>
